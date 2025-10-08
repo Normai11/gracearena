@@ -1,0 +1,158 @@
+[gd_scene load_steps=2 format=3 uid="uid://nju2hj280cwt"]
+
+[ext_resource type="Script" uid="uid://iq2cco6t7ob1" path="res://Scripts/Menus/Main/mainmenu.gd" id="1_lafy6"]
+
+[node name="NMainMenu" type="Node2D"]
+script = ExtResource("1_lafy6")
+
+[node name="Interface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1200.0
+offset_bottom = 675.0
+
+[node name="[TEMP]Title" type="Label" parent="Interface"]
+layout_mode = 1
+offset_left = 136.0
+offset_top = 72.0
+offset_right = 243.0
+offset_bottom = 95.0
+text = "cool title here"
+
+[node name="Play" type="Button" parent="Interface"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -557.0
+offset_top = -39.5
+offset_right = -227.0
+offset_bottom = -8.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Start"
+
+[node name="Settings" type="Button" parent="Interface"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -557.0
+offset_top = 0.5
+offset_right = -227.0
+offset_bottom = 31.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Settings
+"
+
+[node name="Credits" type="Button" parent="Interface"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -557.0
+offset_top = 40.5
+offset_right = -227.0
+offset_bottom = 71.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Credits"
+
+[node name="Exit" type="Button" parent="Interface"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -557.0
+offset_top = 80.5
+offset_right = -227.0
+offset_bottom = 111.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Exit"
+
+[node name="pregameContinue" type="Control" parent="Interface"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="[TEMP]Background" type="Panel" parent="Interface/pregameContinue"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="[TEMP]Header" type="Label" parent="Interface/pregameContinue"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -125.0
+offset_top = 8.0
+offset_right = 125.0
+offset_bottom = 31.0
+grow_horizontal = 2
+text = "PLACEHOLDER"
+horizontal_alignment = 1
+
+[node name="[TEMP]Subtext" type="Label" parent="Interface/pregameContinue"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -262.0
+offset_top = 48.0
+offset_right = 262.0
+offset_bottom = 97.0
+grow_horizontal = 2
+text = "An in-progress save has been found. Load and continue?
+shrink font in finalization and display RUNDATA and playerData"
+horizontal_alignment = 1
+
+[node name="Load" type="Button" parent="Interface/pregameContinue"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -126.0
+offset_top = -55.0
+offset_right = -2.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Load"
+
+[node name="Overwrite" type="Button" parent="Interface/pregameContinue"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -55.0
+offset_right = 126.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Start New"
+
+[connection signal="pressed" from="Interface/Play" to="." method="_Start_Pressed"]
+[connection signal="pressed" from="Interface/Credits" to="." method="_on_credits_pressed"]

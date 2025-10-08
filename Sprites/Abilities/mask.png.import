@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://6jslbn1lbrdh"
+path="res://.godot/imported/mask.png-4173543d474e989e58ac5fb805e0015b.res"
+
+[deps]
+
+source_file="res://Sprites/Abilities/mask.png"
+dest_files=["res://.godot/imported/mask.png-4173543d474e989e58ac5fb805e0015b.res"]
+
+[params]
+
+create_from=0
+threshold=0.5

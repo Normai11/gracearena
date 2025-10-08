@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=3 uid="uid://dcc6jvd4qehdq"]
+
+[ext_resource type="Texture2D" uid="uid://bgcvio3c5ygos" path="res://icon.svg" id="1_3etf2"]
+[ext_resource type="Script" uid="uid://c1wbvfotuhmqx" path="res://Scripts/Characters/player.gd" id="1_gy20a"]
+[ext_resource type="Script" uid="uid://cdb10yndskd6k" path="res://Scripts/Characters/moveComponent.gd" id="3_cqrjx"]
+
+[sub_resource type="Animation" id="Animation_gy20a"]
+resource_name = "null"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cqrjx"]
+_data = {
+&"null": SubResource("Animation_gy20a")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_40svl"]
+radius = 16.0
+height = 64.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_gy20a")
+
+[node name="animations" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_cqrjx")
+}
+
+[node name="Camera" type="Camera2D" parent="."]
+zoom = Vector2(0.7, 0.7)
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_40svl")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(0, 8)
+scale = Vector2(0.359375, 0.359375)
+texture = ExtResource("1_3etf2")
+
+[node name="moveAddons" type="Node" parent="."]
+
+[node name="movementComponent" type="Node" parent="moveAddons"]
+script = ExtResource("3_cqrjx")
+
+[node name="GUI" type="CanvasLayer" parent="."]
+
+[node name="HUDparent" type="Control" parent="GUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Abilities" type="HBoxContainer" parent="GUI/HUDparent"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -536.0
+offset_top = -128.0
+offset_right = -120.0
+offset_bottom = -48.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(1.2, 1.2)
+alignment = 2

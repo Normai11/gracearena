@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://cacu6b2nmdvwi"]
+
+[ext_resource type="Script" uid="uid://cqcajnmgp0r46" path="res://Scripts/Menus/loading.gd" id="1_lskun"]
+
+[node name="loadingScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lskun")
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TEXT" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_top = 607.0
+offset_right = 1152.0
+offset_bottom = 648.0
+bbcode_enabled = true
+text = "[shake] 0%"
+
+[node name="loadProgress" type="ProgressBar" parent="TEXT"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -576.0
+offset_top = -15.0
+offset_right = 576.0
+grow_horizontal = 2
+grow_vertical = 0
+max_value = 1.0
+show_percentage = false

@@ -1,0 +1,442 @@
+[gd_scene load_steps=21 format=3 uid="uid://bm41c47c2xcy6"]
+
+[ext_resource type="Script" uid="uid://bmtyklxe4o14h" path="res://Scripts/Menus/Main/setupMenu.gd" id="1_514lr"]
+[ext_resource type="Texture2D" uid="uid://bb7vue0ung25a" path="res://Sprites/Abilities/ab100.png" id="1_mc36l"]
+
+[sub_resource type="Animation" id="Animation_gvba5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.001),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_uyx8k"]
+resource_name = "close"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1e-05, 1e-05)]
+}
+
+[sub_resource type="Animation" id="Animation_l7hsf"]
+resource_name = "open"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.267944, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xp40p"]
+_data = {
+&"RESET": SubResource("Animation_gvba5"),
+&"close": SubResource("Animation_uyx8k"),
+&"open": SubResource("Animation_l7hsf")
+}
+
+[sub_resource type="Animation" id="Animation_rd31k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8jl4k"]
+resource_name = "SELECTED"
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.15, 1.15)]
+}
+
+[sub_resource type="Animation" id="Animation_r88xn"]
+resource_name = "SELECTED_intro"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1.1, 1.1), Vector2(1.15, 1.15)]
+}
+
+[sub_resource type="Animation" id="Animation_350ya"]
+resource_name = "SELECTED_outro"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1.15, 1.15), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_514lr"]
+resource_name = "hovering"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1)]
+}
+
+[sub_resource type="Animation" id="Animation_msktm"]
+resource_name = "releasing"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l7hsf"]
+_data = {
+&"RESET": SubResource("Animation_rd31k"),
+&"SELECTED": SubResource("Animation_8jl4k"),
+&"SELECTED_intro": SubResource("Animation_r88xn"),
+&"SELECTED_outro": SubResource("Animation_350ya"),
+&"hovering": SubResource("Animation_514lr"),
+&"releasing": SubResource("Animation_msktm")
+}
+
+[sub_resource type="Animation" id="Animation_bs3ie"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_arfml"]
+resource_name = "SELECTED"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.15, 1.15)]
+}
+
+[sub_resource type="Animation" id="Animation_5r4o5"]
+resource_name = "SELECTED_intro"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1.1, 1.1), Vector2(1.15, 1.15)]
+}
+
+[sub_resource type="Animation" id="Animation_fq21h"]
+resource_name = "SELECTED_outro"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1.15, 1.15), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4o1yt"]
+resource_name = "hovering"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1)]
+}
+
+[sub_resource type="Animation" id="Animation_dx233"]
+resource_name = "releasing"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 0.4),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gvba5"]
+_data = {
+&"RESET": SubResource("Animation_bs3ie"),
+&"SELECTED": SubResource("Animation_arfml"),
+&"SELECTED_intro": SubResource("Animation_5r4o5"),
+&"SELECTED_outro": SubResource("Animation_fq21h"),
+&"hovering": SubResource("Animation_4o1yt"),
+&"releasing": SubResource("Animation_dx233")
+}
+
+[node name="runSetupScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 156.0
+offset_top = 66.0
+offset_right = -156.0
+offset_bottom = -66.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(420, 258)
+script = ExtResource("1_514lr")
+
+[node name="WINDOW" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_xp40p")
+}
+autoplay = "open"
+
+[node name="[TEMP]Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="[TEMP]Header" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -125.0
+offset_top = 16.0
+offset_right = 125.0
+offset_bottom = 39.0
+grow_horizontal = 2
+text = "Setup Run"
+horizontal_alignment = 1
+
+[node name="[TEMP]HeaderInv" type="Label" parent="."]
+layout_mode = 2
+offset_left = 373.0
+offset_top = 91.0
+offset_right = 448.0
+offset_bottom = 114.0
+text = "Inventory"
+
+[node name="Ability0" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 80.0
+offset_top = -137.0
+offset_right = 206.0
+offset_bottom = -11.0
+grow_vertical = 2
+pivot_offset = Vector2(48, 48)
+
+[node name="Texture" type="TextureRect" parent="Ability0"]
+layout_mode = 0
+offset_right = 126.0
+offset_bottom = 126.0
+texture = ExtResource("1_mc36l")
+expand_mode = 1
+
+[node name="animations" type="AnimationPlayer" parent="Ability0"]
+libraries = {
+&"": SubResource("AnimationLibrary_l7hsf")
+}
+
+[node name="Ability1" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 80.0
+offset_top = 21.5
+offset_right = 206.0
+offset_bottom = 147.5
+grow_vertical = 2
+pivot_offset = Vector2(48, 48)
+
+[node name="Texture" type="TextureRect" parent="Ability1"]
+layout_mode = 0
+offset_right = 126.0
+offset_bottom = 126.0
+texture = ExtResource("1_mc36l")
+expand_mode = 1
+
+[node name="animations" type="AnimationPlayer" parent="Ability1"]
+libraries = {
+&"": SubResource("AnimationLibrary_gvba5")
+}
+
+[node name="Start" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -126.0
+offset_top = -55.0
+offset_right = -2.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "BEGIN"
+
+[node name="Cancel" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -55.0
+offset_right = 126.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "CANCEL"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_left = 373.0
+offset_top = 114.0
+offset_right = 802.0
+offset_bottom = 406.0
+
+[node name="Inventory" type="GridContainer" parent="ScrollContainer"]
+layout_mode = 2
+columns = 5
+
+[connection signal="mouse_entered" from="Ability0" to="." method="_focused_0"]
+[connection signal="mouse_exited" from="Ability0" to="." method="_unfocused_0"]
+[connection signal="pressed" from="Ability0" to="." method="_ab0_pressed"]
+[connection signal="mouse_entered" from="Ability1" to="." method="_focused_1"]
+[connection signal="mouse_exited" from="Ability1" to="." method="_unfocused_1"]
+[connection signal="pressed" from="Ability1" to="." method="_ab1_pressed"]
+[connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Cancel" to="." method="_close_menu"]
