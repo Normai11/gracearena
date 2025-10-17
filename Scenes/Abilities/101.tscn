@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgrusj44qyt34"]
+
+[ext_resource type="Script" uid="uid://cec3xpkyvn7vk" path="res://Scripts/Abilities/abKick.gd" id="1_1e8pi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1e8pi"]
+size = Vector2(76, 14)
+
+[node name="Kick" type="Node"]
+script = ExtResource("1_1e8pi")
+function = 2
+duration = 0.25
+cooldown = 0.5
+
+[node name="durTimer" type="Timer" parent="."]
+
+[node name="hurtbox" type="Area2D" parent="."]
+
+[node name="size" type="CollisionShape2D" parent="hurtbox"]
+position = Vector2(51, 0)
+shape = SubResource("RectangleShape2D_1e8pi")
+debug_color = Color(1, 0, 0, 0.419608)

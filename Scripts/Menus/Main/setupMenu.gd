@@ -37,7 +37,7 @@ func _Load_Inventory(id):
 	for i in gridInv.get_children():
 		i.queue_free()
 	if id == 0:
-		for i in Global.playerData["Inventory"]:
+		for i in DataStore.playerData["Inventory"]:
 			var ability = abButtonTemplate.instantiate()
 			
 			ability.abilityID = i
@@ -45,7 +45,7 @@ func _Load_Inventory(id):
 			if i >= 100:
 				gridInv.add_child(ability)
 	elif id == 1:
-		for i in Global.playerData["Inventory"]:
+		for i in DataStore.playerData["Inventory"]:
 			var ability = abButtonTemplate.instantiate()
 			
 			ability.abilityID = i
@@ -53,8 +53,8 @@ func _Load_Inventory(id):
 			if i <= 99:
 				gridInv.add_child(ability)
 	
-	buttonAb0.get_child(0).texture = load(pathAbilitySprite + str(int(Global.playerData["Actives"][0])) + ".png")
-	buttonAb1.get_child(0).texture = load(pathAbilitySprite + str(int(Global.playerData["Passives"][0])) + ".png")
+	buttonAb0.get_child(0).texture = load(pathAbilitySprite + str(int(DataStore.playerData["Actives"][0])) + ".png")
+	buttonAb1.get_child(0).texture = load(pathAbilitySprite + str(int(DataStore.playerData["Passives"][0])) + ".png")
 
 func _focused_0() -> void:
 	buttonAb0.get_child(1).play("hovering")

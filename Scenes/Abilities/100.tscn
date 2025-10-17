@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhscn8s0pgk4a"]
+
+[ext_resource type="Script" uid="uid://b1n48i8edwqvn" path="res://Scripts/Abilities/abPunch.gd" id="1_vm5yb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iieql"]
+size = Vector2(38, 48)
+
+[node name="Punch" type="Node"]
+script = ExtResource("1_vm5yb")
+abilityID = 100
+function = 2
+duration = 0.25
+cooldown = 0.5
+
+[node name="durTimer" type="Timer" parent="."]
+
+[node name="hurtbox" type="Area2D" parent="."]
+
+[node name="size" type="CollisionShape2D" parent="hurtbox"]
+position = Vector2(32, 0)
+shape = SubResource("RectangleShape2D_iieql")
+debug_color = Color(1, 0, 0, 0.419608)

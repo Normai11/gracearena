@@ -19,6 +19,8 @@ height = 64.0
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_gy20a")
 
+[node name="endlag" type="Timer" parent="."]
+
 [node name="animations" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_cqrjx")
@@ -30,7 +32,7 @@ zoom = Vector2(0.7, 0.7)
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_40svl")
 
-[node name="Icon" type="Sprite2D" parent="."]
+[node name="PLACEHOLDER" type="Sprite2D" parent="."]
 position = Vector2(0, 8)
 scale = Vector2(0.359375, 0.359375)
 texture = ExtResource("1_3etf2")
@@ -57,11 +59,12 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -536.0
-offset_top = -128.0
-offset_right = -120.0
-offset_bottom = -48.0
+offset_left = -440.0
+offset_top = -104.0
+offset_right = -24.0
+offset_bottom = -24.0
 grow_horizontal = 0
 grow_vertical = 0
-scale = Vector2(1.2, 1.2)
 alignment = 2
+
+[connection signal="timeout" from="endlag" to="." method="_end_lag"]

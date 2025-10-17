@@ -8,7 +8,7 @@ func _ready() -> void:
 
 func _Start_Pressed() -> void:
 	$Interface/Play.release_focus()
-	if Global.RUNDATA["gameExists"] == true:
+	if DataStore.RUNDATA["gameExists"] == true:
 		$Interface/pregameContinue.visible = true
 	else:
 		var exists = has_node("Interface/runSetupScreen")
@@ -26,5 +26,12 @@ func _Create_Game() -> void:
 
 func _on_credits_pressed() -> void:
 	var loadingPath = load("res://Scenes/Menus/loadingScreen.tscn")
-	Global.loadfinishPath = "res://Scenes/Menus/Main/creditMenu.tscn"
+	Global.loadfinishPath = "res://Scenes/Menus/Credits/creditMenu.tscn"
 	get_tree().change_scene_to_packed(loadingPath)
+
+
+func savefile() -> void:
+	Global._Save_Data()
+
+func loadfile() -> void:
+	Global._Load_Data()

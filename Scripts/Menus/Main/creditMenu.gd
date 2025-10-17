@@ -1,6 +1,6 @@
 extends Control
 
-@onready var plateTemp = preload("res://Scenes/Menus/Main/credit_plate.tscn")
+@onready var plateTemp = preload("res://Scenes/Menus/Credits/credit_plate.tscn")
 @onready var display = $plateContainer/Display
 @onready var container = $plateContainer
 
@@ -12,6 +12,7 @@ var currentPlate : int
 var tween : Tween
 var finalVal : float
 
+@export var debugging : bool = false
 
 func _ready() -> void:
 	#region Getting Files
@@ -32,11 +33,10 @@ func _ready() -> void:
 	tween.kill()
 	container.get_h_scroll_bar().allow_greater = true
 	container.get_h_scroll_bar().allow_lesser = true
-	finalVal = -828
-	container.scroll_horizontal = finalVal
+	finalVal = -325
 
 func _process(_delta: float) -> void:
-	if !tween.is_running():
+	if !tween.is_running() && !debugging:
 		container.scroll_horizontal = finalVal
 
 func _begin_instantiating():
@@ -96,3 +96,8 @@ func _scroll_back() -> void:
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_EXPO)
 	tween.tween_property(container, "scroll_horizontal", finalVal, 1)
+
+func _credits_leave() -> void:
+	var loadingPath = load("res://Scenes/Menus/loadingScreen.tscn")
+	Global.loadfinishPath = "res://Scenes/Menus/Main/mainMenu.tscn"
+	get_tree().change_scene_to_packed(loadingPath)

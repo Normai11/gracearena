@@ -1,7 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://15s2ylcxyhqm"]
+[gd_scene load_steps=9 format=3 uid="uid://15s2ylcxyhqm"]
 
 [ext_resource type="Script" uid="uid://2dl0yrre4lqq" path="res://Scripts/Menus/Main/abilitybutton.gd" id="1_kga4m"]
+[ext_resource type="Shader" uid="uid://bcwmir5oxi3di" path="res://Sprites/Shaders/colorOverwrite.gdshader" id="2_ap0rd"]
 [ext_resource type="Texture2D" uid="uid://bb7vue0ung25a" path="res://Sprites/Abilities/ab100.png" id="2_wns0p"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s60w3"]
+resource_local_to_scene = true
+shader = ExtResource("2_ap0rd")
+shader_parameter/hue = 0.0
+shader_parameter/saturation = 0.0
+shader_parameter/value = 0.0
+shader_parameter/exposure = 0.5
 
 [sub_resource type="Animation" id="Animation_e3kcf"]
 length = 0.001
@@ -57,20 +66,39 @@ _data = {
 &"releasing": SubResource("Animation_uicdo")
 }
 
-[node name="abilityButton" type="Control" node_paths=PackedStringArray("base", "animations")]
-custom_minimum_size = Vector2(80, 80)
+[node name="abilityButton" type="Control"]
+custom_minimum_size = Vector2(100, 130)
 layout_mode = 3
 anchors_preset = 9
 anchor_bottom = 1.0
-offset_right = 80.0
-offset_bottom = -568.0
+offset_right = 100.0
+offset_bottom = -545.0
 grow_vertical = 2
 script = ExtResource("1_kga4m")
-base = NodePath("Button")
-animations = NodePath("Button/animations")
+
+[node name="cdTimer" type="Timer" parent="."]
+
+[node name="Button" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+pivot_offset = Vector2(32, 32)
+
+[node name="Display" type="TextureRect" parent="Button"]
+material = SubResource("ShaderMaterial_s60w3")
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+texture = ExtResource("2_wns0p")
+expand_mode = 1
+
+[node name="animations" type="AnimationPlayer" parent="Button"]
+libraries = {
+&"": SubResource("AnimationLibrary_5nggo")
+}
 
 [node name="Prompt" type="Label" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -84,21 +112,17 @@ text = "key"
 horizontal_alignment = 1
 uppercase = true
 
-[node name="Button" type="Button" parent="."]
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 0
-offset_right = 80.0
-offset_bottom = 80.0
-pivot_offset = Vector2(32, 32)
+[node name="Cooldown" type="Label" parent="."]
+self_modulate = Color(0.185981, 0.185981, 0.185981, 1)
+layout_mode = 1
+offset_top = 24.0
+offset_right = 50.0
+offset_bottom = 47.0
+scale = Vector2(2, 2)
+text = "100"
+horizontal_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="Button"]
-layout_mode = 0
-offset_right = 80.0
-offset_bottom = 80.0
-texture = ExtResource("2_wns0p")
-expand_mode = 1
-
-[node name="animations" type="AnimationPlayer" parent="Button"]
-libraries = {
-&"": SubResource("AnimationLibrary_5nggo")
-}
+[connection signal="timeout" from="cdTimer" to="." method="_end_cooldown"]
+[connection signal="mouse_entered" from="Button" to="." method="_focused"]
+[connection signal="mouse_exited" from="Button" to="." method="_unfocused"]
+[connection signal="pressed" from="Button" to="." method="_on_pressed"]
