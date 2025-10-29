@@ -42,7 +42,7 @@ offset_left = 136.0
 offset_top = 72.0
 offset_right = 243.0
 offset_bottom = 95.0
-text = "cool title here"
+text = "Retrieval Project"
 
 [node name="Play" type="Button" parent="Interface"]
 layout_mode = 1

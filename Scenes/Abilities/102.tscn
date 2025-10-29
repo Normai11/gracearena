@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckxo6g0qnll1v"]
+
+[ext_resource type="Script" uid="uid://celakcvu04w22" path="res://Scripts/Abilities/abDash.gd" id="1_a2iv4"]
+
+[node name="Dash" type="Node"]
+script = ExtResource("1_a2iv4")
+dashSpeed = 1200.0
+abName = "Dash"
+abilityID = 102
+function = 1
+duration = 0.3
+cooldown = 20.0
+
+[node name="durTimer" type="Timer" parent="."]

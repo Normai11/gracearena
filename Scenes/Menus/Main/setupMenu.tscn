@@ -422,6 +422,7 @@ grow_vertical = 0
 text = "CANCEL"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
+clip_contents = false
 layout_mode = 0
 offset_left = 285.0
 offset_top = 114.0

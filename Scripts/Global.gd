@@ -45,6 +45,7 @@ func _Load_Data():
 	DataStore.RUNDATA["Kills"] = (save_data.Kills)
 
 func _ready() -> void:
+	get_tree().set_debug_collisions_hint(true)
 	#_Save_Data()
 	_Load_Data()
 	pass

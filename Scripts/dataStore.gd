@@ -16,6 +16,6 @@ extends Node
 @export var abilityPaths = {
 	"100" : "res://Scenes/Abilities/100.tscn",
 	"101" : "res://Scenes/Abilities/101.tscn",
-	"102" : "res://Scenes/Abilities/100.tscn",
+	"102" : "res://Scenes/Abilities/102.tscn",
 	"103" : "res://Scenes/Abilities/100.tscn"
 }

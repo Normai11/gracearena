@@ -53,8 +53,16 @@ func _Load_Inventory(id):
 			if i <= 99:
 				gridInv.add_child(ability)
 	
-	buttonAb0.get_child(0).texture = load(pathAbilitySprite + str(int(DataStore.playerData["Actives"][0])) + ".png")
-	buttonAb1.get_child(0).texture = load(pathAbilitySprite + str(int(DataStore.playerData["Passives"][0])) + ".png")
+	var texturePath = pathAbilitySprite + str(int(DataStore.playerData["Actives"][0])) + ".png"
+	if FileAccess.file_exists(texturePath):
+		buttonAb0.get_child(0).texture = load(texturePath)
+	else:
+		buttonAb0.get_child(0).texture = load("res://Sprites/Abilities/holderOfPlaces.png")
+	texturePath = pathAbilitySprite + str(int(DataStore.playerData["Passives"][0])) + ".png"
+	if FileAccess.file_exists(texturePath):
+		buttonAb1.get_child(0).texture = load(texturePath)
+	else:
+		buttonAb0.get_child(0).texture = load("res://Sprites/Abilities/holderOfPlaces.png")
 
 func _focused_0() -> void:
 	buttonAb0.get_child(1).play("hovering")

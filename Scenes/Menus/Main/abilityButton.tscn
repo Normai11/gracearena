@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://2dl0yrre4lqq" path="res://Scripts/Menus/Main/abilitybutton.gd" id="1_kga4m"]
 [ext_resource type="Shader" uid="uid://bcwmir5oxi3di" path="res://Sprites/Shaders/colorOverwrite.gdshader" id="2_ap0rd"]
-[ext_resource type="Texture2D" uid="uid://bb7vue0ung25a" path="res://Sprites/Abilities/ab100.png" id="2_wns0p"]
+[ext_resource type="Texture2D" uid="uid://nijf1v28d5le" path="res://Sprites/Abilities/holderOfPlaces.png" id="3_wns0p"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s60w3"]
 resource_local_to_scene = true
@@ -90,7 +90,7 @@ material = SubResource("ShaderMaterial_s60w3")
 layout_mode = 0
 offset_right = 100.0
 offset_bottom = 100.0
-texture = ExtResource("2_wns0p")
+texture = ExtResource("3_wns0p")
 expand_mode = 1
 
 [node name="animations" type="AnimationPlayer" parent="Button"]
@@ -104,22 +104,34 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -40.0
-offset_top = -24.0
+offset_top = -16.0
 offset_right = 40.0
-offset_bottom = -1.0
+offset_bottom = 7.0
 grow_horizontal = 2
 text = "key"
 horizontal_alignment = 1
 uppercase = true
 
 [node name="Cooldown" type="Label" parent="."]
-self_modulate = Color(0.185981, 0.185981, 0.185981, 1)
 layout_mode = 1
 offset_top = 24.0
 offset_right = 50.0
 offset_bottom = 47.0
 scale = Vector2(2, 2)
 text = "100"
+horizontal_alignment = 1
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.0
+offset_top = 88.0
+offset_right = 40.0
+offset_bottom = 111.0
+grow_horizontal = 2
+text = "Name"
 horizontal_alignment = 1
 
 [connection signal="timeout" from="cdTimer" to="." method="_end_cooldown"]

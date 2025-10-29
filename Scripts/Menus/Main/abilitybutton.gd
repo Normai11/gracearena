@@ -10,6 +10,7 @@ signal _selected
 @onready var keybind = $Prompt
 @onready var cdDisp = $Cooldown
 
+var abName : String
 var promptID : int
 var in_game : bool = false
 
@@ -17,9 +18,11 @@ var promptkeybind : Array = ["z", "x", "c", "a"]
 
 func _ready() -> void:
 	var path = "res://Sprites/Abilities/ab" + str(int(abilityID)) + ".png"
-	base.get_child(0).texture = load(path)
+	if FileAccess.file_exists(path):
+		base.get_child(0).texture = load(path)
 	cdDisp.visible = false
 	keybind.visible = false
+	$Name.text = abName
 	
 	if in_game:
 		keybind.visible = true
@@ -37,9 +40,11 @@ func _unfocused():
 func _on_pressed() -> void:
 	if !in_game:
 		if abilityID >= 100:
-			DataStore.playerData["Actives"][0] = abilityID
+			DataStore.playerData["Actives"].clear()
+			DataStore.playerData["Actives"].append(abilityID)
 		elif abilityID <= 99:
-			DataStore.playerData["Passives"][0] = abilityID
+			DataStore.playerData["Passives"].clear()
+			DataStore.playerData["Passives"].append(abilityID)
 		_selected.emit()
 	else:
 		_selected.emit(abilityID)
