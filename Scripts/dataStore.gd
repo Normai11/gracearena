@@ -16,8 +16,14 @@ var timer : float = 0.00
 }
 
 @export var abilityPaths = {
+	"END" : "res://roomGen/roomEND.tscn",
 	"100" : "res://Scenes/Abilities/100.tscn",
 	"101" : "res://Scenes/Abilities/101.tscn",
 	"102" : "res://Scenes/Abilities/102.tscn",
 	"103" : "res://Scenes/Abilities/100.tscn"
+}
+
+@export var roomPaths = {
+	0 : "res://roomGen/room0.tscn",
+	1 : "res://roomGen/room_1.tscn"
 }
