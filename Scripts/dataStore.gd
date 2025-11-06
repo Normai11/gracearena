@@ -1,5 +1,7 @@
 extends Node
 
+var timer : float = 0.00
+
 @export var playerData = {
 	"Inventory" : [100, 0],
 	"Actives" : [100],
@@ -16,6 +18,6 @@ extends Node
 @export var abilityPaths = {
 	"100" : "res://Scenes/Abilities/100.tscn",
 	"101" : "res://Scenes/Abilities/101.tscn",
-	"102" : "res://Scenes/Abilities/100.tscn",
+	"102" : "res://Scenes/Abilities/102.tscn",
 	"103" : "res://Scenes/Abilities/100.tscn"
 }

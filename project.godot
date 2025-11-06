@@ -10,9 +10,10 @@ config_version=5
 
 [application]
 
-config/name="gracearena"
+config/name="Retrieval Project"
 run/main_scene="uid://nju2hj280cwt"
 config/features=PackedStringArray("4.4", "GL Compatibility")
+boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [autoload]
@@ -85,12 +86,21 @@ quarternary={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Solid"
+2d_physics/layer_2="Damaged Player"
+2d_physics/layer_3="Damaged Enemy"
+2d_physics/layer_4="Hurt Player"
+2d_physics/layer_5="Hurt Enemy"
+
 [physics]
 
-2d/default_gravity=1250.0
+2d/default_gravity=1300.0
 
 [rendering]
 
 textures/canvas_textures/default_texture_filter=2
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true

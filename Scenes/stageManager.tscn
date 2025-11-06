@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://kirlhu31xke3"]
+
+[ext_resource type="Script" uid="uid://cqs7q18yivgnu" path="res://Scripts/stageManager.gd" id="1_7ckeq"]
+
+[node name="stageManager" type="Node"]
+script = ExtResource("1_7ckeq")
+
+[node name="Timer" type="Timer" parent="."]

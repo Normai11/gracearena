@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://b2kdvlijym6qd"]
+
+[ext_resource type="Texture2D" uid="uid://bgcvio3c5ygos" path="res://icon.svg" id="1_eg6gm"]
+[ext_resource type="Script" uid="uid://rcrf7psq1wml" path="res://Scripts/Characters/Enemies/basicPatroller.gd" id="1_y55gh"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y55gh"]
+radius = 16.0
+height = 64.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wxkm5"]
+size = Vector2(62, 101)
+
+[node name="infectPatroller" type="CharacterBody2D" node_paths=PackedStringArray("bodyRef", "hurtBox")]
+collision_layer = 4
+script = ExtResource("1_y55gh")
+bodyRef = NodePath(".")
+hurtBox = NodePath("Hurtbox")
+moveSpeed = 125.0
+health = 32.0
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_y55gh")
+
+[node name="PLACEHOLDER" type="Sprite2D" parent="."]
+modulate = Color(1, 0.462745, 0.47451, 1)
+position = Vector2(0, 8)
+scale = Vector2(0.359375, 0.359375)
+texture = ExtResource("1_eg6gm")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, -8.5)
+shape = SubResource("RectangleShape2D_wxkm5")
+debug_color = Color(0.99, 0, 0.264, 0)
+
+[node name="edgeDetect" type="RayCast2D" parent="."]
+position = Vector2(24, 0)
+
+[node name="wallDetect" type="RayCast2D" parent="."]
+position = Vector2(0, -24)
+target_position = Vector2(23, 0)
+
+[connection signal="body_entered" from="Hurtbox" to="." method="body_check"]

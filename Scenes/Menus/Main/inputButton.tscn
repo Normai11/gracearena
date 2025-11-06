@@ -1,0 +1,123 @@
+[gd_scene load_steps=7 format=3 uid="uid://c1oyluiows8tj"]
+
+[ext_resource type="Script" uid="uid://2dl0yrre4lqq" path="res://Scripts/Menus/Main/abilitybutton.gd" id="1_eqe06"]
+[ext_resource type="Shader" uid="uid://bcwmir5oxi3di" path="res://Sprites/Shaders/colorOverwrite.gdshader" id="1_uy0qw"]
+[ext_resource type="Texture2D" uid="uid://nijf1v28d5le" path="res://Sprites/Abilities/holderOfPlaces.png" id="2_eqe06"]
+[ext_resource type="Texture2D" uid="uid://ci66wasthns6d" path="res://Sprites/Abilities/ab2.png" id="4_c76al"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c76al"]
+resource_local_to_scene = true
+shader = ExtResource("1_uy0qw")
+shader_parameter/hue = 0.0
+shader_parameter/saturation = 0.0
+shader_parameter/value = 0.0
+shader_parameter/exposure = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_085rj"]
+shader = ExtResource("1_uy0qw")
+shader_parameter/hue = 0.0
+shader_parameter/saturation = 0.0
+shader_parameter/value = 0.0
+shader_parameter/exposure = 0.5
+
+[node name="inputButton" type="Control"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1100.0
+offset_bottom = -575.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_eqe06")
+
+[node name="cdTimer" type="Timer" parent="."]
+
+[node name="Ability" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 100.0
+offset_bottom = 100.0
+
+[node name="abInfo" type="Label" parent="Ability"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -63.5
+offset_right = 50.0
+offset_bottom = 63.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "im Keybind
+
+
+
+im Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="abCooldown" type="RichTextLabel" parent="Ability"]
+z_index = 1
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="abButton" type="Button" parent="Ability"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+offset_right = 100.0
+offset_bottom = 100.0
+pivot_offset = Vector2(50, 50)
+
+[node name="Image" type="TextureRect" parent="Ability/abButton"]
+material = SubResource("ShaderMaterial_c76al")
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
+texture = ExtResource("2_eqe06")
+expand_mode = 1
+
+[node name="Perk" type="Control" parent="."]
+custom_minimum_size = Vector2(48, 48)
+anchors_preset = 0
+offset_right = 48.0
+offset_bottom = 48.0
+
+[node name="Image" type="TextureRect" parent="Perk"]
+material = SubResource("ShaderMaterial_085rj")
+layout_mode = 0
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 56.0
+offset_bottom = 56.0
+rotation = 0.785398
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("4_c76al")
+expand_mode = 1
+
+[node name="perkCooldown" type="RichTextLabel" parent="Perk"]
+z_index = 1
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="timeout" from="cdTimer" to="." method="_end_cooldown"]
+[connection signal="mouse_entered" from="Ability/abButton" to="." method="_abButton_focused"]
+[connection signal="mouse_exited" from="Ability/abButton" to="." method="_abButton_unfocused"]
+[connection signal="pressed" from="Ability/abButton" to="." method="_on_abButton_pressed"]

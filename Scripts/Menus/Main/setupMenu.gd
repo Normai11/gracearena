@@ -5,7 +5,7 @@ signal beginPressed
 @onready var buttonAb0 = $Ability0
 @onready var buttonAb1 = $Ability1
 
-var abButtonTemplate = preload("res://Scenes/Menus/Main/abilityButton.tscn")
+var abButtonTemplate = preload("res://Scenes/Menus/Main/inputButton.tscn")
 var pathAbilitySprite = "res://Sprites/Abilities/ab"
 var invMenu : int = -1
 
@@ -40,7 +40,7 @@ func _Load_Inventory(id):
 		for i in DataStore.playerData["Inventory"]:
 			var ability = abButtonTemplate.instantiate()
 			
-			ability.abilityID = i
+			ability.inputID = i
 			ability._selected.connect(_Ability_Selected)
 			if i >= 100:
 				gridInv.add_child(ability)
@@ -48,13 +48,21 @@ func _Load_Inventory(id):
 		for i in DataStore.playerData["Inventory"]:
 			var ability = abButtonTemplate.instantiate()
 			
-			ability.abilityID = i
+			ability.inputID = i
 			ability._selected.connect(_Ability_Selected)
 			if i <= 99:
 				gridInv.add_child(ability)
 	
-	buttonAb0.get_child(0).texture = load(pathAbilitySprite + str(int(DataStore.playerData["Actives"][0])) + ".png")
-	buttonAb1.get_child(0).texture = load(pathAbilitySprite + str(int(DataStore.playerData["Passives"][0])) + ".png")
+	var texturePath = pathAbilitySprite + str(int(DataStore.playerData["Actives"][0])) + ".png"
+	if FileAccess.file_exists(texturePath):
+		buttonAb0.get_child(0).texture = load(texturePath)
+	else:
+		buttonAb0.get_child(0).texture = load("res://Sprites/Abilities/holderOfPlaces.png")
+	texturePath = pathAbilitySprite + str(int(DataStore.playerData["Passives"][0])) + ".png"
+	if FileAccess.file_exists(texturePath):
+		buttonAb1.get_child(0).texture = load(texturePath)
+	else:
+		buttonAb0.get_child(0).texture = load("res://Sprites/Abilities/holderOfPlaces.png")
 
 func _focused_0() -> void:
 	buttonAb0.get_child(1).play("hovering")

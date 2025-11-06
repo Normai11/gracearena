@@ -1,61 +1,94 @@
 extends Control
 signal _selected
 
-@export var abilityID : int = 100 # [#]## is category, #[##] is itemID
+@export var isAbility : bool = true
+@export var inputID : int = 100
+@export_category("Ability")
 @export var abFunc : Node
+@export var inGame : bool = false
+@export_category("Perk")
+@export var perkFunc : Node
+var texturePath : String
 
-@onready var base = $Button
-@onready var animations = $Button/animations
-@onready var cdTimer = $cdTimer
-@onready var keybind = $Prompt
-@onready var cdDisp = $Cooldown
+@onready var Cd = $cdTimer
+@onready var abButton = $Ability/abButton
+@onready var abInfo = $Ability/abInfo
+@onready var cdDisp = $Ability/abCooldown
+@onready var perkCd = $Perk/perkCooldown
+@onready var perkBase = $Perk
 
-var promptID : int
-var in_game : bool = false
+var tween : Tween
 
-var promptkeybind : Array = ["z", "x", "c", "a"]
+var inputName : String = "Placeholder"
+var promptID : int = 0
+
+var promptkeybind : Array = ["Z", "X", "C", "A"]
 
 func _ready() -> void:
-	var path = "res://Sprites/Abilities/ab" + str(int(abilityID)) + ".png"
-	base.get_child(0).texture = load(path)
-	cdDisp.visible = false
-	keybind.visible = false
+	var path = "res://Sprites/Abilities/ab" + str(int(inputID)) + ".png"
+	if FileAccess.file_exists(path):
+		abButton.get_child(0).texture = load(path)
 	
-	if in_game:
-		keybind.visible = true
-		keybind.text = promptkeybind[promptID]
+	if isAbility:
+		if inGame:
+			var infoString : String = str(promptkeybind[promptID]) + "\n\n\n\n" + inputName
+			abInfo.text = infoString
+		else:
+			abInfo.visible = false
+		
+		$Perk.visible = false
+		cdDisp.visible = false
+	else:
+		$Ability.visible = false
+		perkCd.visible = false
+		self.custom_minimum_size = Vector2(48.0, 48.0)
+		
+		if FileAccess.file_exists(texturePath):
+			perkBase.get_child(0).texture = load(texturePath)
 
 func _process(_delta: float) -> void:
-	cdDisp.text = str(snapped(cdTimer.time_left, 0.1))
+	cdDisp.text = str(snapped(Cd.time_left, 0.1))
 
-func _focused():
-	animations.play("hovering")
-
-func _unfocused():
-	animations.play("releasing")
-
-func _on_pressed() -> void:
-	if !in_game:
-		if abilityID >= 100:
-			DataStore.playerData["Actives"][0] = abilityID
-		elif abilityID <= 99:
-			DataStore.playerData["Passives"][0] = abilityID
-		_selected.emit()
+func _on_abButton_pressed() -> void:
+	if inGame:
+		_selected.emit(inputID)
 	else:
-		_selected.emit(abilityID)
+		if inputID >= 100:
+			DataStore.playerData["Actives"].clear()
+			DataStore.playerData["Actives"].append(inputID)
+		else:
+			DataStore.playerData["Passives"].clear()
+			DataStore.playerData["Passives"].append(inputID)
+		_selected.emit()
+
+func _abButton_focused() -> void:
+	if tween:
+		tween.kill()
+	tween = get_tree().create_tween()
+	tween.tween_property(abButton, "scale", Vector2(1.1, 1.1), 0.15)
+	tween.set_trans(Tween.TRANS_EXPO)
+	tween.set_ease(Tween.EASE_OUT)
+
+func _abButton_unfocused() -> void:
+	if tween:
+		tween.kill()
+	tween = get_tree().create_tween()
+	tween.tween_property(abButton, "scale", Vector2(1.0, 1.0), 0.2)
+	tween.set_trans(Tween.TRANS_EXPO)
+	tween.set_ease(Tween.EASE_OUT)
 
 func _start_cooldown(duration):
-	var shader = $Button/Display.material
-	base.disabled = true
+	var shader = $Ability/abButton/Image.material
+	abButton.disabled = true
 	cdDisp.visible = true
-	cdTimer.start(duration)
+	Cd.start(duration)
 	abFunc.onCooldown = true
 	shader.set_shader_parameter("value", -0.15)
 	shader.set_shader_parameter("exposure", 0.60)
 
 func _end_cooldown() -> void:
-	var shader = $Button/Display.material
-	base.disabled = false
+	var shader = $Ability/abButton/Image.material
+	abButton.disabled = false
 	cdDisp.visible = false
 	abFunc.onCooldown = false
 	shader.set_shader_parameter("value", 0.0)

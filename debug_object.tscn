@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=3 uid="uid://6io8msc4qsjp"]
+
+[ext_resource type="Script" uid="uid://dq1qamnapmmis" path="res://debug_object.gd" id="1_vr84h"]
+
+[node name="debugObject" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vr84h")
+
+[node name="reload" type="Button" parent="."]
+z_index = 5
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -111.0
+offset_top = 56.0
+offset_bottom = 87.0
+grow_horizontal = 0
+text = "Reload Scene"
+
+[node name="recover" type="Button" parent="."]
+z_index = 5
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -111.0
+offset_top = 88.0
+offset_bottom = 119.0
+grow_horizontal = 0
+text = "Heal"
+
+[node name="HScrollBar" type="HScrollBar" parent="recover"]
+layout_mode = 0
+offset_top = 32.0
+offset_right = 111.0
+offset_bottom = 40.0
+step = 1.0
+rounded = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -286.0
+offset_bottom = 49.0
+grow_horizontal = 0
+text = "press 'V' to spawn patroller at mouse
+press 'H' to hide this menu"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="reload" to="." method="_on_reload_pressed"]
+[connection signal="pressed" from="recover" to="." method="heal"]

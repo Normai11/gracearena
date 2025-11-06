@@ -3,19 +3,27 @@
 [ext_resource type="Script" uid="uid://cec3xpkyvn7vk" path="res://Scripts/Abilities/abKick.gd" id="1_1e8pi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1e8pi"]
-size = Vector2(76, 14)
+size = Vector2(126, 32)
 
 [node name="Kick" type="Node"]
 script = ExtResource("1_1e8pi")
+abName = "Kick"
+abilityID = 101
 function = 2
+dmg = 15.0
 duration = 0.25
-cooldown = 0.5
+cooldown = 0.85
+endlag = -0.1
 
 [node name="durTimer" type="Timer" parent="."]
 
 [node name="hurtbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 4
 
 [node name="size" type="CollisionShape2D" parent="hurtbox"]
-position = Vector2(51, 0)
+position = Vector2(63, 0)
 shape = SubResource("RectangleShape2D_1e8pi")
-debug_color = Color(1, 0, 0, 0.419608)
+debug_color = Color(1, 0, 0, 0)
+
+[connection signal="body_entered" from="hurtbox" to="." method="body_check"]

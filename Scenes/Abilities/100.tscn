@@ -3,20 +3,26 @@
 [ext_resource type="Script" uid="uid://b1n48i8edwqvn" path="res://Scripts/Abilities/abPunch.gd" id="1_vm5yb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iieql"]
-size = Vector2(38, 48)
+size = Vector2(74, 80)
 
 [node name="Punch" type="Node"]
 script = ExtResource("1_vm5yb")
+abName = "Punch"
 abilityID = 100
 function = 2
+dmg = 15.0
 duration = 0.25
-cooldown = 0.5
+cooldown = 0.7
 
 [node name="durTimer" type="Timer" parent="."]
 
 [node name="hurtbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 4
 
 [node name="size" type="CollisionShape2D" parent="hurtbox"]
-position = Vector2(32, 0)
+position = Vector2(37, 0)
 shape = SubResource("RectangleShape2D_iieql")
-debug_color = Color(1, 0, 0, 0.419608)
+debug_color = Color(1, 0, 0, 0)
+
+[connection signal="body_entered" from="hurtbox" to="." method="body_check"]
