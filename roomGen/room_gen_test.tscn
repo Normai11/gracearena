@@ -10,7 +10,7 @@ size = Vector2(338, 46)
 
 [node name="roomManager" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("2_70rec")]
 injectNode = NodePath("..")
-maxRooms = 5
+maxRooms = 20
 roomOffset = Vector2(168, -24)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -20,3 +20,4 @@ shape = SubResource("RectangleShape2D_70rec")
 
 [node name="Player" parent="." instance=ExtResource("1_ibw5d")]
 position = Vector2(0, -64)
+move_speed = 500.0

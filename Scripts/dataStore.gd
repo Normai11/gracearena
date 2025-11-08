@@ -25,5 +25,6 @@ var timer : float = 0.00
 
 @export var roomPaths = {
 	0 : "res://roomGen/room0.tscn",
-	1 : "res://roomGen/room_1.tscn"
+	1 : "res://roomGen/room_1.tscn",
+	2 : "res://roomGen/room_2.tscn"
 }
