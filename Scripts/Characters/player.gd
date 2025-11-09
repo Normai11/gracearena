@@ -11,6 +11,7 @@ var guiScene
 @export var jump_force : float = 725.0
 @export var drop_force : float = 425.0
 @export var gravity_cap : float = 1500.0
+@export var cam_zoom : Vector2 = Vector2(0.7, 0.7)
 
 @export_category("Attributes")
 @export var max_health : float = 100.0
@@ -37,6 +38,8 @@ func _ready() -> void:
 	add_child(loadObject)
 	add_abilities()
 	guiScene.update_health()
+	
+	$Camera.zoom = cam_zoom
 
 func add_abilities() -> void:
 	var injectHUD = guiScene.hudPath

@@ -1,7 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://bcytvdbdq7h4p"]
 
 [ext_resource type="Script" uid="uid://fjbti2nu5vtf" path="res://roomGen/roomProperties.gd" id="1_uy76r"]
-[ext_resource type="Texture2D" uid="uid://bgcvio3c5ygos" path="res://icon.svg" id="2_e2gd5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8qtb3"]
+size = Vector2(1298, 866)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5c2i"]
 size = Vector2(1298, 102)
@@ -17,10 +19,11 @@ size = Vector2(218, 20)
 
 [node name="room1" type="Node2D" node_paths=PackedStringArray("roomContObj")]
 script = ExtResource("1_uy76r")
-roomOffset = Vector2(648, 227)
-roomContObj = NodePath("contObj")
+roomSize = Vector2(1298, 866)
+roomOffset = Vector2(649, 227)
+roomContObj = NodePath("genCont")
 
-[node name="Bounds" type="ColorRect" parent="."]
+[node name="boundsVisual" type="ColorRect" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -32,21 +35,19 @@ offset_right = 649.0
 offset_bottom = 433.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 1, 0, 1)
+color = Color(0, 1, 0, 0.196078)
 
-[node name="playerReference" type="TextureRect" parent="."]
-offset_left = -16.0
-offset_top = -120.0
-offset_right = 15.0
-offset_bottom = -56.0
-texture = ExtResource("2_e2gd5")
-expand_mode = 1
+[node name="Bounds" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 512
+monitoring = false
 
-[node name="contObj" type="Sprite2D" parent="."]
-modulate = Color(0, 1, 0, 1)
+[node name="size" type="CollisionShape2D" parent="Bounds"]
+shape = SubResource("RectangleShape2D_8qtb3")
+debug_color = Color(0.890196, 0, 0, 0)
+
+[node name="genCont" type="Marker2D" parent="."]
 position = Vector2(649, 331)
-scale = Vector2(0.0546875, 0.0546875)
-texture = ExtResource("2_e2gd5")
 
 [node name="Floor" type="StaticBody2D" parent="."]
 position = Vector2(0, 382)
