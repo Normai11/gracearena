@@ -1,3 +1,4 @@
+class_name Room
 extends Node2D
 
 @export var roomSize : Vector2

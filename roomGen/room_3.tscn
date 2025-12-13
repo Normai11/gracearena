@@ -39,8 +39,7 @@ color = Color(1, 0.67451, 1, 0.196078)
 
 [node name="Bounds" type="Area2D" parent="."]
 collision_layer = 512
-collision_mask = 512
-monitoring = false
+collision_mask = 0
 
 [node name="size" type="CollisionShape2D" parent="Bounds"]
 shape = SubResource("RectangleShape2D_6o86q")
