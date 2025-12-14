@@ -1,7 +1,7 @@
 extends Node2D
 #scrapped together, really just a proof of concept for the menu
 
-var menuSetupRun = preload("res://Scenes/Menus/Main/setupMenu.tscn")
+var menuSetupRun = preload("res://Scenes/Menus/Main/nsetupMenu.tscn")
 
 func _ready() -> void:
 	pass

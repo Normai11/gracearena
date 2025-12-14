@@ -28,12 +28,12 @@ expand_mode = 1
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
-offset_left = 37.0
-offset_top = -152.0
-offset_right = 573.0
-offset_bottom = -14.0
+offset_left = -179.0
+offset_top = 40.0
+offset_right = 357.0
+offset_bottom = 178.0
 grow_vertical = 2
-rotation = 0.269652
+rotation = -0.268781
 color = Color(0, 0, 0.109804, 0.709804)
 
 [node name="[TEMP]Title" type="Label" parent="Interface"]

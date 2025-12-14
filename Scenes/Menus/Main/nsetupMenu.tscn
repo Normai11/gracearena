@@ -1,0 +1,443 @@
+[gd_scene load_steps=17 format=3 uid="uid://cvtsi7l63ex1l"]
+
+[ext_resource type="Script" uid="uid://bmtyklxe4o14h" path="res://Scripts/Menus/Main/setupMenu.gd" id="1_43r45"]
+[ext_resource type="Texture2D" uid="uid://bb7vue0ung25a" path="res://Sprites/Abilities/ab100.png" id="1_m7rae"]
+
+[sub_resource type="Animation" id="Animation_rd31k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8jl4k"]
+resource_name = "SELECTED"
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.15, 1.15)]
+}
+
+[sub_resource type="Animation" id="Animation_r88xn"]
+resource_name = "SELECTED_intro"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1.1, 1.1), Vector2(1.15, 1.15)]
+}
+
+[sub_resource type="Animation" id="Animation_350ya"]
+resource_name = "SELECTED_outro"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1.15, 1.15), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_514lr"]
+resource_name = "hovering"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1)]
+}
+
+[sub_resource type="Animation" id="Animation_msktm"]
+resource_name = "releasing"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l7hsf"]
+_data = {
+&"RESET": SubResource("Animation_rd31k"),
+&"SELECTED": SubResource("Animation_8jl4k"),
+&"SELECTED_intro": SubResource("Animation_r88xn"),
+&"SELECTED_outro": SubResource("Animation_350ya"),
+&"hovering": SubResource("Animation_514lr"),
+&"releasing": SubResource("Animation_msktm")
+}
+
+[sub_resource type="Animation" id="Animation_bs3ie"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_arfml"]
+resource_name = "SELECTED"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.15, 1.15)]
+}
+
+[sub_resource type="Animation" id="Animation_5r4o5"]
+resource_name = "SELECTED_intro"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1.1, 1.1), Vector2(1.15, 1.15)]
+}
+
+[sub_resource type="Animation" id="Animation_fq21h"]
+resource_name = "SELECTED_outro"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1.15, 1.15), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4o1yt"]
+resource_name = "hovering"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1)]
+}
+
+[sub_resource type="Animation" id="Animation_dx233"]
+resource_name = "releasing"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 0.4),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gvba5"]
+_data = {
+&"RESET": SubResource("Animation_bs3ie"),
+&"SELECTED": SubResource("Animation_arfml"),
+&"SELECTED_intro": SubResource("Animation_5r4o5"),
+&"SELECTED_outro": SubResource("Animation_fq21h"),
+&"hovering": SubResource("Animation_4o1yt"),
+&"releasing": SubResource("Animation_dx233")
+}
+
+[node name="NsetupMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_43r45")
+
+[node name="segmentL" type="Panel" parent="."]
+self_modulate = Color(0, 0.6, 1, 1)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -504.0
+offset_top = -337.5
+offset_right = -6.0
+offset_bottom = 337.5
+grow_vertical = 2
+
+[node name="tempHeader" type="Label" parent="segmentL"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -113.0
+offset_top = -219.5
+offset_right = 113.0
+offset_bottom = -196.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "SETUP"
+horizontal_alignment = 1
+
+[node name="Ability0" type="Button" parent="segmentL"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -151.0
+offset_top = -135.0
+offset_right = -25.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(48, 48)
+
+[node name="Texture" type="TextureRect" parent="segmentL/Ability0"]
+layout_mode = 0
+offset_right = 126.0
+offset_bottom = 126.0
+texture = ExtResource("1_m7rae")
+expand_mode = 1
+
+[node name="animations" type="AnimationPlayer" parent="segmentL/Ability0"]
+libraries = {
+&"": SubResource("AnimationLibrary_l7hsf")
+}
+
+[node name="Ability1" type="Button" parent="segmentL"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 25.0
+offset_top = -135.0
+offset_right = 151.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(48, 48)
+
+[node name="Texture" type="TextureRect" parent="segmentL/Ability1"]
+layout_mode = 0
+offset_right = 126.0
+offset_bottom = 126.0
+texture = ExtResource("1_m7rae")
+expand_mode = 1
+
+[node name="animations" type="AnimationPlayer" parent="segmentL/Ability1"]
+libraries = {
+&"": SubResource("AnimationLibrary_gvba5")
+}
+
+[node name="Start" type="Button" parent="segmentL"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -62.0
+offset_top = 40.5
+offset_right = 62.0
+offset_bottom = 95.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "BEGIN"
+
+[node name="Cancel" type="Button" parent="segmentL"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -92.0
+offset_right = 98.0
+offset_bottom = -24.0
+grow_vertical = 0
+text = "CANCEL"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="segmentL"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -92.0
+offset_top = -92.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+color = Color(0, 0.635294, 1, 1)
+edit_alpha = false
+
+[node name="Button" type="Button" parent="segmentL"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -172.0
+offset_top = -92.0
+offset_right = -104.0
+offset_bottom = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+toggle_mode = true
+text = "placeholder"
+autowrap_mode = 1
+
+[node name="segmentR" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -337.5
+offset_right = 712.0
+offset_bottom = 337.5
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="tempHeader" type="Label" parent="segmentR"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -113.0
+offset_top = -243.5
+offset_right = 113.0
+offset_bottom = -220.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "INVENTORY"
+horizontal_alignment = 1
+
+[node name="Inactive" type="Label" parent="segmentR"]
+self_modulate = Color(1, 1, 1, 0.392157)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -154.5
+offset_top = 28.5
+offset_right = 154.5
+offset_bottom = 51.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Select a category to view your Inventory"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="segmentR"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -315.0
+offset_top = -210.5
+offset_right = 316.0
+offset_bottom = 298.5
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="Inventory" type="GridContainer" parent="segmentR/ScrollContainer"]
+layout_mode = 2
+columns = 6
+
+[connection signal="mouse_entered" from="segmentL/Ability0" to="." method="_focused_0"]
+[connection signal="mouse_exited" from="segmentL/Ability0" to="." method="_unfocused_0"]
+[connection signal="pressed" from="segmentL/Ability0" to="." method="_ab0_pressed"]
+[connection signal="mouse_entered" from="segmentL/Ability1" to="." method="_focused_1"]
+[connection signal="mouse_exited" from="segmentL/Ability1" to="." method="_unfocused_1"]
+[connection signal="pressed" from="segmentL/Ability1" to="." method="_ab1_pressed"]
+[connection signal="pressed" from="segmentL/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="segmentL/Cancel" to="." method="_close_menu"]
