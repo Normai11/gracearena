@@ -48,6 +48,8 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	cdDisp.text = str(snapped(Cd.time_left, 0.1))
+	if inGame:
+		$".".modulate.a = DataStore.settings["guiTrans"]
 
 func _on_abButton_pressed() -> void:
 	if inGame:
@@ -83,13 +85,13 @@ func _start_cooldown(duration):
 	cdDisp.visible = true
 	Cd.start(duration)
 	abFunc.onCooldown = true
-	shader.set_shader_parameter("value", -0.15)
-	shader.set_shader_parameter("exposure", 0.60)
+	#shader.set_shader_parameter("value", -0.15)
+	#shader.set_shader_parameter("exposure", 0.60)
 
 func _end_cooldown() -> void:
 	var shader = $Ability/abButton/Image.material
 	abButton.disabled = false
 	cdDisp.visible = false
 	abFunc.onCooldown = false
-	shader.set_shader_parameter("value", 0.0)
-	shader.set_shader_parameter("exposure", 0.5)
+	#shader.set_shader_parameter("value", 0.0)
+	#shader.set_shader_parameter("exposure", 0.5)

@@ -1,24 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://c1oyluiows8tj"]
+[gd_scene load_steps=4 format=3 uid="uid://c1oyluiows8tj"]
 
 [ext_resource type="Script" uid="uid://2dl0yrre4lqq" path="res://Scripts/Menus/Main/abilitybutton.gd" id="1_eqe06"]
-[ext_resource type="Shader" uid="uid://bcwmir5oxi3di" path="res://Sprites/Shaders/colorOverwrite.gdshader" id="1_uy0qw"]
 [ext_resource type="Texture2D" uid="uid://nijf1v28d5le" path="res://Sprites/Abilities/holderOfPlaces.png" id="2_eqe06"]
 [ext_resource type="Texture2D" uid="uid://ci66wasthns6d" path="res://Sprites/Abilities/ab2.png" id="4_c76al"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_c76al"]
-resource_local_to_scene = true
-shader = ExtResource("1_uy0qw")
-shader_parameter/hue = 0.0
-shader_parameter/saturation = 0.0
-shader_parameter/value = 0.0
-shader_parameter/exposure = 0.5
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_085rj"]
-shader = ExtResource("1_uy0qw")
-shader_parameter/hue = 0.0
-shader_parameter/saturation = 0.0
-shader_parameter/value = 0.0
-shader_parameter/exposure = 0.5
 
 [node name="inputButton" type="Control"]
 custom_minimum_size = Vector2(100, 100)
@@ -81,7 +65,6 @@ offset_bottom = 100.0
 pivot_offset = Vector2(50, 50)
 
 [node name="Image" type="TextureRect" parent="Ability/abButton"]
-material = SubResource("ShaderMaterial_c76al")
 layout_mode = 0
 offset_right = 100.0
 offset_bottom = 100.0
@@ -95,7 +78,6 @@ offset_right = 48.0
 offset_bottom = 48.0
 
 [node name="Image" type="TextureRect" parent="Perk"]
-material = SubResource("ShaderMaterial_085rj")
 layout_mode = 0
 offset_left = -8.0
 offset_top = -8.0

@@ -26,3 +26,6 @@ func _physics_process(_delta: float) -> void:
 		player.velocity.x = player.direction * dashSpeed
 		player.velocity.y = 0
 		player.move_and_slide()
+		if Input.is_action_just_pressed("jump"):
+			timer.emit_signal("timeout")
+			player.velocity.y = -player.jump_force / 1.25

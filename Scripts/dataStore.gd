@@ -2,6 +2,10 @@ extends Node
 
 var timer : float = 0.00
 
+@export var settings = {
+	"guiTrans" : 1
+}
+
 @export var playerData = {
 	"Inventory" : [100, 0],
 	"Actives" : [100],

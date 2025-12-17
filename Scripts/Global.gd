@@ -15,6 +15,8 @@ func _Save_Data():
 	save_data.Money = DataStore.RUNDATA["Cash"]
 	save_data.Kills = DataStore.RUNDATA["Kills"]
 	
+	save_data.guiTrans = DataStore.settings["guiTrans"]
+	
 	if save_file == null:
 		print("FAILED TO SAVE FILE ", FileAccess.get_open_error())
 		return
@@ -40,9 +42,11 @@ func _Load_Data():
 	DataStore.playerData["Passives"] = save_data.Passives
 	
 	DataStore.RUNDATA["gameExists"] = save_data.exists
-	DataStore.RUNDATA["saferoomNum"] = (save_data.Saferoom)
-	DataStore.RUNDATA["Cash"] = (save_data.Money)
-	DataStore.RUNDATA["Kills"] = (save_data.Kills)
+	DataStore.RUNDATA["saferoomNum"] = save_data.Saferoom
+	DataStore.RUNDATA["Cash"] = save_data.Money
+	DataStore.RUNDATA["Kills"] = save_data.Kills
+	
+	DataStore.settings["guiTrans"] = save_data.guiTrans
 
 func _ready() -> void:
 	#_Save_Data()

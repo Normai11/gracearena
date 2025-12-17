@@ -11,6 +11,7 @@ var tween : Tween
 
 func _process(_delta: float) -> void:
 	$HUDparent/timerplaceholder/display.text = str(snapped(DataStore.timer, 0.01))
+	$HUDparent.modulate.a = DataStore.settings["guiTrans"]
 
 func _ready() -> void:
 	healthBar.max_value = player.max_health
