@@ -31,7 +31,7 @@ offset_right = 465.0
 offset_bottom = 279.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 0, 0, 1)
+color = Color(1, 0, 0, 0.333333)
 
 [node name="Bounds" type="Area2D" parent="."]
 collision_layer = 512

@@ -28,5 +28,5 @@ var timer : float = 0.00
 	1 : "res://roomGen/room_1.tscn",
 	2 : "res://roomGen/room_2.tscn",
 	3 : "res://roomGen/room_3.tscn",
-	4 : "res://roomGen/room_4.tscn"
+	#4 : "res://roomGen/room_4.tscn"
 }

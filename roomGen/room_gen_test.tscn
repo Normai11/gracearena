@@ -10,8 +10,7 @@ size = Vector2(338, 46)
 
 [node name="roomManager" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("2_70rec")]
 injectNode = NodePath("..")
-maxRooms = 8
-roomOffset = Vector2(168, -24)
+maxRooms = 12
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
