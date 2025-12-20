@@ -21,6 +21,7 @@ var tween : Tween
 
 var inputName : String = "Placeholder"
 var promptID : int = 0
+var hold : bool = false
 
 var promptkeybind : Array = ["Z", "X", "C", "A"]
 
@@ -31,10 +32,16 @@ func _ready() -> void:
 	
 	if isAbility:
 		if inGame:
-			var infoString : String = str(promptkeybind[promptID]) + "\n\n\n\n" + inputName
+			var infoString : String
+			if hold:
+				$Ability/holdIndicator.visible = true
+			else:
+				$Ability/holdIndicator.visible = false
+			infoString = str(promptkeybind[promptID]) + "\n\n\n\n" + inputName
 			abInfo.text = infoString
 		else:
 			abInfo.visible = false
+			$Ability/holdIndicator.visible = false
 		
 		$Perk.visible = false
 		cdDisp.visible = false

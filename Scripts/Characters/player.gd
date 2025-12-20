@@ -7,6 +7,9 @@ var abButtonRef = preload("res://Scenes/Menus/Main/inputButton.tscn")
 var guiScene
 
 @export_category("Movement")
+@export var stunned : bool = false
+var stunDir : int = -1
+var stunDist : float = 0.0
 @export var move_speed : float = 350.0
 @export var jump_force : float = 725.0
 @export var drop_force : float = 425.0
@@ -28,7 +31,7 @@ var iFrames : int = 0
 @onready var lagTimer = $endlag
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var direction : int
+var direction : int = 1
 
 func _ready() -> void:
 	var loadObject = loadGuiScene.instantiate()
@@ -54,6 +57,7 @@ func add_abilities() -> void:
 		#region UI
 		child.inputID = int(item)
 		child.promptID = int(abilities.size()) - 1
+		child.hold = vessel.holdAbility
 		child.inGame = true
 		child.abFunc = vessel
 		child.inputName = vessel.abName
@@ -65,6 +69,7 @@ func add_abilities() -> void:
 		vessel.name = str(int(item))
 		vessel.abDisplay = child
 		vessel.player = self
+		vessel.abilitySlot = abilities.find(int(item))
 		addons.add_child(vessel)
 		#endregion
 	
@@ -98,11 +103,16 @@ func _input(_event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	var speed : float = move_speed
+	
 	if moveNode.get_sprint():
 		speed = move_speed * 1.55
-	
 	var movement = moveNode.get_movement_input() * speed
-	if moveType != 2 && moveType != 1:
+	if moveType == 5:
+		movement = 0
+	elif stunned:
+		movement = stunDir * stunDist
+	
+	if moveType != 2 && moveType != 1 && moveType != 5:
 		if moveNode.get_movement_input() != 0:
 			direction = moveNode.get_movement_input()
 	
@@ -120,6 +130,8 @@ func _physics_process(delta: float) -> void:
 		velocity.x = 0
 		velocity.y = 0
 	move_and_slide()
+	if is_on_floor():
+		stunned = false
 
 func _process(_delta: float) -> void:
 	if iFrames != 0:
@@ -138,3 +150,8 @@ func damage_by(amt, _dir):
 	iFrames = iFrameMax
 	guiScene.update_health()
 	velocity.y = -500
+
+func stun(dir, dist):
+	stunned = true
+	stunDir = dir
+	stunDist = dist

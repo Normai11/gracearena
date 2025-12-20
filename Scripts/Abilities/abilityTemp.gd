@@ -7,6 +7,7 @@ enum funcType {
 	CONSTANT, # Freeze direction
 	FALL, # Freeze X movement
 	FLOAT, # Freeze Y movement
+	DISABLE # Nullify player movement input
 }
 
 @export_category("Identity")
@@ -15,13 +16,15 @@ enum funcType {
 @export var abDisplay : Control
 @export var abilityID : int
 @export var function = funcType.CONTINUE
+var abilitySlot : int
 
 @export_category("Ability")
+@export var holdAbility : bool = false
+@export var onCooldown : bool
 @export var dmg : float
 @export var duration : float
 @export var cooldown : float
 @export var endlag : float
-@export var onCooldown : bool
 
 func _ready() -> void:
 	print("Loaded!")

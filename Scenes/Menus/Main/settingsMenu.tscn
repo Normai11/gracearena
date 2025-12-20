@@ -1,0 +1,176 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnnk6aoepc35m"]
+
+[ext_resource type="Script" uid="uid://d2naqe3d3ht7w" path="res://Scripts/Menus/Main/settingsMenu.gd" id="1_2v2am"]
+[ext_resource type="Texture2D" uid="uid://bgcvio3c5ygos" path="res://icon.svg" id="2_2rlji"]
+
+[node name="settingsMenu" type="Control"]
+z_index = 15
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2v2am")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0862745, 0.0862745, 0.164706, 1)
+
+[node name="Categories" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 784.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Header" type="Label" parent="Categories"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -64.0
+offset_top = 72.0
+offset_right = 64.0
+offset_bottom = 95.0
+grow_horizontal = 2
+text = "SETTINGS"
+horizontal_alignment = 1
+
+[node name="catVid" type="Button" parent="Categories"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -93.5
+offset_right = 100.0
+offset_bottom = -49.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Video"
+
+[node name="catAud" type="Button" parent="Categories"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -21.5
+offset_right = 100.0
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Audio"
+
+[node name="catGame" type="Button" parent="Categories"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 50.5
+offset_right = 100.0
+offset_bottom = 94.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Game"
+
+[node name="catGame" type="Control" parent="."]
+z_index = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="guiTransSlider" type="HSlider" parent="catGame"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 80.0
+offset_top = -247.5
+offset_right = 403.0
+offset_bottom = -216.5
+grow_vertical = 2
+max_value = 1.0
+step = 0.01
+ticks_on_borders = true
+
+[node name="Percent" type="Label" parent="catGame/guiTransSlider"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -53.0
+offset_top = -11.5
+offset_right = -5.0
+offset_bottom = 11.5
+grow_vertical = 2
+text = "100%"
+horizontal_alignment = 2
+
+[node name="Preview" type="TextureRect" parent="catGame/guiTransSlider"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 5.0
+offset_top = -20.0
+offset_right = 45.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("2_2rlji")
+expand_mode = 1
+
+[node name="Header" type="Label" parent="catGame"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -64.0
+offset_top = 48.0
+offset_right = 64.0
+offset_bottom = 71.0
+grow_horizontal = 2
+text = "Video"
+horizontal_alignment = 1
+
+[node name="back" type="Button" parent="."]
+z_index = 99
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -83.0
+offset_top = -83.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "BACK"
+autowrap_mode = 1
+
+[connection signal="pressed" from="Categories/catGame" to="." method="_Game_Open"]
+[connection signal="pressed" from="back" to="." method="_Return"]

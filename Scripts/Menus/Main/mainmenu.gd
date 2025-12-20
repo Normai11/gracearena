@@ -2,6 +2,7 @@ extends Node2D
 #scrapped together, really just a proof of concept for the menu
 
 var menuSetupRun = preload("res://Scenes/Menus/Main/nsetupMenu.tscn")
+var menuSettings = preload("res://Scenes/Menus/Main/settingsMenu.tscn")
 
 func _ready() -> void:
 	pass
@@ -35,3 +36,7 @@ func savefile() -> void:
 
 func loadfile() -> void:
 	Global._Load_Data()
+
+func _Settings_Pressed() -> void:
+	var sceneRun = menuSettings.instantiate()
+	$Interface.add_child(sceneRun)

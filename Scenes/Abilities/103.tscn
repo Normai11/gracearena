@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsvxtvartcai8"]
+
+[ext_resource type="Script" uid="uid://0pji1lqln251" path="res://Scripts/Abilities/abRam.gd" id="1_rbi0k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rbi0k"]
+size = Vector2(120, 80)
+
+[node name="Ram" type="Node"]
+script = ExtResource("1_rbi0k")
+speedCap = 1300.0
+ramPierce = 3
+abName = "Ram"
+abilityID = 103
+function = 5
+holdAbility = true
+dmg = 256.0
+duration = 25.0
+cooldown = 20.0
+
+[node name="durTimer" type="Timer" parent="."]
+
+[node name="hurtbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 4
+
+[node name="size" type="CollisionShape2D" parent="hurtbox"]
+position = Vector2(31, 0)
+shape = SubResource("RectangleShape2D_rbi0k")
+debug_color = Color(1, 0, 0, 0)
+
+[connection signal="body_entered" from="hurtbox" to="." method="body_check"]
