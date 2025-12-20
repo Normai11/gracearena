@@ -162,10 +162,16 @@ func check_bounds(checking, original) -> int:
 				if !results:
 					newRoom = cycle
 					## THIS IS THE LAST THORN IN MY PATH TO FREEDOM AND ENJOYMENT, PLEASE FIX THIS
-					var tempOffset = roomInst.roomContObj.position + roomOffset
+					var oldPos = Vector2.ZERO
+					var tempOffset = Vector2.ZERO
+					if tempDir:
+						tempOffset += roomInst.roomContObj.position + roomOffset
+					else:
+						tempOffset.x += -(roomInst.roomContObj.position.x + -roomOffset.x)
+						tempOffset.y += roomInst.roomContObj.position.y + roomOffset.y
 					oldDir = tempDir
 					for idx in DataStore.roomPaths.size():
-						checkPos = Vector2.ZERO
+						checkPos = oldPos
 						path = load(DataStore.roomPaths[idx])
 						roomInst = path.instantiate()
 						if roomInst.startFlipping:
