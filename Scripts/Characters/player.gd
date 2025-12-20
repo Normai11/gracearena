@@ -16,6 +16,8 @@ var stunDist : float = 0.0
 @export var gravity_cap : float = 1500.0
 
 @export_category("Attributes")
+@export var accel : float = 90.0
+@export var friction : float = 20.0
 @export var max_health : float = 100.0
 @export var health : float = 100.0
 @export var abilities : Array[int] = []
@@ -102,19 +104,18 @@ func _input(_event: InputEvent) -> void:
 				trigger_ability(abilities[3])
 
 func _physics_process(delta: float) -> void:
+	var movement = moveNode.get_movement_input()
 	var speed : float = move_speed
-	
 	if moveNode.get_sprint():
 		speed = move_speed * 1.55
-	var movement = moveNode.get_movement_input() * speed
+	if moveType != 2 && moveType != 1 && moveType != 5:
+		if !movement == 0:
+			direction = movement
+	
 	if moveType == 5:
 		movement = 0
-	elif stunned:
-		movement = stunDir * stunDist
 	
-	if moveType != 2 && moveType != 1 && moveType != 5:
-		if moveNode.get_movement_input() != 0:
-			direction = moveNode.get_movement_input()
+	var velocityWeight : float = delta * (accel if movement else friction)
 	
 	# jump input
 	if moveNode.get_jump() && is_on_floor():
@@ -125,10 +126,14 @@ func _physics_process(delta: float) -> void:
 	velocity.y += gravity * delta
 	if velocity.y >= gravity_cap:
 		velocity.y = gravity_cap
-	velocity.x = movement
+	
+	if !stunned:
+		velocity.x = lerp(velocity.x, movement * speed, velocityWeight)
+	else:
+		velocity.x = lerp(velocity.x, stunDir * stunDist, velocityWeight)
+	
 	if moveType == 1:
-		velocity.x = 0
-		velocity.y = 0
+		velocity = Vector2.ZERO
 	move_and_slide()
 	if is_on_floor():
 		stunned = false
