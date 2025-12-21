@@ -65,29 +65,30 @@ func add_room_shape(child, offset, flip) -> void:
 	var spaceState = get_world_2d().direct_space_state
 	PhysicsServer2D.shape_set_data(shapeRid, Vector2(child.roomSize.x, child.roomSize.y))
 	PhysicsServer2D.area_set_collision_layer(areaRid, 10)
-	PhysicsServer2D.area_set_collision_mask(areaRid, 0)
+	PhysicsServer2D.area_set_collision_mask(areaRid, 10)
 	PhysicsServer2D.area_set_monitorable(areaRid, true)
 	PhysicsServer2D.area_set_space(areaRid, spaceState)
 	var shapeCenter = child.roomSize / 2
 	var shapePos : Vector2
 	
 	if flip:
-		shapePos.x += -(child.roomOffset.x + -offset.x)
+		shapePos.x = -(child.roomOffset.x + -offset.x)
 	else:
-		shapePos.x += (child.roomOffset.x + offset.x)
-	shapePos.y += (child.roomOffset.y + offset.y)
+		shapePos.x = (child.roomOffset.x + offset.x)
+	shapePos.y = child.roomOffset.y + offset.y
 	PhysicsServer2D.area_add_shape(areaRid, shapeRid, Transform2D(0, shapePos - shapeCenter))
 	var debugRect : Rect2 = Rect2(shapePos.x, shapePos.y, child.roomSize.x, child.roomSize.y)
 	
 	debugRect.position = shapePos - shapeCenter
 	
 	var shapeData = debugRect
-	roomDrawQueue.append([shapeData, Color.PURPLE])
+	#roomDrawQueue.append([shapeData, Color.PURPLE])
 	roomRIDarray.append(areaRid)
 
 func _draw() -> void:
 	for rect in roomDrawQueue:
 		draw_rect(rect[0], rect[1])
+		#breakpoint
 
 func setup_room(child, flip : bool) -> void:
 	child.roomFlipped = flip
@@ -97,14 +98,14 @@ func setup_room(child, flip : bool) -> void:
 	
 	add_room_shape(child, roomOffset, flip)
 	if flip:
-		child.position.x += -(child.roomOffset.x + -roomOffset.x)
-		child.position.y += (child.roomOffset.y + roomOffset.y)
+		child.position.x = -(child.roomOffset.x + -roomOffset.x)
+		child.position.y = (child.roomOffset.y + roomOffset.y)
 		if !child.endGen:
 			roomOffset.x = -(child.roomContObj.position.x - child.position.x)
 			roomOffset.y = (child.roomContObj.position.y + child.position.y)
 	else:
-		child.position.x += (child.roomOffset.x + roomOffset.x)
-		child.position.y += (child.roomOffset.y + roomOffset.y)
+		child.position.x = (child.roomOffset.x + roomOffset.x)
+		child.position.y = (child.roomOffset.y + roomOffset.y)
 		if !child.endGen:
 			roomOffset.x = (child.roomContObj.position.x + child.position.x)
 			roomOffset.y = (child.roomContObj.position.y + child.position.y)
@@ -123,55 +124,65 @@ func check_bounds(checking, original) -> int:
 	queryParams.shape_rid = shapeRid
 	queryParams.collision_mask = 10
 	queryParams.collide_with_areas = true
+	queryParams.collide_with_bodies = false
+	queryParams.margin = 0
 	
 	print(roomOffset)
-	checkPos.y += checking.roomOffset.y + roomOffset.y
-	if !roomDir:
-		checkPos.x += -(checking.roomOffset.x + -roomOffset.x)
+	checkPos.y = checking.roomOffset.y + roomOffset.y
+	if !tempDir:
+		checkPos.x = -(checking.roomOffset.x + -roomOffset.x)
 	else:
-		checkPos.x += (checking.roomOffset.x + roomOffset.x)
+		checkPos.x = (checking.roomOffset.x + roomOffset.x)
 	queryParams.transform.origin = checkPos - centerPoint
-	roomDrawQueue.append([Rect2(checkPos - centerPoint, checking.roomSize), Color.RED])
+	#roomDrawQueue.append([Rect2(checkPos - centerPoint, checking.roomSize), Color.RED])
 	for att in failAttempts:
 		print_rich("[rainbow][wave]" + str(att))
 		var path
 		var oldDir = tempDir
 		var results = spaceState.intersect_shape(queryParams)
-		if results:
+		if results: #INDIAN ERROR
 			for cycle in DataStore.roomPaths.size():
+				queue_redraw()
 				print(cycle)
 				checkPos = Vector2.ZERO
 				path = load(DataStore.roomPaths[cycle])
 				newRoom = cycle
 				roomInst = path.instantiate()
-				if !roomInst.startFlipping:
+				if roomInst.startFlipping:
 					tempDir = !tempDir
 				else:
 					tempDir = oldDir
 				PhysicsServer2D.shape_set_data(shapeRid, Vector2(roomInst.roomSize.x, roomInst.roomSize.y))
 				centerPoint = roomInst.roomSize / 2
-				checkPos.y += roomInst.roomOffset.y + roomOffset.y
+				checkPos.y = roomInst.roomOffset.y + roomOffset.y
 				if !tempDir:
-					checkPos.x += -(roomInst.roomOffset.x + -roomOffset.x)
+					checkPos.x = -(roomInst.roomOffset.x + -roomOffset.x)
 				else:
-					checkPos.x += (roomInst.roomOffset.x + roomOffset.x)
+					checkPos.x = (roomInst.roomOffset.x + roomOffset.x)
 				queryParams.shape_rid = shapeRid
 				queryParams.transform.origin = checkPos - centerPoint
 				roomDrawQueue.append([Rect2(checkPos - centerPoint, roomInst.roomSize), Color.INDIAN_RED])
-				results = spaceState.intersect_shape(queryParams)
+				results = spaceState.intersect_shape(queryParams, 64)
+				print(results)
 				if !results:
 					newRoom = cycle
 					## THIS IS THE LAST THORN IN MY PATH TO FREEDOM AND ENJOYMENT, PLEASE FIX THIS
-					var oldPos = Vector2.ZERO
+					#var oldPos = Vector2.ZERO
 					var tempOffset = Vector2.ZERO
 					if tempDir:
-						tempOffset += roomInst.roomContObj.position + roomOffset
+						tempOffset = roomInst.roomContObj.position + checkPos
+						print_rich("[shake]" + str(tempOffset))
 					else:
-						tempOffset.x += -(roomInst.roomContObj.position.x + -roomOffset.x)
-						tempOffset.y += roomInst.roomContObj.position.y + roomOffset.y
-					oldDir = tempDir
+						tempOffset.x = -(roomInst.roomContObj.position.x - checkPos.x)
+						tempOffset.y = roomInst.roomContObj.position.y + checkPos.y
+						print_rich("[shake]" + str(tempOffset))
+					if roomInst.startFlipping:
+						oldDir = !tempDir
+					else:
+						oldDir = tempDir
 					for idx in DataStore.roomPaths.size():
-						checkPos = oldPos
+						queue_redraw()
+						checkPos = Vector2.ZERO
 						path = load(DataStore.roomPaths[idx])
 						roomInst = path.instantiate()
 						if roomInst.startFlipping:
@@ -180,17 +191,17 @@ func check_bounds(checking, original) -> int:
 							tempDir = oldDir
 						PhysicsServer2D.shape_set_data(shapeRid, Vector2(roomInst.roomSize.x, roomInst.roomSize.y))
 						centerPoint = roomInst.roomSize / 2
-						checkPos.y += roomInst.roomOffset.y + tempOffset.y
+						checkPos.y = roomInst.roomOffset.y + tempOffset.y
 						if !tempDir:
-							checkPos.x += -(roomInst.roomOffset.x + -tempOffset.x)
+							checkPos.x = -(roomInst.roomOffset.x + -tempOffset.x)
 						else:
-							checkPos.x += (roomInst.roomOffset.x + tempOffset.x)
+							checkPos.x = (roomInst.roomOffset.x + tempOffset.x)
 						queryParams.shape_rid = shapeRid
 						queryParams.transform.origin = checkPos - centerPoint
 						results = spaceState.intersect_shape(queryParams)
 						roomDrawQueue.append([Rect2(checkPos - centerPoint, roomInst.roomSize), Color.FIREBRICK])
 						if !results:
-							return newRoom
+							return cycle
 		else:
 			return original
 	return original
