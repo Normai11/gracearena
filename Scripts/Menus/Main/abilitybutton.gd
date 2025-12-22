@@ -95,7 +95,7 @@ func _start_cooldown(duration):
 		cdDisp.visible = true
 		Cd.start(duration)
 		abFunc.onCooldown = true
-		perkBase.modulate
+		#perkBase.modulate
 		#shader.set_shader_parameter("value", -0.15)
 		#shader.set_shader_parameter("exposure", 0.60)
 	else:

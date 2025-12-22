@@ -20,6 +20,9 @@ cooldown = 20.0
 [node name="durTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="crashCheck" type="RayCast2D" parent="."]
+target_position = Vector2(25, 0)
+
 [node name="hurtbox" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 4

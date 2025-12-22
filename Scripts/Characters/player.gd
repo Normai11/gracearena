@@ -86,24 +86,20 @@ func add_abilities() -> void:
 	for item in DataStore.playerData["Passives"]:
 		var abFuncRef = load(DataStore.abilityPaths[str(int(item))])
 		var vessel = abFuncRef.instantiate()
-		var child = guiScene._refresh_perks()
+		var child = abButtonRef.instantiate()
 		passives.append(int(item))
 		
 		child.isAbility = false
 		child.inputID = int(item)
-		#child.promptID = int(abilities.size()) - 1
-		#child.hold = vessel.holdAbility
 		child.inGame = true
 		child.abFunc = vessel
-		#child.inputName = vessel.abName
-		#child._selected.connect(trigger_ability)
+		guiScene.perkPath.add_child(child)
 		
 		vessel.name = str(int(item))
 		vessel.player = self
 		vessel.abDisplay = child
 		addons.add_child(vessel)
-	if !passives.size() > 0:
-		guiScene._refresh_perks()
+	#guiScene._refresh_perks()
 
 func trigger_ability(id):
 	var target = addons.find_child(str(id), false, false)

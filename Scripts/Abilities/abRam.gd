@@ -27,12 +27,14 @@ func _physics_process(delta: float) -> void:
 		var velocityWeight : float = delta * (player.accel if player.moveNode.get_movement_input() else player.friction)
 		player.velocity.x = lerp(player.velocity.x, player.direction * currentSpeed, velocityWeight)
 		player.move_and_slide()
-		if player.is_on_wall():
+		$crashCheck.position = player.position
+		if $crashCheck.is_colliding():
 			timer.emit_signal("timeout")
 			player.velocity.y = -1300
 			player.accel = 90
 			player.friction = 20
 			player.stun(-player.direction, speedCap / 3)
+			player.move_and_slide()
 		if abilitySlot == 0:
 			if !Input.is_action_pressed("primary"):
 				cancelled = true
@@ -51,6 +53,7 @@ func _physics_process(delta: float) -> void:
 				timer.emit_signal("timeout")
 
 func _ability_activate():
+	$crashCheck.target_position.x = 25 * player.direction
 	player.friction = 1
 	player.accel = 1
 	timer.start()
