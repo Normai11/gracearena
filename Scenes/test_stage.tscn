@@ -41,8 +41,31 @@ shape = SubResource("RectangleShape2D_s221r")
 
 [node name="plat2" type="StaticBody2D" parent="."]
 position = Vector2(1067, 342)
+collision_layer = 32
+collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="plat2"]
+shape = SubResource("RectangleShape2D_k0dl8")
+one_way_collision = true
+one_way_collision_margin = 0.5
+debug_color = Color(4.33177e-07, 0.645153, 0.266197, 0.42)
+
+[node name="plat3" type="StaticBody2D" parent="."]
+position = Vector2(1067, 190)
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="plat3"]
+shape = SubResource("RectangleShape2D_k0dl8")
+one_way_collision = true
+debug_color = Color(4.33177e-07, 0.645153, 0.266197, 0.42)
+
+[node name="plat4" type="StaticBody2D" parent="."]
+position = Vector2(1683, 94)
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="plat4"]
 shape = SubResource("RectangleShape2D_k0dl8")
 one_way_collision = true
 debug_color = Color(4.33177e-07, 0.645153, 0.266197, 0.42)
@@ -57,3 +80,6 @@ direction = -1
 
 [node name="infectPatroller3" parent="." instance=ExtResource("3_s221r")]
 position = Vector2(981, 296)
+
+[node name="infectPatroller4" parent="." instance=ExtResource("3_s221r")]
+position = Vector2(1744, 52)

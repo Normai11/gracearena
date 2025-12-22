@@ -31,7 +31,8 @@ func _physics_process(_delta: float) -> void:
 		player.move_and_slide()
 		if Input.is_action_just_pressed("jump"):
 			timer.emit_signal("timeout")
-			player.velocity.y = -player.jump_force / 1.25
+			if not player.curJumps >= (player.maxJumps + player.extraJumps):
+				player.velocity.y = -player.jump_force / 1.25
 
 func side_effect() -> void:
 	var tween = get_tree().create_tween()

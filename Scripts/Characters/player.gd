@@ -16,6 +16,9 @@ var stunDist : float = 0.0
 @export var gravity_cap : float = 1500.0
 
 @export_category("Attributes")
+@export var maxJumps : int = 1
+var curJumps : int
+var extraJumps : int
 @export var accel : float = 90.0
 @export var friction : float = 20.0
 @export var max_health : float = 100.0
@@ -42,6 +45,11 @@ func _ready() -> void:
 	add_child(loadObject)
 	add_abilities()
 	guiScene.update_health()
+	
+	for child in addons.get_children():
+		if child.name != "movementComponent":
+			if child.abilityID == 4:
+				child._ability_activate()
 
 func add_abilities() -> void:
 	var injectHUD = guiScene.hudPath
@@ -75,7 +83,27 @@ func add_abilities() -> void:
 		addons.add_child(vessel)
 		#endregion
 	
-	guiScene._refresh_perks()
+	for item in DataStore.playerData["Passives"]:
+		var abFuncRef = load(DataStore.abilityPaths[str(int(item))])
+		var vessel = abFuncRef.instantiate()
+		var child = guiScene._refresh_perks()
+		passives.append(int(item))
+		
+		child.isAbility = false
+		child.inputID = int(item)
+		#child.promptID = int(abilities.size()) - 1
+		#child.hold = vessel.holdAbility
+		child.inGame = true
+		child.abFunc = vessel
+		#child.inputName = vessel.abName
+		#child._selected.connect(trigger_ability)
+		
+		vessel.name = str(int(item))
+		vessel.player = self
+		vessel.abDisplay = child
+		addons.add_child(vessel)
+	if !passives.size() > 0:
+		guiScene._refresh_perks()
 
 func trigger_ability(id):
 	var target = addons.find_child(str(id), false, false)
@@ -118,8 +146,16 @@ func _physics_process(delta: float) -> void:
 	var velocityWeight : float = delta * (accel if movement else friction)
 	
 	# jump input
-	if moveNode.get_jump() && is_on_floor():
-		velocity.y = -jump_force
+	if is_on_floor():
+		stunned = false
+		curJumps = 0
+	else:
+		if curJumps == 0:
+			curJumps += 1
+	if moveNode.get_jump(true) && !stunned:
+		if not curJumps >= (maxJumps + extraJumps):
+			velocity.y = -jump_force
+			curJumps += 1
 	if (!moveNode.get_jump() && !is_on_floor()) or velocity.y >= 0:
 		velocity.y = lerp(velocity.y, gravity, 0.02)
 	
@@ -135,8 +171,6 @@ func _physics_process(delta: float) -> void:
 	if moveType == 1:
 		velocity = Vector2.ZERO
 	move_and_slide()
-	if is_on_floor():
-		stunned = false
 
 func _process(_delta: float) -> void:
 	if iFrames != 0:
@@ -151,8 +185,13 @@ func _process(_delta: float) -> void:
 		health = max_health
 
 func damage_by(amt, _dir):
-	health -= amt
+	if passives.has(3):
+		var target = addons.find_child(str(3), false, false)
+		if !target._check_cooldown():
+			trigger_ability(3)
+			return
 	iFrames = iFrameMax
+	health -= amt
 	guiScene.update_health()
 	velocity.y = -500
 

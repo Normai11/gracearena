@@ -16,6 +16,7 @@ cooldown = 0.85
 endlag = -0.1
 
 [node name="durTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="hurtbox" type="Area2D" parent="."]
 collision_layer = 8

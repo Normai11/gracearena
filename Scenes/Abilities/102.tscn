@@ -12,3 +12,4 @@ duration = 0.4
 cooldown = 17.0
 
 [node name="durTimer" type="Timer" parent="."]
+one_shot = true

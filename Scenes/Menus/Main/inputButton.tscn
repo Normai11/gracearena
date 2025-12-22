@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c1oyluiows8tj"]
+[gd_scene load_steps=3 format=3 uid="uid://c1oyluiows8tj"]
 
 [ext_resource type="Script" uid="uid://2dl0yrre4lqq" path="res://Scripts/Menus/Main/abilitybutton.gd" id="1_eqe06"]
 [ext_resource type="Texture2D" uid="uid://nijf1v28d5le" path="res://Sprites/Abilities/holderOfPlaces.png" id="2_eqe06"]
-[ext_resource type="Texture2D" uid="uid://ci66wasthns6d" path="res://Sprites/Abilities/ab2.png" id="4_c76al"]
 
 [node name="inputButton" type="Control"]
 custom_minimum_size = Vector2(100, 100)
@@ -17,6 +16,7 @@ grow_vertical = 2
 script = ExtResource("1_eqe06")
 
 [node name="cdTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="Ability" type="Control" parent="."]
 anchors_preset = 0
@@ -103,7 +103,7 @@ offset_right = 56.0
 offset_bottom = 56.0
 rotation = 0.785398
 pivot_offset = Vector2(32, 32)
-texture = ExtResource("4_c76al")
+texture = ExtResource("2_eqe06")
 expand_mode = 1
 
 [node name="perkCooldown" type="RichTextLabel" parent="Perk"]
@@ -111,6 +111,8 @@ z_index = 1
 layout_mode = 0
 offset_right = 48.0
 offset_bottom = 48.0
+rotation = 0.785398
+pivot_offset = Vector2(24, 24)
 theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 text = "100"

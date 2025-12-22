@@ -93,6 +93,7 @@ quarternary={
 2d_physics/layer_3="Damaged Enemy"
 2d_physics/layer_4="Hurt Player"
 2d_physics/layer_5="Hurt Enemy"
+2d_physics/layer_6="Semisolid"
 
 [physics]
 

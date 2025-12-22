@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://tkh445abjoxd"]
+
+[ext_resource type="Script" uid="uid://bmhukbl5jikj2" path="res://Scripts/Abilities/Perks/perkLight.gd" id="1_xatpu"]
+
+[node name="Light" type="Node"]
+script = ExtResource("1_xatpu")
+abilityID = 4

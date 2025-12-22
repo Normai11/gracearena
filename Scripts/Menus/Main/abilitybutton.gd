@@ -29,6 +29,7 @@ func _ready() -> void:
 	var path = "res://Sprites/Abilities/ab" + str(int(inputID)) + ".png"
 	if FileAccess.file_exists(path):
 		abButton.get_child(0).texture = load(path)
+		perkBase.get_child(0).texture = load(path)
 	
 	if isAbility:
 		if inGame:
@@ -55,6 +56,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	cdDisp.text = str(snapped(Cd.time_left, 0.1))
+	perkCd.text = str(snapped(Cd.time_left, 1))
 	if inGame:
 		$".".modulate.a = DataStore.settings["guiTrans"]
 
@@ -88,17 +90,24 @@ func _abButton_unfocused() -> void:
 
 func _start_cooldown(duration):
 	var shader = $Ability/abButton/Image.material
-	abButton.disabled = true
-	cdDisp.visible = true
-	Cd.start(duration)
-	abFunc.onCooldown = true
-	#shader.set_shader_parameter("value", -0.15)
-	#shader.set_shader_parameter("exposure", 0.60)
+	if isAbility:
+		abButton.disabled = true
+		cdDisp.visible = true
+		Cd.start(duration)
+		abFunc.onCooldown = true
+		perkBase.modulate
+		#shader.set_shader_parameter("value", -0.15)
+		#shader.set_shader_parameter("exposure", 0.60)
+	else:
+		perkCd.visible = true
+		Cd.start(duration)
+		abFunc.onCooldown = true
 
 func _end_cooldown() -> void:
 	var shader = $Ability/abButton/Image.material
 	abButton.disabled = false
 	cdDisp.visible = false
+	perkCd.visible = false
 	abFunc.onCooldown = false
 	#shader.set_shader_parameter("value", 0.0)
 	#shader.set_shader_parameter("exposure", 0.5)

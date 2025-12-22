@@ -25,7 +25,7 @@ func update_health() -> void:
 	tween.tween_property(healthBar, "value", player.health, 0.2)
 	healthBar.get_child(0).text = str(int(player.health))
 
-func _refresh_perks() -> void:
+func _refresh_perks():
 	for item in DataStore.playerData["Passives"]:
 		var subject = perkLoad.instantiate()
 		var texturePath = "res://Sprites/Abilities/ab" + str(int(item)) + ".png"
@@ -37,3 +37,5 @@ func _refresh_perks() -> void:
 		subject.texturePath = texturePath
 		
 		perkPath.add_child(subject)
+		return subject
+	return null

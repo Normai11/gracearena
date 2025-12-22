@@ -195,8 +195,17 @@ offset_right = 971.0
 offset_bottom = 279.0
 text = "load"
 
+[node name="Button3" type="Button" parent="Interface"]
+layout_mode = 0
+offset_left = 818.0
+offset_top = 296.0
+offset_right = 931.0
+offset_bottom = 327.0
+text = "open save file"
+
 [connection signal="pressed" from="Interface/Play" to="." method="_Start_Pressed"]
 [connection signal="pressed" from="Interface/Settings" to="." method="_Settings_Pressed"]
 [connection signal="pressed" from="Interface/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="Interface/Button" to="." method="savefile"]
 [connection signal="pressed" from="Interface/Button2" to="." method="loadfile"]
+[connection signal="pressed" from="Interface/Button3" to="." method="_file_folder"]
