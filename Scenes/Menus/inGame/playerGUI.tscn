@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://61mqwnumymki"]
+[gd_scene load_steps=15 format=3 uid="uid://61mqwnumymki"]
 
 [ext_resource type="Script" uid="uid://bgrkyg5e5vy8p" path="res://Scripts/Menus/inGame/playerGUI.gd" id="1_8h1ma"]
 [ext_resource type="Texture2D" uid="uid://pnbaudg45l0u" path="res://Sprites/Menus/GUI/healthUnder.png" id="2_6g1vl"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://cipyroiff6wvk" path="res://Sprites/Menus/GUI/healthBar.png" id="3_6l8oc"]
 [ext_resource type="Texture2D" uid="uid://c0sdkkj6q8ri5" path="res://Sprites/Menus/GUI/healthOver.png" id="4_qpw34"]
 [ext_resource type="Texture2D" uid="uid://cgwhmc62rw32h" path="res://Sprites/Menus/GUI/healthDisplay.png" id="5_6l8oc"]
+[ext_resource type="Texture2D" uid="uid://c0t0cnf4kg6km" path="res://Sprites/Menus/GUI/healthDisplayArmorSegmentL.png" id="7_tnhqr"]
+[ext_resource type="Texture2D" uid="uid://dfaq11t0rrmj8" path="res://Sprites/Menus/GUI/healthDisplayArmorSegmentR.png" id="8_5g412"]
 
 [sub_resource type="Animation" id="Animation_qpw34"]
 length = 0.001
@@ -21,6 +23,66 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("armorL:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-53, -3)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("armorR:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(84, -3)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("armorL:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("armorR:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:self_modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_6l8oc"]
@@ -37,12 +99,144 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.25, 0.75, 1),
 "transitions": PackedFloat32Array(0.5, -2, 2, 0.5),
 "update": 0,
-"values": [0.0, 0.122173, -0.122173, 0.0]
+"values": [0.0, 0.0872665, -0.0872665, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_avm3h"]
+resource_name = "armorForm"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("armorL:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.2, 1),
+"update": 0,
+"values": [Vector2(-53, -3), Vector2(-5, -3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("armorR:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.2, 1),
+"update": 0,
+"values": [Vector2(84, -3), Vector2(36, -3)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("armorL:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("armorR:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(5.09824, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_e8jls"]
+resource_name = "armorBreak"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("armorL:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(0.2, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("armorR:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(0.2, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("armorL:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(0.2, 1),
+"update": 0,
+"values": [Vector2(-5, -3), Vector2(-53, -3)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("armorR:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(0.2, 1),
+"update": 0,
+"values": [Vector2(36, -3), Vector2(84, -3)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(3.86374, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7nmy6"]
 _data = {
 &"RESET": SubResource("Animation_qpw34"),
+&"armorBreak": SubResource("Animation_e8jls"),
+&"armorForm": SubResource("Animation_avm3h"),
 &"wiggle": SubResource("Animation_6l8oc")
 }
 
@@ -130,12 +324,34 @@ pivot_offset = Vector2(40, 40)
 texture = ExtResource("5_6l8oc")
 expand_mode = 1
 
+[node name="armorL" type="TextureRect" parent="HUDparent/Healthbar/Display"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = -5.0
+offset_top = -3.0
+offset_right = 44.0
+offset_bottom = 80.0
+texture = ExtResource("7_tnhqr")
+expand_mode = 1
+
+[node name="armorR" type="TextureRect" parent="HUDparent/Healthbar/Display"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 36.0
+offset_top = -3.0
+offset_right = 85.0
+offset_bottom = 80.0
+texture = ExtResource("8_5g412")
+expand_mode = 1
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="HUDparent/Healthbar/Display"]
 libraries = {
 &"": SubResource("AnimationLibrary_7nmy6")
 }
 autoplay = "wiggle"
 speed_scale = 0.5
+next/armorBreak = &"wiggle"
+blend_times = [&"armorBreak", &"wiggle", 0.1, &"wiggle", &"armorForm", 0.1]
 
 [node name="Perks" type="GridContainer" parent="HUDparent"]
 layout_mode = 1

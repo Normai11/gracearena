@@ -109,5 +109,8 @@ func _end_cooldown() -> void:
 	cdDisp.visible = false
 	perkCd.visible = false
 	abFunc.onCooldown = false
+	if inputID == 3:
+		abFunc.formShield()
+	
 	#shader.set_shader_parameter("value", 0.0)
 	#shader.set_shader_parameter("exposure", 0.5)

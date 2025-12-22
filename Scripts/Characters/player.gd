@@ -99,6 +99,9 @@ func add_abilities() -> void:
 		vessel.player = self
 		vessel.abDisplay = child
 		addons.add_child(vessel)
+		if item == 3:
+			vessel.formShield()
+		
 	#guiScene._refresh_perks()
 
 func trigger_ability(id):
