@@ -89,7 +89,7 @@ func _Load_Inventory(id):
 	if FileAccess.file_exists(texturePath):
 		buttonAb1.get_child(0).texture = load(texturePath)
 	else:
-		buttonAb0.get_child(0).texture = load("res://Sprites/Abilities/holderOfPlaces.png")
+		buttonAb1.get_child(0).texture = load("res://Sprites/Abilities/holderOfPlaces.png")
 
 func _focused_0() -> void:
 	buttonAb0.get_child(1).play("hovering")

@@ -85,21 +85,69 @@ tracks/5/keys = {
 "values": [Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_6l8oc"]
-resource_name = "wiggle"
-loop_mode = 1
-step = 0.25
+[sub_resource type="Animation" id="Animation_e8jls"]
+resource_name = "armorBreak"
+length = 0.25
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
+tracks/0/path = NodePath("armorL:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.75, 1),
-"transitions": PackedFloat32Array(0.5, -2, 2, 0.5),
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(0.2, 1),
 "update": 0,
-"values": [0.0, 0.0872665, -0.0872665, 0.0]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("armorR:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(0.2, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("armorL:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(0.2, 1),
+"update": 0,
+"values": [Vector2(-5, -3), Vector2(-53, -3)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("armorR:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(0.2, 1),
+"update": 0,
+"values": [Vector2(36, -3), Vector2(84, -3)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(3.86374, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_avm3h"]
@@ -167,69 +215,21 @@ tracks/4/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_e8jls"]
-resource_name = "armorBreak"
-length = 0.3
-step = 0.05
+[sub_resource type="Animation" id="Animation_6l8oc"]
+resource_name = "wiggle"
+loop_mode = 1
+step = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("armorL:self_modulate")
+tracks/0/path = NodePath(".:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(0.2, 1),
+"times": PackedFloat32Array(0, 0.25, 0.75, 1),
+"transitions": PackedFloat32Array(0.5, -2, 2, 0.5),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("armorR:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(0.2, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("armorL:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(0.2, 1),
-"update": 0,
-"values": [Vector2(-5, -3), Vector2(-53, -3)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("armorR:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.25),
-"transitions": PackedFloat32Array(0.2, 1),
-"update": 0,
-"values": [Vector2(36, -3), Vector2(84, -3)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath(".:self_modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.6),
-"transitions": PackedFloat32Array(3.86374, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+"values": [0.0, 0.0872665, -0.0872665, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7nmy6"]
@@ -286,10 +286,10 @@ text = "0:00"
 
 [node name="Healthbar" type="TextureProgressBar" parent="HUDparent"]
 layout_mode = 0
-offset_left = 24.0
-offset_top = 40.0
-offset_right = 354.0
-offset_bottom = 104.0
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 362.0
+offset_bottom = 96.0
 value = 50.0
 nine_patch_stretch = true
 texture_under = ExtResource("2_6g1vl")
@@ -304,10 +304,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -185.0
-offset_top = -68.0
-offset_right = -105.0
-offset_bottom = 12.0
+offset_left = -193.0
+offset_top = -60.0
+offset_right = -113.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "100"
@@ -316,10 +316,10 @@ vertical_alignment = 1
 
 [node name="Display" type="TextureRect" parent="HUDparent/Healthbar"]
 layout_mode = 0
-offset_left = -20.0
-offset_top = -36.0
-offset_right = 60.0
-offset_bottom = 44.0
+offset_left = -28.0
+offset_top = -28.0
+offset_right = 52.0
+offset_bottom = 52.0
 pivot_offset = Vector2(40, 40)
 texture = ExtResource("5_6l8oc")
 expand_mode = 1
@@ -327,9 +327,9 @@ expand_mode = 1
 [node name="armorL" type="TextureRect" parent="HUDparent/Healthbar/Display"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = -5.0
+offset_left = -53.0
 offset_top = -3.0
-offset_right = 44.0
+offset_right = -4.0
 offset_bottom = 80.0
 texture = ExtResource("7_tnhqr")
 expand_mode = 1
@@ -337,9 +337,9 @@ expand_mode = 1
 [node name="armorR" type="TextureRect" parent="HUDparent/Healthbar/Display"]
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = 36.0
+offset_left = 84.0
 offset_top = -3.0
-offset_right = 85.0
+offset_right = 133.0
 offset_bottom = 80.0
 texture = ExtResource("8_5g412")
 expand_mode = 1

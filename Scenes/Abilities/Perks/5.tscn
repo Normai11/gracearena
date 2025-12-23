@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://4cup6y7e506h"]
+
+[ext_resource type="Script" uid="uid://bkd5tx18a4v1n" path="res://Scripts/Abilities/Perks/perkPanic.gd" id="1_r53xg"]
+
+[node name="PanicAttack" type="Node"]
+script = ExtResource("1_r53xg")
+boostAmt = 225.0
+abilityID = 5
+duration = 2.0
+
+[node name="durTimer" type="Timer" parent="."]
+one_shot = true

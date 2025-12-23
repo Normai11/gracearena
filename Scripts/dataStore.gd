@@ -23,6 +23,7 @@ var timer : float = 0.00
 	"2" : "res://Scenes/Abilities/Perks/2.tscn",
 	"3" : "res://Scenes/Abilities/Perks/3.tscn",
 	"4" : "res://Scenes/Abilities/Perks/4.tscn",
+	"5" : "res://Scenes/Abilities/Perks/5.tscn",
 	"100" : "res://Scenes/Abilities/100.tscn",
 	"101" : "res://Scenes/Abilities/101.tscn",
 	"102" : "res://Scenes/Abilities/102.tscn",

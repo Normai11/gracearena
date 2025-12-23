@@ -11,9 +11,12 @@ var guiScene
 var stunDir : int = -1
 var stunDist : float = 0.0
 @export var move_speed : float = 350.0
+@export var sprintAdditive : float = 200.0
 @export var jump_force : float = 725.0
 @export var drop_force : float = 425.0
 @export var gravity_cap : float = 1500.0
+@export var coyoteFrames : int = 6
+var coyoteframe : int
 
 @export_category("Attributes")
 @export var maxJumps : int = 1
@@ -134,7 +137,7 @@ func _physics_process(delta: float) -> void:
 	var movement = moveNode.get_movement_input()
 	var speed : float = move_speed
 	if moveNode.get_sprint():
-		speed = move_speed * 1.55
+		speed = move_speed + sprintAdditive
 	if moveType != 2 && moveType != 1 && moveType != 5:
 		if !movement == 0:
 			direction = movement
@@ -147,9 +150,11 @@ func _physics_process(delta: float) -> void:
 	# jump input
 	if is_on_floor():
 		stunned = false
+		coyoteframe = 0
 		curJumps = 0
 	else:
-		if curJumps == 0:
+		coyoteframe += 1
+		if curJumps == 0 && coyoteframe >= coyoteFrames:
 			curJumps += 1
 	if moveNode.get_jump(true) && !stunned:
 		if not curJumps >= (maxJumps + extraJumps):
@@ -189,6 +194,8 @@ func damage_by(amt, _dir):
 		if !target._check_cooldown():
 			trigger_ability(3)
 			return
+	if passives.has(5):
+		trigger_ability(5)
 	iFrames = iFrameMax
 	health -= amt
 	guiScene.update_health()

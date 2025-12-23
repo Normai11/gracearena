@@ -25,7 +25,7 @@ func _end_cooldown():
 
 func _physics_process(_delta: float) -> void:
 	if timer.time_left > 0:
-		player.iFrames = 2
+		player.iFrames += 1
 		player.velocity.x = player.direction * dashSpeed
 		player.velocity.y = 0
 		player.move_and_slide()

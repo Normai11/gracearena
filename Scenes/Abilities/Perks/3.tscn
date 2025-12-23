@@ -5,4 +5,4 @@
 [node name="Shield" type="Node"]
 script = ExtResource("1_qrh5x")
 abilityID = 3
-cooldown = 45.0
+cooldown = 30.0
