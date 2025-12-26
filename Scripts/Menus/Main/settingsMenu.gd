@@ -36,3 +36,13 @@ func _Return() -> void:
 		switchMenu(0)
 	else:
 		queue_free()
+
+func savefile() -> void:
+	Global._Save_Data()
+
+func loadfile() -> void:
+	Global._Load_Data()
+
+func _file_folder() -> void:
+	var folderPath = ProjectSettings.globalize_path(Global.savedataPath)
+	OS.shell_open(folderPath)

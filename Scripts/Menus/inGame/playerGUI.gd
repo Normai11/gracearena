@@ -10,8 +10,11 @@ extends CanvasLayer
 var tween : Tween
 
 func _process(_delta: float) -> void:
-	$HUDparent/timerplaceholder/display.text = str(snapped(DataStore.timer, 0.01))
 	$HUDparent.modulate.a = DataStore.settings["guiTrans"]
+	#TIMER
+	var minutes = int(DataStore.timer / 60)
+	var seconds = DataStore.timer - minutes * 60
+	$HUDparent/timerplaceholder/display.text = '%02d:%02d' % [minutes, seconds]
 
 func _ready() -> void:
 	healthBar.max_value = player.max_health
@@ -30,6 +33,14 @@ func shield_anim(form : bool = true) -> void:
 		$HUDparent/Healthbar/Display/AnimationPlayer.play("armorForm")
 	else:
 		$HUDparent/Healthbar/Display/AnimationPlayer.play("armorBreak")
+
+func show_prompt(active : bool = true):
+	if active:
+		$HUDparent/prompt.visible = true
+		$HUDparent/prompt/loop.play("loop")
+	else:
+		$HUDparent/prompt.visible = false
+		$HUDparent/prompt/loop.stop()
 
 #func _refresh_perks():
 	#for item in DataStore.playerData["Passives"]:

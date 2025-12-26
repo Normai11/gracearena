@@ -1,4 +1,8 @@
+## Script that handles basic ability traits.
+##
+## Abilities must inherit from this script to work properly, as this template also determines ability durations, cooldowns, and GUI configuration.
 class_name abilityTemp
+
 extends Node
 
 enum funcType {
@@ -11,20 +15,20 @@ enum funcType {
 }
 
 @export_category("Identity")
-@export var abName : String
-@export var player : CharacterBody2D
-@export var abDisplay : Control
-@export var abilityID : int
-@export var function = funcType.CONTINUE
+@export var abName : String ## The name that will be displayed for the ability.
+@export var player : CharacterBody2D ## Player node. Is set automatically when added to the player.
+@export var abDisplay : Control ## The GUI node that displays information about this ability.
+@export var abilityID : int ## The ability's ID according to its file path/name.
+@export var function = funcType.CONTINUE ## Player's movement setting upon this ability's activation.
 var abilitySlot : int
 
 @export_category("Ability")
-@export var holdAbility : bool = false
-@export var onCooldown : bool
-@export var dmg : float
-@export var duration : float
-@export var cooldown : float
-@export var endlag : float
+@export var holdAbility : bool = false ## If true, this ability keybind must be held in order to function.
+@export var onCooldown : bool ## If true, this ability will not be able to be used until the cooldown is off.
+@export var dmg : float ## The amount of damage the ability inflicts on enemies if the ability has a hitbox.
+@export var duration : float ## The ability's lifespan.
+@export var cooldown : float ## The amount of time the ability must wait before being used again.
+@export var endlag : float ## The amount of time the player must wait before using another ability.
 
 func _ready() -> void:
 	print("Loaded!")

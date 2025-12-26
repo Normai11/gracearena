@@ -98,6 +98,30 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="DEBUGsave" type="Button" parent="catGame"]
+layout_mode = 1
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 121.0
+offset_bottom = 39.0
+text = "c/s file"
+
+[node name="DEBUGload" type="Button" parent="catGame"]
+layout_mode = 1
+offset_left = 128.0
+offset_top = 8.0
+offset_right = 241.0
+offset_bottom = 39.0
+text = "load"
+
+[node name="DEBUGopen" type="Button" parent="catGame"]
+layout_mode = 1
+offset_left = 248.0
+offset_top = 8.0
+offset_right = 363.0
+offset_bottom = 39.0
+text = "open save file"
+
 [node name="guiTransSlider" type="HSlider" parent="catGame"]
 layout_mode = 1
 anchors_preset = 4
@@ -173,4 +197,7 @@ text = "BACK"
 autowrap_mode = 1
 
 [connection signal="pressed" from="Categories/catGame" to="." method="_Game_Open"]
+[connection signal="pressed" from="catGame/DEBUGsave" to="." method="savefile"]
+[connection signal="pressed" from="catGame/DEBUGload" to="." method="loadfile"]
+[connection signal="pressed" from="catGame/DEBUGopen" to="." method="_file_folder"]
 [connection signal="pressed" from="back" to="." method="_Return"]

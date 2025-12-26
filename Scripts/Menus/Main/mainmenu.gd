@@ -30,17 +30,6 @@ func _on_credits_pressed() -> void:
 	Global.loadfinishPath = "res://Scenes/Menus/Credits/creditMenu.tscn"
 	get_tree().change_scene_to_packed(loadingPath)
 
-
-func savefile() -> void:
-	Global._Save_Data()
-
-func loadfile() -> void:
-	Global._Load_Data()
-
-func _file_folder() -> void:
-	var folderPath = ProjectSettings.globalize_path(Global.savedataPath)
-	OS.shell_open(folderPath)
-
 func _Settings_Pressed() -> void:
 	var sceneRun = menuSettings.instantiate()
 	$Interface.add_child(sceneRun)

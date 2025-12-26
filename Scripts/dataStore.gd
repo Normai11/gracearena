@@ -1,6 +1,8 @@
 extends Node
 
 var timer : float = 0.00
+var timerActive : bool = false
+var timerJustActive : bool = false
 
 @export var settings = {
 	"guiTrans" : 1

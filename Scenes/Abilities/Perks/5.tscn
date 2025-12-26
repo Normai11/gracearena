@@ -4,7 +4,7 @@
 
 [node name="PanicAttack" type="Node"]
 script = ExtResource("1_r53xg")
-boostAmt = 225.0
+boostAmt = 150.0
 abilityID = 5
 duration = 2.0
 

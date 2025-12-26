@@ -83,6 +83,7 @@ func body_check(body: Node) -> void:
 			player.accel = 90
 			player.friction = 20
 			player.stun(-player.direction, speedCap / 3)
+			player.move_and_slide()
 
 func side_effect() -> void:
 	if 1 == 1:

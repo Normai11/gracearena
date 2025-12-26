@@ -43,6 +43,30 @@ offset_bottom = 40.0
 step = 1.0
 rounded = true
 
+[node name="settings" type="Button" parent="."]
+z_index = 5
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -117.0
+offset_top = 129.0
+offset_bottom = 160.0
+grow_horizontal = 0
+text = "Open Settings"
+
+[node name="main" type="Button" parent="."]
+z_index = 5
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -141.0
+offset_top = 161.0
+offset_bottom = 192.0
+grow_horizontal = 0
+text = "Go to Main Menu"
+
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 1
@@ -57,3 +81,5 @@ horizontal_alignment = 1
 
 [connection signal="pressed" from="reload" to="." method="_on_reload_pressed"]
 [connection signal="pressed" from="recover" to="." method="heal"]
+[connection signal="pressed" from="settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="main" to="." method="_on_main_pressed"]

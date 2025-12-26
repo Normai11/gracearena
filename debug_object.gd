@@ -36,3 +36,13 @@ func _on_reload_pressed() -> void:
 func heal() -> void:
 	parentRef.player.health += $recover/HScrollBar.value
 	parentRef.update_health()
+
+func _on_settings_pressed() -> void:
+	var scene = load("res://Scenes/Menus/Main/settingsMenu.tscn")
+	var child = scene.instantiate()
+	parentRef.add_child(child)
+
+func _on_main_pressed() -> void:
+	var loadingPath = load("res://Scenes/Menus/loadingScreen.tscn")
+	Global.loadfinishPath = "res://Scenes/Menus/Main/MainMenu.tscn"
+	get_tree().change_scene_to_packed(loadingPath)

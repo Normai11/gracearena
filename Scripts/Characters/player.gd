@@ -1,6 +1,7 @@
 class_name Player
 extends CharacterBody2D
 
+@onready var interactArea = $interactionArea
 var abButtonRef = preload("res://Scenes/Menus/Main/inputButton.tscn")
 
 @export var loadGuiScene : PackedScene
@@ -48,6 +49,7 @@ func _ready() -> void:
 	add_child(loadObject)
 	add_abilities()
 	guiScene.update_health()
+	guiScene.show_prompt(false)
 	
 	for child in addons.get_children():
 		if child.name != "movementComponent":
@@ -141,6 +143,10 @@ func _physics_process(delta: float) -> void:
 	if moveType != 2 && moveType != 1 && moveType != 5:
 		if !movement == 0:
 			direction = movement
+	if direction == 1:
+		interactArea.rotation_degrees = 0
+	else:
+		interactArea.rotation_degrees = 180
 	
 	if moveType == 5:
 		movement = 0
@@ -175,6 +181,8 @@ func _physics_process(delta: float) -> void:
 	if moveType == 1:
 		velocity = Vector2.ZERO
 	move_and_slide()
+	
+	check_interaction()
 
 func _process(_delta: float) -> void:
 	if iFrames != 0:
@@ -205,3 +213,15 @@ func stun(dir, dist):
 	stunned = true
 	stunDir = dir
 	stunDist = dist
+
+func check_interaction() -> void:
+	if interactArea.is_colliding():
+		var target = interactArea.get_collider()
+		if target.monitorable:
+			guiScene.show_prompt()
+			if Input.is_action_just_pressed("interact"):
+				target.get_parent()._interacted()
+		else:
+			guiScene.show_prompt(false)
+	else:
+		guiScene.show_prompt(false)

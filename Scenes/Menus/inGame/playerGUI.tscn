@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://61mqwnumymki"]
+[gd_scene load_steps=19 format=3 uid="uid://61mqwnumymki"]
 
 [ext_resource type="Script" uid="uid://bgrkyg5e5vy8p" path="res://Scripts/Menus/inGame/playerGUI.gd" id="1_8h1ma"]
 [ext_resource type="Texture2D" uid="uid://pnbaudg45l0u" path="res://Sprites/Menus/GUI/healthUnder.png" id="2_6g1vl"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cgwhmc62rw32h" path="res://Sprites/Menus/GUI/healthDisplay.png" id="5_6l8oc"]
 [ext_resource type="Texture2D" uid="uid://c0t0cnf4kg6km" path="res://Sprites/Menus/GUI/healthDisplayArmorSegmentL.png" id="7_tnhqr"]
 [ext_resource type="Texture2D" uid="uid://dfaq11t0rrmj8" path="res://Sprites/Menus/GUI/healthDisplayArmorSegmentR.png" id="8_5g412"]
+[ext_resource type="Texture2D" uid="uid://1luk1wxk4l12" path="res://Sprites/Menus/GUI/interactPrompt.png" id="9_5g412"]
 
 [sub_resource type="Animation" id="Animation_qpw34"]
 length = 0.001
@@ -240,6 +241,44 @@ _data = {
 &"wiggle": SubResource("Animation_6l8oc")
 }
 
+[sub_resource type="Animation" id="Animation_cqrjx"]
+resource_name = "loop"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_khnq4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_utp2y"]
+_data = {
+&"RESET": SubResource("Animation_khnq4"),
+&"loop": SubResource("Animation_cqrjx")
+}
+
 [node name="GUI" type="CanvasLayer"]
 script = ExtResource("1_8h1ma")
 
@@ -268,6 +307,7 @@ grow_vertical = 0
 alignment = 2
 
 [node name="timerplaceholder" type="TextureRect" parent="HUDparent"]
+self_modulate = Color(0.321569, 0.321569, 0.321569, 0.509804)
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -280,8 +320,11 @@ expand_mode = 1
 
 [node name="display" type="Label" parent="HUDparent/timerplaceholder"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 64.0
+offset_top = 32.0
+offset_right = 104.0
+offset_bottom = 55.0
+scale = Vector2(2, 2)
 text = "0:00"
 
 [node name="Healthbar" type="TextureProgressBar" parent="HUDparent"]
@@ -369,6 +412,18 @@ grow_vertical = 2
 rotation = -0.785398
 pivot_offset = Vector2(50, 50)
 columns = 2
+
+[node name="prompt" type="Sprite2D" parent="HUDparent"]
+position = Vector2(600, 280)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("9_5g412")
+hframes = 2
+
+[node name="loop" type="AnimationPlayer" parent="HUDparent/prompt"]
+libraries = {
+&"": SubResource("AnimationLibrary_utp2y")
+}
+autoplay = "loop"
 
 [node name="debugObject" parent="." node_paths=PackedStringArray("parentRef") instance=ExtResource("2_qpw34")]
 z_index = 4
