@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bujahbgict8pl"]
+[gd_scene load_steps=10 format=3 uid="uid://bujahbgict8pl"]
 
 [ext_resource type="Texture2D" uid="uid://dhema3oju63sa" path="res://Sprites/Characters/Mods/placeholderLytePipe.png" id="1_ne55q"]
 [ext_resource type="Script" uid="uid://be4e02yq2emgr" path="res://Scripts/Characters/Enemies/stoplyte.gd" id="1_uiyk5"]
@@ -13,7 +13,7 @@ shader_parameter/new_color = Color(0.908854, 0.793361, 0.0875719, 1)
 
 [sub_resource type="Animation" id="Animation_ne55q"]
 resource_name = "Attack"
-length = 0.5
+length = 0.6
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -27,18 +27,30 @@ tracks/0/keys = {
 "update": 1,
 "values": [0, 1, 2, 3]
 }
-tracks/1/type = "method"
+tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("..")
+tracks/1/path = NodePath("..:isAttacking")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.5),
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.6),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"lyte_attack"
+"method": &"lyte_reset"
 }]
 }
 
@@ -56,11 +68,67 @@ tracks/0/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:isAttacking")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_n50qe"]
+resource_name = "Relax"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [3, 2, 1, 0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [Color(0.909804, 0.792157, 0.0862745, 1), 0.0],
+"method": &"shift_lyte_stage"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..:isAttacking")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_n50qe"]
 _data = {
 &"Attack": SubResource("Animation_ne55q"),
-&"RESET": SubResource("Animation_uiyk5")
+&"RESET": SubResource("Animation_uiyk5"),
+&"Relax": SubResource("Animation_n50qe")
 }
 
 [node name="Stoplyte" type="Node2D"]
@@ -92,5 +160,20 @@ hframes = 4
 libraries = {
 &"": SubResource("AnimationLibrary_n50qe")
 }
+
+[node name="debugStrike" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -66.0
+offset_top = 61.0
+offset_right = 66.0
+offset_bottom = 84.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "strikes: "
+horizontal_alignment = 1
 
 [connection signal="timeout" from="waitTimer" to="." method="_lyte_appear"]

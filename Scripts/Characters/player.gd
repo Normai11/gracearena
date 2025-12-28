@@ -196,8 +196,8 @@ func _process(_delta: float) -> void:
 	if health > max_health:
 		health = max_health
 
-func damage_by(amt, _dir, dealKnockback : bool = true):
-	if passives.has(3):
+func damage_by(amt, _dir, dealKnockback : bool = true, penetrate : bool = false):
+	if passives.has(3) && !penetrate:
 		var target = addons.find_child(str(3), false, false)
 		if !target._check_cooldown():
 			trigger_ability(3)

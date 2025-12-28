@@ -433,6 +433,4 @@ parentRef = NodePath("..")
 collisionsShow = true
 
 [node name="Stoplyte" parent="." instance=ExtResource("11_avm3h")]
-position = Vector2(600, 0)
-appearWaitMin = 2.0
-appearWaitMax = 2.0
+appearWaitRange = Vector2(2, 2)
