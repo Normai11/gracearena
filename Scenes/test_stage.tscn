@@ -45,9 +45,16 @@ position = Vector2(3116, 556)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="mainplatform4"]
 shape = SubResource("RectangleShape2D_3gk40")
 
+[node name="mainplatform6" type="StaticBody2D" parent="."]
+position = Vector2(2813, 1022)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="mainplatform6"]
+shape = SubResource("RectangleShape2D_3gk40")
+
 [node name="mainplatform5" type="StaticBody2D" parent="."]
-position = Vector2(655, 170)
+position = Vector2(655, -22)
 rotation = 1.5708
+scale = Vector2(2, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="mainplatform5"]
 shape = SubResource("RectangleShape2D_s221r")
@@ -105,6 +112,19 @@ position = Vector2(2921, 223)
 
 [node name="infectPatroller7" parent="." instance=ExtResource("3_s221r")]
 position = Vector2(3124, 433)
+
+[node name="infectPatroller8" parent="." instance=ExtResource("3_s221r")]
+position = Vector2(2391, 888)
+health = 34.0
+
+[node name="infectPatroller9" parent="." instance=ExtResource("3_s221r")]
+position = Vector2(2644, 883)
+
+[node name="infectPatroller10" parent="." instance=ExtResource("3_s221r")]
+position = Vector2(2897, 888)
+
+[node name="infectPatroller11" parent="." instance=ExtResource("3_s221r")]
+position = Vector2(3165, 893)
 
 [node name="timeDoor" parent="." instance=ExtResource("4_qm2tv")]
 position = Vector2(601, 423)

@@ -65,7 +65,7 @@ func add_abilities() -> void:
 	
 	for item in DataStore.playerData["Actives"]:
 		var child = abButtonRef.instantiate()
-		var abFuncRef = load(DataStore.abilityPaths[str(int(item))])
+		var abFuncRef = load(DataStore.abilityPaths[int(item)])
 		var vessel = abFuncRef.instantiate()
 		abilities.append(int(item))
 		
@@ -89,7 +89,7 @@ func add_abilities() -> void:
 		#endregion
 	
 	for item in DataStore.playerData["Passives"]:
-		var abFuncRef = load(DataStore.abilityPaths[str(int(item))])
+		var abFuncRef = load(DataStore.abilityPaths[int(item)])
 		var vessel = abFuncRef.instantiate()
 		var child = abButtonRef.instantiate()
 		passives.append(int(item))
@@ -122,7 +122,7 @@ func _end_lag() -> void:
 	onLag = false
 
 func _input(_event: InputEvent) -> void:
-	if !onLag:
+	if !onLag && !stunned:
 		if Input.is_action_just_pressed("primary"):
 			trigger_ability(abilities[0])
 		if Input.is_action_just_pressed("secondary"):

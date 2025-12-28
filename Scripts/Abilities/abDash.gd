@@ -19,6 +19,7 @@ func _ability_activate():
 	_end_cooldown()
 
 func _end_cooldown():
+	#player.coyoteframe = 0
 	player.moveType = funcType.CONTINUE
 	side_effect()
 	timer.stop()

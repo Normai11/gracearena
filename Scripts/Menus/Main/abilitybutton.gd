@@ -22,8 +22,19 @@ var tween : Tween
 var inputName : String = "Placeholder"
 var promptID : int = 0
 var hold : bool = false
+var altPath : String = ""
 
 var promptkeybind : Array = ["Z", "X", "C", "A"]
+
+func refresh_texture() -> void:
+	var path = "res://Sprites/Abilities/ab" + str(int(inputID)) + ".png"
+	if FileAccess.file_exists(path):
+		abButton.get_child(0).texture = load(path)
+		perkBase.get_child(0).texture = load(path)
+	if altPath != "":
+		if FileAccess.file_exists(altPath):
+			abButton.get_child(0).texture = load(altPath)
+			perkBase.get_child(0).texture = load(altPath)
 
 func _ready() -> void:
 	var path = "res://Sprites/Abilities/ab" + str(int(inputID)) + ".png"

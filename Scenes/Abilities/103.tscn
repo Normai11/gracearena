@@ -7,7 +7,7 @@ size = Vector2(120, 80)
 
 [node name="Ram" type="Node"]
 script = ExtResource("1_rbi0k")
-speedCap = 1300.0
+speedCap = 2300.0
 ramPierce = 3
 abName = "Ram"
 abilityID = 103

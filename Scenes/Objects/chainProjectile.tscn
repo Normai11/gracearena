@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2ve5tlae2hub"]
+
+[ext_resource type="Script" uid="uid://d31hp2vn54vf6" path="res://Scripts/Objects/chainProjectile.gd" id="1_4xbvy"]
+[ext_resource type="Texture2D" uid="uid://bgcvio3c5ygos" path="res://icon.svg" id="1_n1fy8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4xbvy"]
+radius = 22.5
+
+[node name="chainProjectile" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_4xbvy")
+maxHit = -1
+
+[node name="Sprite" type="TextureRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.0
+offset_top = -23.0
+offset_right = 23.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_n1fy8")
+expand_mode = 1
+
+[node name="collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4xbvy")
+
+[node name="killzone" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="shape" type="CollisionShape2D" parent="killzone"]
+shape = SubResource("CircleShape2D_4xbvy")
+
+[connection signal="body_entered" from="killzone" to="." method="_killzone_detect"]

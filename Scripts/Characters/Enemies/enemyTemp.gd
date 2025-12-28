@@ -1,5 +1,6 @@
 class_name Enemy
 extends Node
+signal unchained
 
 @export_category("Identity")
 @export var bodyRef : CharacterBody2D
@@ -12,4 +13,5 @@ extends Node
 @export var dmg : float = 12.0
 @export var direction : int = 1
 
+var isReeling : bool = false
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")

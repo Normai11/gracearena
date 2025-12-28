@@ -4,7 +4,7 @@ enum States {
 	MOVING,
 	TURNING,
 	STUNNED,
-	HIT
+	HIT,
 }
 
 @onready var edge = $edgeDetect
@@ -15,8 +15,40 @@ enum States {
 
 var tween : Tween
 var state = States.MOVING
+var distFrame : float = 0.0
+var reelPos : float = 0.0
+
+func reeling(position : Vector2, duration : float) -> void:
+	isReeling = true
+	distFrame = (bodyRef.position.x - position.x) / duration
+	reelPos = position.x
 
 func _physics_process(delta: float) -> void:
+	if isReeling:
+		$Hurtbox/CollisionShape2D.disabled = true
+	else:
+		$Hurtbox/CollisionShape2D.disabled = false
+	
+	if isReeling:
+		#print(sign(distFrame))
+		if sign(distFrame) == 1:
+			if bodyRef.position.x >= reelPos:
+				bodyRef.velocity.x = -distFrame
+				bodyRef.move_and_slide()
+			else:
+				unchained.emit()
+				isReeling = false
+				queue_free()
+		else:
+			if bodyRef.position.x <= reelPos:
+				bodyRef.velocity.x = -distFrame
+				bodyRef.move_and_slide()
+			else:
+				unchained.emit()
+				isReeling = false
+				queue_free()
+		return
+	
 	if !edge.is_colliding() or wall.is_colliding() && bodyRef.is_on_floor():
 		turn(turnDur, States.TURNING, -direction)
 	if state == States.MOVING:
