@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://61mqwnumymki"]
+[gd_scene load_steps=20 format=3 uid="uid://61mqwnumymki"]
 
 [ext_resource type="Script" uid="uid://bgrkyg5e5vy8p" path="res://Scripts/Menus/inGame/playerGUI.gd" id="1_8h1ma"]
 [ext_resource type="Texture2D" uid="uid://pnbaudg45l0u" path="res://Sprites/Menus/GUI/healthUnder.png" id="2_6g1vl"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://c0t0cnf4kg6km" path="res://Sprites/Menus/GUI/healthDisplayArmorSegmentL.png" id="7_tnhqr"]
 [ext_resource type="Texture2D" uid="uid://dfaq11t0rrmj8" path="res://Sprites/Menus/GUI/healthDisplayArmorSegmentR.png" id="8_5g412"]
 [ext_resource type="Texture2D" uid="uid://1luk1wxk4l12" path="res://Sprites/Menus/GUI/interactPrompt.png" id="9_5g412"]
+[ext_resource type="PackedScene" uid="uid://bujahbgict8pl" path="res://Scenes/Characters/Mods/stoplyte.tscn" id="11_avm3h"]
 
 [sub_resource type="Animation" id="Animation_qpw34"]
 length = 0.001
@@ -328,6 +329,7 @@ scale = Vector2(2, 2)
 text = "0:00"
 
 [node name="Healthbar" type="TextureProgressBar" parent="HUDparent"]
+top_level = true
 layout_mode = 0
 offset_left = 32.0
 offset_top = 32.0
@@ -429,3 +431,8 @@ autoplay = "loop"
 z_index = 4
 parentRef = NodePath("..")
 collisionsShow = true
+
+[node name="Stoplyte" parent="." instance=ExtResource("11_avm3h")]
+position = Vector2(600, 0)
+appearWaitMin = 2.0
+appearWaitMax = 2.0

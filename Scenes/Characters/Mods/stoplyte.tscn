@@ -1,0 +1,96 @@
+[gd_scene load_steps=9 format=3 uid="uid://bujahbgict8pl"]
+
+[ext_resource type="Texture2D" uid="uid://dhema3oju63sa" path="res://Sprites/Characters/Mods/placeholderLytePipe.png" id="1_ne55q"]
+[ext_resource type="Script" uid="uid://be4e02yq2emgr" path="res://Scripts/Characters/Enemies/stoplyte.gd" id="1_uiyk5"]
+[ext_resource type="Texture2D" uid="uid://rhfwwajqy1y8" path="res://Sprites/Characters/Mods/placeholderLyteSpritesheet.png" id="2_uiyk5"]
+[ext_resource type="Shader" uid="uid://cnemjkbltaloe" path="res://Sprites/Shaders/colorSwap.gdshader" id="3_n50qe"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d5y62"]
+shader = ExtResource("3_n50qe")
+shader_parameter/tolerance = 0.45
+shader_parameter/prev_color = Color(0.741176, 0.133333, 0.101961, 1)
+shader_parameter/new_color = Color(0.908854, 0.793361, 0.0875719, 1)
+
+[sub_resource type="Animation" id="Animation_ne55q"]
+resource_name = "Attack"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"lyte_attack"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_uiyk5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n50qe"]
+_data = {
+&"Attack": SubResource("Animation_ne55q"),
+&"RESET": SubResource("Animation_uiyk5")
+}
+
+[node name="Stoplyte" type="Node2D"]
+script = ExtResource("1_uiyk5")
+forceAppear = true
+
+[node name="waitTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="intervalTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Body" type="TextureRect" parent="."]
+offset_left = -66.0
+offset_top = -448.0
+offset_right = 154.0
+offset_bottom = 212.0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_ne55q")
+stretch_mode = 1
+
+[node name="Head" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_d5y62")
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_uiyk5")
+hframes = 4
+
+[node name="Expressions" type="AnimationPlayer" parent="Head"]
+libraries = {
+&"": SubResource("AnimationLibrary_n50qe")
+}
+
+[connection signal="timeout" from="waitTimer" to="." method="_lyte_appear"]

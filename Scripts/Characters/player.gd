@@ -196,7 +196,7 @@ func _process(_delta: float) -> void:
 	if health > max_health:
 		health = max_health
 
-func damage_by(amt, _dir):
+func damage_by(amt, _dir, dealKnockback : bool = true):
 	if passives.has(3):
 		var target = addons.find_child(str(3), false, false)
 		if !target._check_cooldown():
@@ -207,7 +207,8 @@ func damage_by(amt, _dir):
 	iFrames = iFrameMax
 	health -= amt
 	guiScene.update_health()
-	velocity.y = -500
+	if dealKnockback:
+		velocity.y = -500
 
 func stun(dir, dist):
 	stunned = true

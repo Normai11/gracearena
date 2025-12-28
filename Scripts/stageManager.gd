@@ -1,6 +1,7 @@
 extends Node
 
 @export var roomgenAmt : int = 25
+@export var activeMods : Array[int] = [0]
 
 func _process(delta: float) -> void:
 	if DataStore.timerJustActive:
