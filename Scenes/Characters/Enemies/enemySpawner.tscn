@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://blpirsion1ret"]
+
+[ext_resource type="Script" uid="uid://btd0c61m0ujb3" path="res://Scripts/Characters/Enemies/enemySpawner.gd" id="1_6no2s"]
+[ext_resource type="Texture2D" uid="uid://tf1psk52qyaa" path="res://Sprites/Characters/Enemies/enemySpawner.png" id="2_qrqr4"]
+
+[node name="enemySpawner" type="Node2D"]
+script = ExtResource("1_6no2s")
+
+[node name="EnemySpawner" type="Sprite2D" parent="."]
+scale = Vector2(0.53, 0.53)
+texture = ExtResource("2_qrqr4")

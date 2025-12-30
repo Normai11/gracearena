@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://15s2ylcxyhqm"]
 
 [ext_resource type="Script" uid="uid://2dl0yrre4lqq" path="res://Scripts/Menus/Main/abilitybutton.gd" id="1_ei7xn"]
-[ext_resource type="Shader" uid="uid://bcwmir5oxi3di" path="res://Sprites/Shaders/colorOverwrite.gdshader" id="2_ala7q"]
+[ext_resource type="Shader" uid="uid://bcwmir5oxi3di" path="res://Sprites/Shaders/colorHSV.gdshader" id="2_ala7q"]
 [ext_resource type="Texture2D" uid="uid://nijf1v28d5le" path="res://Sprites/Abilities/holderOfPlaces.png" id="3_xgks6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_s60w3"]

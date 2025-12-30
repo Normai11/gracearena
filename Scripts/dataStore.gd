@@ -32,3 +32,7 @@ var timerJustActive : bool = false
 	103 : "res://Scenes/Abilities/103.tscn",
 	104 : "res://Scenes/Abilities/104.tscn"
 }
+
+@export var enemyModPaths = {
+	"Lyte" : "res://Scenes/Characters/Mods/stoplyte.tscn"
+}

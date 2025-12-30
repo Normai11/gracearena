@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://dcc6jvd4qehdq" path="res://Scenes/Characters/player.tscn" id="1_k0dl8"]
 [ext_resource type="PackedScene" uid="uid://kirlhu31xke3" path="res://Scenes/stageManager.tscn" id="1_s221r"]
-[ext_resource type="PackedScene" uid="uid://b2kdvlijym6qd" path="res://Scenes/Characters/Enemies/basicPatroller.tscn" id="3_s221r"]
 [ext_resource type="PackedScene" uid="uid://dmosm4lm85gtt" path="res://Scenes/Objects/timeDoor.tscn" id="4_qm2tv"]
+[ext_resource type="PackedScene" uid="uid://blpirsion1ret" path="res://Scenes/Characters/Enemies/enemySpawner.tscn" id="5_4hca1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gk40"]
 size = Vector2(1362, 164)
@@ -16,10 +16,62 @@ size = Vector2(270, 15)
 
 [node name="testStage" type="Node2D"]
 
-[node name="stageManager" parent="." instance=ExtResource("1_s221r")]
-
 [node name="Player" parent="." instance=ExtResource("1_k0dl8")]
 position = Vector2(131, 387)
+
+[node name="stageManager" parent="." node_paths=PackedStringArray("playerReference") instance=ExtResource("1_s221r")]
+playerReference = NodePath("../Player")
+
+[node name="enemySpawner" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
+position = Vector2(752, 441)
+injectNode = NodePath("..")
+
+[node name="enemySpawner2" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
+position = Vector2(1097, 289)
+injectNode = NodePath("..")
+
+[node name="enemySpawner3" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
+position = Vector2(1459, 611)
+injectNode = NodePath("..")
+spawnDirection = -1
+
+[node name="enemySpawner4" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
+position = Vector2(1689, 607)
+injectNode = NodePath("..")
+
+[node name="enemySpawner5" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
+position = Vector2(1625, 48)
+injectNode = NodePath("..")
+
+[node name="enemySpawner6" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
+position = Vector2(3423, 412)
+injectNode = NodePath("..")
+
+[node name="enemySpawner7" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
+position = Vector2(3266, 412)
+injectNode = NodePath("..")
+
+[node name="enemySpawner8" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
+position = Vector2(3046, 403)
+injectNode = NodePath("..")
+spawnDirection = -1
+
+[node name="enemySpawner9" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
+position = Vector2(2880, 394)
+injectNode = NodePath("..")
+spawnDirection = -1
+
+[node name="enemySpawner10" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
+position = Vector2(2415, 873)
+injectNode = NodePath("..")
+
+[node name="enemySpawner11" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
+position = Vector2(3020, 879)
+injectNode = NodePath("..")
+spawnDirection = -1
+
+[node name="timeDoor" parent="." instance=ExtResource("4_qm2tv")]
+position = Vector2(601, 423)
 
 [node name="mainplatform" type="StaticBody2D" parent="."]
 position = Vector2(579, 566)
@@ -89,42 +141,3 @@ collision_mask = 32
 shape = SubResource("RectangleShape2D_k0dl8")
 one_way_collision = true
 debug_color = Color(4.33177e-07, 0.645153, 0.266197, 0.42)
-
-[node name="infectPatroller" parent="." instance=ExtResource("3_s221r")]
-position = Vector2(1320, 623)
-direction = -1
-
-[node name="infectPatroller2" parent="." instance=ExtResource("3_s221r")]
-position = Vector2(1885, 381)
-direction = -1
-
-[node name="infectPatroller3" parent="." instance=ExtResource("3_s221r")]
-position = Vector2(981, 296)
-
-[node name="infectPatroller4" parent="." instance=ExtResource("3_s221r")]
-position = Vector2(1744, 52)
-
-[node name="infectPatroller5" parent="." instance=ExtResource("3_s221r")]
-position = Vector2(2621, 424)
-
-[node name="infectPatroller6" parent="." instance=ExtResource("3_s221r")]
-position = Vector2(2921, 223)
-
-[node name="infectPatroller7" parent="." instance=ExtResource("3_s221r")]
-position = Vector2(3124, 433)
-
-[node name="infectPatroller8" parent="." instance=ExtResource("3_s221r")]
-position = Vector2(2391, 888)
-health = 34.0
-
-[node name="infectPatroller9" parent="." instance=ExtResource("3_s221r")]
-position = Vector2(2644, 883)
-
-[node name="infectPatroller10" parent="." instance=ExtResource("3_s221r")]
-position = Vector2(2897, 888)
-
-[node name="infectPatroller11" parent="." instance=ExtResource("3_s221r")]
-position = Vector2(3165, 893)
-
-[node name="timeDoor" parent="." instance=ExtResource("4_qm2tv")]
-position = Vector2(601, 423)

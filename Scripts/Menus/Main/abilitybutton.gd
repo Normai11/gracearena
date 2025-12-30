@@ -42,6 +42,9 @@ func _ready() -> void:
 		abButton.get_child(0).texture = load(path)
 		perkBase.get_child(0).texture = load(path)
 	
+	#abButton.get_child(0).material = abButton.get_child(0).material.make_unique()
+	#perkBase.get_child(0).material = abButton.get_child(0).material.make_unique()
+	
 	if isAbility:
 		if inGame:
 			var infoString : String
@@ -100,22 +103,26 @@ func _abButton_unfocused() -> void:
 	tween.set_ease(Tween.EASE_OUT)
 
 func _start_cooldown(duration):
-	var shader = $Ability/abButton/Image.material
+	var shader = abButton.get_child(0).material
+	var shaderP = perkBase.get_child(0).material
 	if isAbility:
 		abButton.disabled = true
 		cdDisp.visible = true
 		Cd.start(duration)
 		abFunc.onCooldown = true
-		#perkBase.modulate
-		#shader.set_shader_parameter("value", -0.15)
-		#shader.set_shader_parameter("exposure", 0.60)
+		
+		shader.set_shader_parameter("value_mult", 0.6)
+		shader.set_shader_parameter("brightness_add", -0.1)
 	else:
 		perkCd.visible = true
 		Cd.start(duration)
 		abFunc.onCooldown = true
+		shaderP.set_shader_parameter("value_mult", 0.6)
+		shaderP.set_shader_parameter("brightness_add", -0.1)
 
 func _end_cooldown() -> void:
-	var shader = $Ability/abButton/Image.material
+	var shader = abButton.get_child(0).material
+	var shaderP = perkBase.get_child(0).material
 	abButton.disabled = false
 	cdDisp.visible = false
 	perkCd.visible = false
@@ -123,5 +130,7 @@ func _end_cooldown() -> void:
 	if inputID == 3:
 		abFunc.formShield()
 	
-	#shader.set_shader_parameter("value", 0.0)
-	#shader.set_shader_parameter("exposure", 0.5)
+	shader.set_shader_parameter("value_mult", 1.0)
+	shader.set_shader_parameter("brightness_add", 0.0)
+	shaderP.set_shader_parameter("value_mult", 1.0)
+	shaderP.set_shader_parameter("brightness_add", 0.0)

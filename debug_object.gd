@@ -5,7 +5,7 @@ extends Control
 @export var collisionsShow : bool = false
 @export var enabled : bool = true
 
-@onready var patrol = preload("res://Scenes/Characters/Enemies/basicPatroller.tscn")
+@onready var enemySpawn = preload("res://Scenes/Characters/Enemies/enemySpawner.tscn")
 
 func _ready() -> void:
 	if !enabled:
@@ -15,6 +15,9 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	$recover.text = "Heal " + str($recover/HScrollBar.value)
+	$Label0.text = "health = " + str($hp.value)
+	$Label1.text = "speed = " + str($spd.value)
+	$Label2.text = "damage = " + str($dmg.value)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
@@ -25,9 +28,17 @@ func _input(event: InputEvent) -> void:
 				visible = !visible
 
 func spawn_patrol() -> void:
-	var loadP = patrol.instantiate()
+	var loadP = enemySpawn.instantiate()
 	var cam = get_viewport().get_camera_2d()
+	
 	loadP.position = cam.get_global_mouse_position()
+	loadP.injectNode = parentRef.get_parent().get_parent()
+	loadP.enemyType = $selection.selected
+	loadP.overrideAttributes = $enable.button_pressed
+	loadP.customHealth = $hp.value
+	loadP.customSpeed = $spd.value
+	loadP.customDamage = $dmg.value
+	
 	parentRef.get_parent().get_parent().add_child(loadP)
 
 func _on_reload_pressed() -> void:

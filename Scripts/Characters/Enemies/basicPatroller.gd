@@ -1,12 +1,5 @@
 extends Enemy
 
-enum States {
-	MOVING,
-	TURNING,
-	STUNNED,
-	HIT,
-}
-
 @onready var edge = $edgeDetect
 @onready var wall = $wallDetect
 

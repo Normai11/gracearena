@@ -6,7 +6,7 @@
 size = Vector2(36, 122)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sxsni"]
-size = Vector2(100, 88)
+size = Vector2(100, 100)
 
 [node name="timeDoor" type="StaticBody2D"]
 script = ExtResource("1_sxsni")

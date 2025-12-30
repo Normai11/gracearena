@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pnbaudg45l0u"
-path="res://.godot/imported/healthUnder.png-c5d533b48cfe4372cfc91983073c5e8b.ctex"
+uid="uid://tf1psk52qyaa"
+path="res://.godot/imported/enemySpawner.png-956ecee580d4b4dfeae78fda248998ca.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Menus/GUI/healthUnder.png"
-dest_files=["res://.godot/imported/healthUnder.png-c5d533b48cfe4372cfc91983073c5e8b.ctex"]
+source_file="res://Sprites/Characters/Enemies/enemySpawner.png"
+dest_files=["res://.godot/imported/enemySpawner.png-956ecee580d4b4dfeae78fda248998ca.ctex"]
 
 [params]
 

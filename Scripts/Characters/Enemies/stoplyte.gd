@@ -31,7 +31,6 @@ func _ready() -> void:
 	if !forceAppear:
 		var waitTime = rng.randf_range(appearWaitRange.x, appearWaitRange.y)
 		timer.wait_time = waitTime
-		visible = false
 	timer.start()
 
 func _process(delta: float) -> void:
