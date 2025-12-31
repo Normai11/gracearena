@@ -27,6 +27,9 @@ health = 50.0
 dmg = 8.0
 stunTime = 0.5
 
+[node name="renderStart" type="VisibleOnScreenNotifier2D" parent="."]
+scale = Vector2(4.7, 3.2)
+
 [node name="sporeFreeze" type="Timer" parent="."]
 one_shot = true
 
@@ -67,12 +70,14 @@ debug_color = Color(1, 0.418994, 0, 0)
 
 [node name="edgeDetect" type="RayCast2D" parent="."]
 position = Vector2(24, 0)
+target_position = Vector2(0, 64)
 collision_mask = 33
 
 [node name="wallDetect" type="RayCast2D" parent="."]
 position = Vector2(0, -24)
 target_position = Vector2(23, 0)
 
+[connection signal="screen_entered" from="renderStart" to="." method="_enemy_rendered"]
 [connection signal="timeout" from="sporeFreeze" to="." method="_windup_end"]
 [connection signal="timeout" from="sporeDrag" to="." method="_drag_end"]
 [connection signal="body_entered" from="Hurtbox" to="." method="body_check"]

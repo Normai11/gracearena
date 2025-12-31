@@ -6,6 +6,7 @@ signal unchained
 @export var bodyRef : CharacterBody2D
 @export var enemyId : int
 @export var hurtBox : Area2D ## here for easy reference
+var enemyRendered : bool = false
 
 @export_category("Attributes")
 @export var moveSpeed : float = 200.0

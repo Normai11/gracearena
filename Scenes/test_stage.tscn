@@ -24,21 +24,21 @@ activeMods = ["Lyte"]
 playerReference = NodePath("../Player")
 
 [node name="enemySpawner" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
-position = Vector2(752, 441)
+position = Vector2(760, 448)
 injectNode = NodePath("..")
 
 [node name="enemySpawner2" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
-position = Vector2(2876, 192)
+position = Vector2(2876, 213)
 injectNode = NodePath("..")
 enemyType = 1
 
 [node name="enemySpawner3" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
-position = Vector2(1459, 611)
+position = Vector2(1461, 621)
 injectNode = NodePath("..")
 spawnDirection = -1
 
 [node name="enemySpawner4" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
-position = Vector2(1689, 607)
+position = Vector2(1694, 617)
 injectNode = NodePath("..")
 
 [node name="enemySpawner5" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
@@ -46,29 +46,29 @@ position = Vector2(1625, 48)
 injectNode = NodePath("..")
 
 [node name="enemySpawner6" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
-position = Vector2(3423, 412)
+position = Vector2(3427, 439)
 injectNode = NodePath("..")
 
 [node name="enemySpawner7" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
-position = Vector2(3266, 412)
+position = Vector2(3268, 439)
 injectNode = NodePath("..")
 
 [node name="enemySpawner8" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
-position = Vector2(3046, 403)
+position = Vector2(3046, 437)
 injectNode = NodePath("..")
 spawnDirection = -1
 
 [node name="enemySpawner9" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
-position = Vector2(2880, 394)
+position = Vector2(2867, 441)
 injectNode = NodePath("..")
 spawnDirection = -1
 
 [node name="enemySpawner10" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
-position = Vector2(2415, 873)
+position = Vector2(2407, 898)
 injectNode = NodePath("..")
 
 [node name="enemySpawner11" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
-position = Vector2(3020, 879)
+position = Vector2(3013, 900)
 injectNode = NodePath("..")
 spawnDirection = -1
 

@@ -25,11 +25,14 @@ var state : States = States.MOVING
 var sporePos : Vector2 = Vector2.ZERO
 
 func _ready() -> void:
+	turn(0.01, States.TURNING, startingDirection)
 	timerDrag.wait_time = sporeDrag
 	timerWind.wait_time = sporeWindup
 	timerLag.wait_time = sporeEndlag
 
 func _physics_process(delta: float) -> void:
+	if !enemyRendered:
+		return
 	if timerDrag.time_left != 0:
 		spore.position = sporePos - bodyRef.position
 	else:
@@ -128,3 +131,7 @@ func _drag_end() -> void:
 	spore.get_child(0).debug_color.a = 0
 	return_ogState()
 	timerLag.start()
+
+func _enemy_rendered() -> void:
+	enemyRendered = true
+	bodyRef.apply_floor_snap()

@@ -13,7 +13,12 @@ enum States {
 var tween : Tween
 var state : States = States.MOVING
 
+func _ready() -> void:
+	turn(0.01,States.TURNING, startingDirection)
+
 func _physics_process(delta: float) -> void:
+	if !enemyRendered:
+		return
 	if isReeling:
 		$Hurtbox/CollisionShape2D.disabled = true
 	else:
@@ -43,7 +48,6 @@ func _physics_process(delta: float) -> void:
 		turn(turnDur, States.TURNING, -direction)
 	if state == States.MOVING:
 		bodyRef.velocity.x = moveSpeed * direction
-	
 	bodyRef.velocity.y += gravity * delta
 	bodyRef.move_and_slide()
 
@@ -83,3 +87,7 @@ func turn(turnTime, endState, turnDir):
 		wall.rotation_degrees = 180
 		edge.position.x = -32
 	bodyRef.velocity.x = 0
+
+func _enemy_rendered() -> void:
+	enemyRendered = true
+	bodyRef.apply_floor_snap()
