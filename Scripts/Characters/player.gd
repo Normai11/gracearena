@@ -76,6 +76,8 @@ func add_abilities() -> void:
 		child.inGame = true
 		child.abFunc = vessel
 		child.inputName = vessel.abName
+		child.mouse_entered.connect(guiScene.show_description.bind(child))
+		child.mouse_exited.connect(guiScene.hide_description)
 		child._selected.connect(trigger_ability)
 		injectHUD.add_child(child)
 		#endregion
@@ -98,6 +100,9 @@ func add_abilities() -> void:
 		child.inputID = int(item)
 		child.inGame = true
 		child.abFunc = vessel
+		child.inputName = vessel.abName
+		child.mouse_entered.connect(guiScene.show_description.bind(child))
+		child.mouse_exited.connect(guiScene.hide_description)
 		guiScene.perkPath.add_child(child)
 		
 		vessel.name = str(int(item))

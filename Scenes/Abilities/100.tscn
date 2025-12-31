@@ -8,6 +8,7 @@ size = Vector2(74, 80)
 [node name="Punch" type="Node"]
 script = ExtResource("1_vm5yb")
 abName = "Punch"
+abDesc = "A basic melee attack. Deals 15 damage to enemies caught within your punch."
 abilityID = 100
 function = 2
 dmg = 15.0

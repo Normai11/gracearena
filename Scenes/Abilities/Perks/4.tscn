@@ -4,4 +4,6 @@
 
 [node name="Light" type="Node"]
 script = ExtResource("1_xatpu")
+abName = "Feather"
+abDesc = "This perk grants an extra jump to be used mid-air. [color=goldenrod]Can stack up to 4[/color]."
 abilityID = 4

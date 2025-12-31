@@ -5,7 +5,8 @@ var timerActive : bool = false
 var timerJustActive : bool = false
 
 @export var settings = {
-	"guiTrans" : 1
+	"guiTrans" : 1,
+	"toggleHint" : true
 }
 
 @export var playerData = {

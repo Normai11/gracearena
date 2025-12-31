@@ -160,3 +160,5 @@ vertical_alignment = 1
 [connection signal="mouse_entered" from="Ability/abButton" to="." method="_abButton_focused"]
 [connection signal="mouse_exited" from="Ability/abButton" to="." method="_abButton_unfocused"]
 [connection signal="pressed" from="Ability/abButton" to="." method="_on_abButton_pressed"]
+[connection signal="mouse_entered" from="Perk/Image" to="." method="_perk_mouse"]
+[connection signal="mouse_exited" from="Perk/Image" to="." method="_release"]

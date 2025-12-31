@@ -5,8 +5,10 @@
 [node name="PanicAttack" type="Node"]
 script = ExtResource("1_r53xg")
 boostAmt = 150.0
+abName = "Panic Attack"
+abDesc = "When you recieve damage, you will gain a [color=gold]short burst of speed[/color] that last for 1.5s."
 abilityID = 5
-duration = 2.0
+duration = 1.5
 
 [node name="durTimer" type="Timer" parent="."]
 one_shot = true

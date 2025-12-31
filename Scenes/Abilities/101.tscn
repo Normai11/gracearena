@@ -8,6 +8,7 @@ size = Vector2(126, 32)
 [node name="Kick" type="Node"]
 script = ExtResource("1_1e8pi")
 abName = "Kick"
+abDesc = "A basic melee attack. Deals 15 damage to enemies kicked."
 abilityID = 101
 function = 2
 dmg = 15.0

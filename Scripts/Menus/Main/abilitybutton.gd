@@ -7,7 +7,6 @@ signal _selected
 @export var abFunc : Node
 @export var inGame : bool = false
 @export_category("Perk")
-@export var perkFunc : Node
 var texturePath : String
 
 @onready var Cd = $cdTimer
@@ -93,6 +92,7 @@ func _abButton_focused() -> void:
 	tween.tween_property(abButton, "scale", Vector2(1.1, 1.1), 0.15)
 	tween.set_trans(Tween.TRANS_EXPO)
 	tween.set_ease(Tween.EASE_OUT)
+	mouse_entered.emit()
 
 func _abButton_unfocused() -> void:
 	if tween:
@@ -101,6 +101,7 @@ func _abButton_unfocused() -> void:
 	tween.tween_property(abButton, "scale", Vector2(1.0, 1.0), 0.2)
 	tween.set_trans(Tween.TRANS_EXPO)
 	tween.set_ease(Tween.EASE_OUT)
+	mouse_exited.emit()
 
 func _start_cooldown(duration):
 	var shader = abButton.get_child(0).material
@@ -134,3 +135,14 @@ func _end_cooldown() -> void:
 	shader.set_shader_parameter("brightness_add", 0.0)
 	shaderP.set_shader_parameter("value_mult", 1.0)
 	shaderP.set_shader_parameter("brightness_add", 0.0)
+
+func get_description() -> String:
+	var description : String
+	description = abFunc.abDesc
+	return description
+
+func _perk_mouse() -> void:
+	mouse_entered.emit()
+
+func _release() -> void:
+	mouse_exited.emit()

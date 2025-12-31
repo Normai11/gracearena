@@ -1,0 +1,79 @@
+[gd_scene load_steps=6 format=3 uid="uid://628ydpnj1nba"]
+
+[ext_resource type="Texture2D" uid="uid://bgcvio3c5ygos" path="res://icon.svg" id="1_nc1sv"]
+[ext_resource type="Script" uid="uid://dbpnh4hrl2t2q" path="res://Scripts/Characters/Enemies/enemySpore.gd" id="1_wa387"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y55gh"]
+radius = 16.0
+height = 64.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wxkm5"]
+size = Vector2(62, 101)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wa387"]
+radius = 300.12
+
+[node name="enemySpore" type="CharacterBody2D" node_paths=PackedStringArray("bodyRef", "hurtBox")]
+collision_layer = 4
+collision_mask = 33
+script = ExtResource("1_wa387")
+sporeWindup = 0.5
+sporeDrag = 2.0
+sporeEndlag = 3.0
+bodyRef = NodePath(".")
+hurtBox = NodePath("Hurtbox")
+moveSpeed = 100.0
+health = 50.0
+dmg = 8.0
+stunTime = 0.5
+
+[node name="sporeFreeze" type="Timer" parent="."]
+one_shot = true
+
+[node name="sporeDrag" type="Timer" parent="."]
+one_shot = true
+
+[node name="sporeEndlag" type="Timer" parent="."]
+one_shot = true
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_y55gh")
+
+[node name="PLACEHOLDER" type="Sprite2D" parent="."]
+modulate = Color(1, 0.462745, 0.47451, 1)
+position = Vector2(0, 8)
+scale = Vector2(0.359375, 0.359375)
+texture = ExtResource("1_nc1sv")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, -8.5)
+shape = SubResource("RectangleShape2D_wxkm5")
+debug_color = Color(0.99, 0, 0.264, 0)
+
+[node name="sporeBox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 2
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sporeBox"]
+z_index = -258
+shape = SubResource("CircleShape2D_wa387")
+debug_color = Color(1, 0.418994, 0, 0)
+
+[node name="edgeDetect" type="RayCast2D" parent="."]
+position = Vector2(24, 0)
+collision_mask = 33
+
+[node name="wallDetect" type="RayCast2D" parent="."]
+position = Vector2(0, -24)
+target_position = Vector2(23, 0)
+
+[connection signal="timeout" from="sporeFreeze" to="." method="_windup_end"]
+[connection signal="timeout" from="sporeDrag" to="." method="_drag_end"]
+[connection signal="body_entered" from="Hurtbox" to="." method="body_check"]
+[connection signal="body_entered" from="sporeBox" to="." method="body_check_spore"]

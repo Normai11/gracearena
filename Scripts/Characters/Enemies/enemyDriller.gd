@@ -5,15 +5,56 @@ enum States {
 	TURNING,
 	STUNNED,
 	HIT,
+	DIGGING,
+	DRILLING,
+	BURSTING
 }
+
+@export var timerRange : Vector2 = Vector2(1.5, 4)
+@export var drillCooldown : float = 2.5
 
 @onready var edge = $edgeDetect
 @onready var wall = $wallDetect
+@onready var drill = $drillDetect
+@onready var drillTimer = $randDrill
+@onready var cdTimer = $drillCD
 
+var playerRef : Player
 var tween : Tween
 var state : States = States.MOVING
+var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 
 func _physics_process(delta: float) -> void:
+	bodyRef.velocity.y += gravity * delta
+	
+	if state == States.DIGGING:
+		$CollisionBox.disabled = true
+		bodyRef.move_and_slide()
+		if drill.is_colliding():
+			state = States.DRILLING
+		return
+	if state == States.DRILLING:
+		$CollisionBox.disabled = true
+		bodyRef.velocity = Vector2.ZERO
+		bodyRef.position = Vector2(playerRef.position.x + (playerRef.direction * 128), playerRef.position.y + 256)
+		bodyRef.move_and_slide()
+		return
+	if state == States.BURSTING:
+		print("fucjk")
+		$CollisionBox.disabled = true
+		hurtBox.monitoring = true
+		hurtBox.monitorable = true
+		if drill.is_colliding():
+			bodyRef.velocity.y = -2
+			cdTimer.start(drillCooldown)
+		elif bodyRef.velocity.y >= 9999:
+			print("okay!")
+			state = States.MOVING
+	else:
+		hurtBox.monitoring = false
+		hurtBox.monitorable = false
+		$CollisionBox.disabled = false
+	
 	if isReeling:
 		$Hurtbox/CollisionShape2D.disabled = true
 	else:
@@ -39,12 +80,11 @@ func _physics_process(delta: float) -> void:
 				queue_free()
 		return
 	
-	if !edge.is_colliding() or wall.is_colliding() && bodyRef.is_on_floor():
+	if !edge.is_colliding() or wall.is_colliding() && bodyRef.is_on_floor() && state != States.BURSTING:
 		turn(turnDur, States.TURNING, -direction)
-	if state == States.MOVING:
+	if state == States.MOVING && bodyRef.is_on_floor():
 		bodyRef.velocity.x = moveSpeed * direction
 	
-	bodyRef.velocity.y += gravity * delta
 	bodyRef.move_and_slide()
 
 func body_check(body: Node2D) -> void:
@@ -83,3 +123,18 @@ func turn(turnTime, endState, turnDir):
 		wall.rotation_degrees = 180
 		edge.position.x = -32
 	bodyRef.velocity.x = 0
+
+func start_digging() -> void:
+	bodyRef.velocity.y = -300
+	state = States.DIGGING
+	var drillTime = rng.randf_range(timerRange.x, timerRange.y)
+	drillTimer.start(drillTime + 0.25)
+
+func _get_range(body: Node2D) -> void:
+	if body is Player && cdTimer.time_left == 0:
+		playerRef = body
+		if state <= 3:
+			start_digging()
+
+func _burst() -> void:
+	state = States.BURSTING

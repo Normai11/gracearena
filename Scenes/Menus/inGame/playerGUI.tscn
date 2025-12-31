@@ -361,6 +361,31 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="abilityInfo" type="PanelContainer" parent="HUDparent"]
+z_index = 1028
+custom_minimum_size = Vector2(264, 14)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -82.0
+offset_top = -19.5
+offset_right = 182.0
+offset_bottom = -2.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="textDisplay" type="RichTextLabel" parent="HUDparent/abilityInfo"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "Lorem ipsum dolor sit amet"
+fit_content = true
+scroll_active = false
+
 [node name="Abilities" type="HBoxContainer" parent="HUDparent"]
 z_index = 1
 layout_mode = 1
@@ -376,6 +401,23 @@ offset_bottom = -48.0
 grow_horizontal = 0
 grow_vertical = 0
 alignment = 2
+
+[node name="Perks" type="GridContainer" parent="HUDparent"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = 38.0001
+offset_right = -40.0
+offset_bottom = 138.0
+grow_horizontal = 0
+grow_vertical = 2
+rotation = -0.785398
+pivot_offset = Vector2(50, 50)
+columns = 2
 
 [node name="timerplaceholder" type="TextureRect" parent="HUDparent"]
 self_modulate = Color(0.321569, 0.321569, 0.321569, 0.509804)
@@ -399,7 +441,6 @@ scale = Vector2(2, 2)
 text = "0:00"
 
 [node name="Healthbar" type="TextureProgressBar" parent="HUDparent"]
-top_level = true
 layout_mode = 0
 offset_left = 32.0
 offset_top = 32.0
@@ -469,23 +510,6 @@ autoplay = "wiggle"
 speed_scale = 0.5
 next/armorBreak = &"wiggle"
 blend_times = [&"armorBreak", &"wiggle", 0.1, &"wiggle", &"armorForm", 0.1]
-
-[node name="Perks" type="GridContainer" parent="HUDparent"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -140.0
-offset_top = 38.0001
-offset_right = -40.0
-offset_bottom = 138.0
-grow_horizontal = 0
-grow_vertical = 2
-rotation = -0.785398
-pivot_offset = Vector2(50, 50)
-columns = 2
 
 [node name="prompt" type="Sprite2D" parent="HUDparent"]
 position = Vector2(600, 280)

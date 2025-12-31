@@ -6,10 +6,12 @@ var CurrentMenu : int = 0
 @onready var categoryGame = $catGame
 
 @onready var transSlider = $catGame/guiTransSlider
+@onready var hintToggle = $catGame/hintToggle
 
 func _ready() -> void:
 	switchMenu(0)
 	transSlider.value = DataStore.settings["guiTrans"]
+	hintToggle.button_pressed = DataStore.settings["toggleHint"]
 
 func _process(_delta: float) -> void:
 	var sliderValStr = str(int(transSlider.value * 100)) + "%"
@@ -46,3 +48,9 @@ func loadfile() -> void:
 func _file_folder() -> void:
 	var folderPath = ProjectSettings.globalize_path(Global.savedataPath)
 	OS.shell_open(folderPath)
+
+func _hintToggle_switched(toggled_on: bool) -> void:
+	if toggled_on:
+		DataStore.settings["toggleHint"] = true
+	else:
+		DataStore.settings["toggleHint"] = false

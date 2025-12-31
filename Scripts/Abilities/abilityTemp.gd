@@ -17,6 +17,8 @@ enum funcType {
 @export_category("Identity")
 ## The name that will be displayed for the ability.
 @export var abName : String 
+## idk
+@export_multiline var abDesc : String
 ## Player node. Is set automatically when added to the player.
 @export var player : CharacterBody2D 
 ## The GUI node that displays information about this ability.

@@ -6,18 +6,34 @@ extends CanvasLayer
 @onready var perkPath = $HUDparent/Perks
 @onready var healthBar = $HUDparent/Healthbar
 @onready var perkLoad = preload("res://Scenes/Menus/Main/inputButton.tscn")
+@onready var abilityInfo = $HUDparent/abilityInfo
+@onready var infoText = $HUDparent/abilityInfo/textDisplay
 
 var tween : Tween
 
+func datastore_settings_refresh() -> void:
+	if DataStore.settings["toggleHint"] == false:
+		hide_description()
+
+func _ready() -> void:
+	hide_description()
+	infoText.size = abilityInfo.custom_minimum_size
+	abilityInfo.size = abilityInfo.custom_minimum_size
+	healthBar.max_value = player.max_health
+
 func _process(_delta: float) -> void:
+	var mousePos : Vector2 = get_viewport().get_mouse_position()
+	var farEdge : Vector2 = get_window().size
+	abilityInfo.position = mousePos
+	if abilityInfo.position.x >= (farEdge.x - abilityInfo.custom_minimum_size.x):
+		abilityInfo.position.x = (farEdge.x - abilityInfo.custom_minimum_size.x)
+	if abilityInfo.position.y >= (farEdge.y - abilityInfo.size.y):
+		abilityInfo.position.y = (farEdge.y - abilityInfo.size.y)
 	$HUDparent.modulate.a = DataStore.settings["guiTrans"]
 	#TIMER
 	var minutes = int(DataStore.timer / 60)
 	var seconds = DataStore.timer - minutes * 60
 	$HUDparent/timerplaceholder/display.text = '%02d:%02d' % [minutes, seconds]
-
-func _ready() -> void:
-	healthBar.max_value = player.max_health
 
 func update_health() -> void:
 	if tween:
@@ -41,6 +57,18 @@ func show_prompt(active : bool = true):
 	else:
 		$HUDparent/prompt.visible = false
 		$HUDparent/prompt/loop.stop()
+
+func show_description(object) -> void:
+	var title = object.inputName
+	var text = object.get_description()
+	infoText.text = "[center]" + title + "[/center]" + "\n\n" + text
+	infoText.size = abilityInfo.custom_minimum_size
+	abilityInfo.size = abilityInfo.custom_minimum_size
+	if DataStore.settings["toggleHint"] == true:
+		abilityInfo.visible = true
+
+func hide_description() -> void:
+	abilityInfo.visible = false
 
 #func _refresh_perks():
 	#for item in DataStore.playerData["Passives"]:

@@ -1,10 +1,8 @@
 extends Node
 
 @export var roomgenAmt : int = 25
-@export var activeMods : Array = ["Lyte"]
+@export var activeMods : Array = []
 @export var playerReference : Player
-
-var dict = {}
 
 func _ready() -> void:
 	for mod in activeMods:

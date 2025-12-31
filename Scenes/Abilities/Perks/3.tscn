@@ -4,5 +4,7 @@
 
 [node name="Shield" type="Node"]
 script = ExtResource("1_qrh5x")
+abName = "Shield"
+abDesc = "[color=purple]Nullifies[/color] any 1 attack you recieve. If the shield is broken, it will reactivate in 30s. Breaking the shield 5 times will [color=light_coral][shake]SHATTER[/shake][/color] this perk."
 abilityID = 3
 cooldown = 30.0

@@ -1,13 +1,14 @@
 extends Node2D
 
 var enemyRef : Dictionary[int, String] = {
-	0 : "res://Scenes/Characters/Enemies/basicPatroller.tscn"
+	0 : "res://Scenes/Characters/Enemies/basicPatroller.tscn",
+	1 : "res://Scenes/Characters/Enemies/enemySpore.tscn"
 }
 
 ## The parent node the enemy will be added to.
 @export var injectNode : Node2D
 ## The enemy this node will spawn when the scene is loaded.
-@export_enum("Basic Patroller") var enemyType = 0
+@export_enum("basicPatroller", "enemySpore") var enemyType : int = 0
 ## The direction the enemy will face when loaded into the scene. -1 is left, 1 is right.
 @export_range(-1, 1, 2) var spawnDirection : int = 1
 @export_category("Custom Attributes")

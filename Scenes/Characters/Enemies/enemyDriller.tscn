@@ -1,0 +1,71 @@
+[gd_scene load_steps=6 format=3 uid="uid://bepty5nn4figq"]
+
+[ext_resource type="Texture2D" uid="uid://bgcvio3c5ygos" path="res://icon.svg" id="1_4jvdm"]
+[ext_resource type="Script" uid="uid://cy0my16m1k7ww" path="res://Scripts/Characters/Enemies/enemyDriller.gd" id="1_tq8m5"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tq8m5"]
+radius = 16.0
+height = 64.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_42vde"]
+size = Vector2(62, 34)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tq8m5"]
+size = Vector2(634, 364)
+
+[node name="enemyDriller" type="CharacterBody2D" node_paths=PackedStringArray("bodyRef", "hurtBox")]
+collision_layer = 4
+collision_mask = 33
+script = ExtResource("1_tq8m5")
+bodyRef = NodePath(".")
+hurtBox = NodePath("Hurtbox")
+
+[node name="randDrill" type="Timer" parent="."]
+one_shot = true
+
+[node name="drillCD" type="Timer" parent="."]
+one_shot = true
+
+[node name="CollisionBox" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_tq8m5")
+
+[node name="PLACEHOLDER" type="Sprite2D" parent="."]
+modulate = Color(1, 0.462745, 0.47451, 1)
+position = Vector2(0, 8)
+scale = Vector2(0.359375, 0.359375)
+texture = ExtResource("1_4jvdm")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+position = Vector2(0, -51)
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_42vde")
+debug_color = Color(0.99, 0, 0.264, 0)
+
+[node name="drillRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="drillRange"]
+shape = SubResource("RectangleShape2D_tq8m5")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="edgeDetect" type="RayCast2D" parent="."]
+position = Vector2(24, 0)
+collision_mask = 33
+
+[node name="wallDetect" type="RayCast2D" parent="."]
+position = Vector2(0, -24)
+target_position = Vector2(23, 0)
+
+[node name="drillDetect" type="RayCast2D" parent="."]
+position = Vector2(0, -24)
+target_position = Vector2(0, 53)
+hit_from_inside = true
+
+[connection signal="timeout" from="randDrill" to="." method="_burst"]
+[connection signal="body_entered" from="Hurtbox" to="." method="body_check"]
+[connection signal="body_entered" from="drillRange" to="." method="_get_range"]

@@ -20,6 +20,7 @@ size = Vector2(270, 15)
 position = Vector2(131, 387)
 
 [node name="stageManager" parent="." node_paths=PackedStringArray("playerReference") instance=ExtResource("1_s221r")]
+activeMods = ["Lyte"]
 playerReference = NodePath("../Player")
 
 [node name="enemySpawner" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
@@ -27,8 +28,9 @@ position = Vector2(752, 441)
 injectNode = NodePath("..")
 
 [node name="enemySpawner2" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
-position = Vector2(1097, 289)
+position = Vector2(2876, 192)
 injectNode = NodePath("..")
+enemyType = 1
 
 [node name="enemySpawner3" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
 position = Vector2(1459, 611)
@@ -74,7 +76,8 @@ spawnDirection = -1
 position = Vector2(601, 423)
 
 [node name="mainplatform" type="StaticBody2D" parent="."]
-position = Vector2(579, 566)
+position = Vector2(579, 730)
+scale = Vector2(1, 3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="mainplatform"]
 shape = SubResource("RectangleShape2D_3gk40")
