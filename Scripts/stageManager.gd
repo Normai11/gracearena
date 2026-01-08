@@ -3,6 +3,7 @@ extends Node
 @export var roomgenAmt : int = 25
 @export var activeMods : Array = []
 @export var playerReference : Player
+var saferoomTimer : float = 150.9
 
 func _ready() -> void:
 	for mod in activeMods:
@@ -18,7 +19,7 @@ func _process(delta: float) -> void:
 	if DataStore.timerJustActive:
 		DataStore.timerJustActive = false
 		DataStore.timerActive = true
-		$Timer.wait_time = DataStore.timer
-		$Timer.start()
+		saferoomTimer = DataStore.timer
 	if DataStore.timerActive:
-		DataStore.timer = $Timer.time_left
+		saferoomTimer -= delta
+		DataStore.timer = saferoomTimer

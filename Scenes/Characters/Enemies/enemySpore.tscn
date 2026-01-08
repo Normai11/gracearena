@@ -30,15 +30,6 @@ stunTime = 0.5
 [node name="renderStart" type="VisibleOnScreenNotifier2D" parent="."]
 scale = Vector2(4.7, 3.2)
 
-[node name="sporeFreeze" type="Timer" parent="."]
-one_shot = true
-
-[node name="sporeDrag" type="Timer" parent="."]
-one_shot = true
-
-[node name="sporeEndlag" type="Timer" parent="."]
-one_shot = true
-
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_y55gh")
 
@@ -78,7 +69,5 @@ position = Vector2(0, -24)
 target_position = Vector2(23, 0)
 
 [connection signal="screen_entered" from="renderStart" to="." method="_enemy_rendered"]
-[connection signal="timeout" from="sporeFreeze" to="." method="_windup_end"]
-[connection signal="timeout" from="sporeDrag" to="." method="_drag_end"]
 [connection signal="body_entered" from="Hurtbox" to="." method="body_check"]
 [connection signal="body_entered" from="sporeBox" to="." method="body_check_spore"]

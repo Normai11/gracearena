@@ -19,13 +19,9 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if !enemyRendered:
 		return
-	if isReeling:
-		$Hurtbox/CollisionShape2D.disabled = true
-	else:
-		$Hurtbox/CollisionShape2D.disabled = false
 	
 	if isReeling:
-		#print(sign(distFrame))
+		$Hurtbox/CollisionShape2D.disabled = true
 		if sign(distFrame) == 1:
 			if bodyRef.position.x >= reelPos:
 				bodyRef.velocity.x = -distFrame
@@ -43,8 +39,10 @@ func _physics_process(delta: float) -> void:
 				isReeling = false
 				queue_free()
 		return
+	else:
+		$Hurtbox/CollisionShape2D.disabled = false
 	
-	if !edge.is_colliding() or wall.is_colliding() && bodyRef.is_on_floor():
+	if (!edge.is_colliding() or wall.is_colliding()) && bodyRef.is_on_floor():
 		turn(turnDur, States.TURNING, -direction)
 	if state == States.MOVING:
 		bodyRef.velocity.x = moveSpeed * direction

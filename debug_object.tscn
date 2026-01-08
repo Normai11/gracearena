@@ -144,13 +144,15 @@ offset_bottom = -88.5
 grow_horizontal = 0
 grow_vertical = 2
 focus_mode = 0
-selected = 0
+selected = 1
 allow_reselect = true
-item_count = 2
-popup/item_0/text = "basicPatroller"
-popup/item_0/id = 0
-popup/item_1/text = "enemySpore"
-popup/item_1/id = 1
+item_count = 3
+popup/item_0/text = "Random"
+popup/item_0/id = 1028
+popup/item_1/text = "basicPatroller"
+popup/item_1/id = 0
+popup/item_2/text = "enemySpore"
+popup/item_2/id = 1
 
 [node name="enable" type="CheckBox" parent="."]
 layout_mode = 0

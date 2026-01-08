@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://bujahbgict8pl"]
 
 [ext_resource type="Texture2D" uid="uid://dhema3oju63sa" path="res://Sprites/Characters/Mods/placeholderLytePipe.png" id="1_ne55q"]
-[ext_resource type="Script" uid="uid://be4e02yq2emgr" path="res://Scripts/Characters/Enemies/stoplyte.gd" id="1_uiyk5"]
+[ext_resource type="Script" uid="uid://be4e02yq2emgr" path="res://Scripts/Characters/Enemies/Mods/stoplyte.gd" id="1_uiyk5"]
 [ext_resource type="Texture2D" uid="uid://rhfwwajqy1y8" path="res://Sprites/Characters/Mods/placeholderLyteSpritesheet.png" id="2_uiyk5"]
 [ext_resource type="Shader" uid="uid://cnemjkbltaloe" path="res://Sprites/Shaders/colorSwap.gdshader" id="3_n50qe"]
 

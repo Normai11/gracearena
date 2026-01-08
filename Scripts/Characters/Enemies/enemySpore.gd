@@ -16,9 +16,12 @@ enum States {
 @onready var edge = $edgeDetect
 @onready var wall = $wallDetect
 @onready var spore = $sporeBox
-@onready var timerWind = $sporeFreeze
-@onready var timerDrag = $sporeDrag
-@onready var timerLag = $sporeEndlag
+
+var timersFinished : Array[bool] = [true, true]
+var functionsStarted : Array[bool] = [true, true]
+var timerDrag : float = 0.0 # 0
+var timerLag : float = 0.0
+var timerWind : float = 0.0 # 1
 
 var tween : Tween
 var state : States = States.MOVING
@@ -26,14 +29,23 @@ var sporePos : Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	turn(0.01, States.TURNING, startingDirection)
-	timerDrag.wait_time = sporeDrag
-	timerWind.wait_time = sporeWindup
-	timerLag.wait_time = sporeEndlag
 
 func _physics_process(delta: float) -> void:
+	timerDrag -= delta
+	timerLag -= delta
+	timerWind -= delta
+	timersFinished[0] = (true if timerDrag <= 0 else false)
+	timersFinished[1] = (true if timerWind <= 0 else false)
+	if functionsStarted[0] != timersFinished[0]:
+		functionsStarted[0] = timersFinished[0]
+		_drag_end()
+	if functionsStarted[1] != timersFinished[1]:
+		functionsStarted[1] = timersFinished[1]
+		_windup_end()
+	
 	if !enemyRendered:
 		return
-	if timerDrag.time_left != 0:
+	if timerDrag > 0:
 		spore.position = sporePos - bodyRef.position
 	else:
 		spore.position = Vector2.ZERO
@@ -44,11 +56,6 @@ func _physics_process(delta: float) -> void:
 	
 	if isReeling:
 		$Hurtbox/CollisionShape2D.disabled = true
-	else:
-		$Hurtbox/CollisionShape2D.disabled = false
-	
-	if isReeling:
-		#print(sign(distFrame))
 		if sign(distFrame) == 1:
 			if bodyRef.position.x >= reelPos:
 				bodyRef.velocity.x = -distFrame
@@ -66,8 +73,10 @@ func _physics_process(delta: float) -> void:
 				isReeling = false
 				queue_free()
 		return
+	else:
+		$Hurtbox/CollisionShape2D.disabled = false
 	
-	if !edge.is_colliding() or wall.is_colliding() && bodyRef.is_on_floor():
+	if (!edge.is_colliding() or wall.is_colliding()) && bodyRef.is_on_floor():
 		turn(turnDur, States.TURNING, -direction)
 	if state == States.MOVING:
 		bodyRef.velocity.x = moveSpeed * direction
@@ -92,9 +101,9 @@ func damage_by(amt, dir):
 		return
 	turn(stunTime, States.STUNNED, -dir)
 	knockback(300 * dir)
-	if timerLag.time_left == 0:
+	if timerLag <= 0:
 		sporePos = bodyRef.position
-		timerWind.start()
+		timerWind = sporeWindup
 		state = States.RELEASING
 
 func knockback(amt):
@@ -122,15 +131,19 @@ func turn(turnTime, endState, turnDir):
 	bodyRef.velocity.x = 0
 
 func _windup_end() -> void:
+	if !functionsStarted[1]:
+		return
 	spore.monitoring = true
 	spore.get_child(0).debug_color.a = 107.0/255.0
-	timerDrag.start()
+	timerDrag = sporeDrag
 
 func _drag_end() -> void:
+	if !functionsStarted[0]:
+		return
 	spore.monitoring = false
 	spore.get_child(0).debug_color.a = 0
 	return_ogState()
-	timerLag.start()
+	timerLag = sporeEndlag
 
 func _enemy_rendered() -> void:
 	enemyRendered = true

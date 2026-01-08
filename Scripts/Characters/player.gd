@@ -201,7 +201,7 @@ func _process(_delta: float) -> void:
 	if health > max_health:
 		health = max_health
 
-func damage_by(amt, _dir, dealKnockback : bool = true, penetrate : bool = false):
+func damage_by(amt, dir, dealKnockback : bool = true, penetrate : bool = false):
 	if passives.has(3) && !penetrate:
 		var target = addons.find_child(str(3), false, false)
 		if !target._check_cooldown():
@@ -214,6 +214,7 @@ func damage_by(amt, _dir, dealKnockback : bool = true, penetrate : bool = false)
 	guiScene.update_health()
 	if dealKnockback:
 		velocity.y = -500
+		#velocity.x += dir * 25
 
 func stun(dir, dist):
 	stunned = true

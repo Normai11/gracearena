@@ -33,7 +33,7 @@ func spawn_patrol() -> void:
 	
 	loadP.position = cam.get_global_mouse_position()
 	loadP.injectNode = parentRef.get_parent().get_parent()
-	loadP.enemyType = $selection.selected
+	loadP.enemyType = $selection.get_item_id($selection.selected)
 	loadP.overrideAttributes = $enable.button_pressed
 	loadP.customHealth = $hp.value
 	loadP.customSpeed = $spd.value
