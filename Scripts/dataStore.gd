@@ -35,5 +35,6 @@ var timerJustActive : bool = false
 }
 
 @export var enemyModPaths = {
-	"Lyte" : "res://Scenes/Characters/Mods/stoplyte.tscn"
+	"Lyte" : "res://Scenes/Characters/Mods/stoplyte.tscn",
+	"skeletron" : "res://Scenes/Characters/Mods/skeletron.tscn"
 }

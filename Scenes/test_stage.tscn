@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://b04o0wf67xtf4"]
+[gd_scene load_steps=8 format=3 uid="uid://b04o0wf67xtf4"]
 
 [ext_resource type="PackedScene" uid="uid://dcc6jvd4qehdq" path="res://Scenes/Characters/player.tscn" id="1_k0dl8"]
 [ext_resource type="Script" uid="uid://cqs7q18yivgnu" path="res://Scripts/stageManager.gd" id="1_qm2tv"]
-[ext_resource type="PackedScene" uid="uid://ctqbc2q7npeep" path="res://Scenes/Characters/Mods/skeletron.tscn" id="3_4hca1"]
 [ext_resource type="PackedScene" uid="uid://dmosm4lm85gtt" path="res://Scenes/Objects/timeDoor.tscn" id="4_qm2tv"]
 [ext_resource type="PackedScene" uid="uid://blpirsion1ret" path="res://Scenes/Characters/Enemies/enemySpawner.tscn" id="5_4hca1"]
 
@@ -17,12 +16,11 @@ size = Vector2(270, 15)
 
 [node name="testStage" type="Node2D" node_paths=PackedStringArray("playerReference")]
 script = ExtResource("1_qm2tv")
+activeMods = ["Lyte", "skeletron"]
 playerReference = NodePath("Player")
 
 [node name="Player" parent="." instance=ExtResource("1_k0dl8")]
 position = Vector2(131, 387)
-
-[node name="skeletron" parent="." instance=ExtResource("3_4hca1")]
 
 [node name="enemySpawner" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
 position = Vector2(760, 448)

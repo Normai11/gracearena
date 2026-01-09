@@ -3,9 +3,12 @@ extends Node
 @export var roomgenAmt : int = 25
 @export var activeMods : Array = []
 @export var playerReference : Player
+@export var specialStage : bool = false
 var saferoomTimer : float = 150.9
 
 func _ready() -> void:
+	specialStage = false
+	
 	for mod in activeMods:
 		if DataStore.enemyModPaths.has(mod):
 			var loadPath = load(DataStore.enemyModPaths.get(mod))
@@ -13,7 +16,10 @@ func _ready() -> void:
 			
 			# extra logic here if needed
 			
-			playerReference.guiScene.call_deferred("add_child", child)
+			if mod == "Lyte":
+				playerReference.guiScene.call_deferred("add_child", child)
+			else:
+				add_child(child)
 
 func _process(delta: float) -> void:
 	if DataStore.timerJustActive:

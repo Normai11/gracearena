@@ -31,6 +31,10 @@ func _process(_delta: float) -> void:
 		abilityInfo.position.y = (farEdge.y - abilityInfo.size.y)
 	$HUDparent.modulate.a = DataStore.settings["guiTrans"]
 	#TIMER
+	if player.get_parent().specialStage:
+		$HUDparent/timerplaceholder.visible = false
+	else:
+		$HUDparent/timerplaceholder.visible = true
 	var minutes = int(DataStore.timer / 60)
 	var seconds = DataStore.timer - minutes * 60
 	$HUDparent/timerplaceholder/display.text = '%02d:%02d' % [minutes, seconds]
