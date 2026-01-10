@@ -20,6 +20,7 @@ var stunDist : float = 0.0
 var coyoteframe : int
 
 @export_category("Attributes")
+@export var invulnerable : bool = false
 @export var maxJumps : int = 1
 var curJumps : int
 var extraJumps : int
@@ -32,8 +33,8 @@ var extraJumps : int
 @export var moveType : int = 0
 @export var iFrameMax : int = 30 ## IN FRAMES!!!!!
 var iFrames : int = 0
-@export var onLag : bool = false
 
+@onready var camera = $Camera
 @onready var animations = $animations
 @onready var moveNode = $moveAddons/movementComponent
 @onready var addons = $moveAddons
@@ -41,6 +42,8 @@ var iFrames : int = 0
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction : int = 1
+var onLag : bool = false
+var evilGrabbed : bool = false
 
 func _ready() -> void:
 	var loadObject = loadGuiScene.instantiate()
@@ -202,6 +205,8 @@ func _process(_delta: float) -> void:
 		health = max_health
 
 func damage_by(amt, dir, dealKnockback : bool = true, penetrate : bool = false):
+	if invulnerable:
+		return
 	if passives.has(3) && !penetrate:
 		var target = addons.find_child(str(3), false, false)
 		if !target._check_cooldown():

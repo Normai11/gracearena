@@ -10,12 +10,17 @@ extends CanvasLayer
 @onready var infoText = $HUDparent/abilityInfo/textDisplay
 
 var tween : Tween
+var modulateTween : Tween
+var cameraTween : Tween 
 
 func datastore_settings_refresh() -> void:
 	if DataStore.settings["toggleHint"] == false:
 		hide_description()
 
 func _ready() -> void:
+	modulateTween = get_tree().create_tween()
+	modulateTween.kill()
+	
 	hide_description()
 	infoText.size = abilityInfo.custom_minimum_size
 	abilityInfo.size = abilityInfo.custom_minimum_size
@@ -29,7 +34,11 @@ func _process(_delta: float) -> void:
 		abilityInfo.position.x = (farEdge.x - abilityInfo.custom_minimum_size.x)
 	if abilityInfo.position.y >= (farEdge.y - abilityInfo.size.y):
 		abilityInfo.position.y = (farEdge.y - abilityInfo.size.y)
-	$HUDparent.modulate.a = DataStore.settings["guiTrans"]
+	
+	if !player.evilGrabbed:
+		$HUDparent.modulate.a = DataStore.settings["guiTrans"]
+		if !modulateTween.is_valid():
+			healthBar.top_level = true
 	#TIMER
 	if player.get_parent().specialStage:
 		$HUDparent/timerplaceholder.visible = false
@@ -73,6 +82,31 @@ func show_description(object) -> void:
 
 func hide_description() -> void:
 	abilityInfo.visible = false
+
+func toggle_skillcheck(value : bool) -> void:
+	if modulateTween:
+		modulateTween.kill()
+	if cameraTween:
+		cameraTween.kill()
+	modulateTween = get_tree().create_tween()
+	cameraTween = get_tree().create_tween()
+	
+	if value:
+		healthBar.top_level = true
+		
+		modulateTween.set_ease(Tween.EASE_OUT)
+		modulateTween.set_trans(Tween.TRANS_EXPO)
+		cameraTween.set_ease(Tween.EASE_OUT)
+		cameraTween.set_trans(Tween.TRANS_EXPO)
+		cameraTween.tween_property(player.camera, "zoom", Vector2(1.2,1.2), 0.5)
+		modulateTween.tween_property($HUDparent, "modulate", Color("ffffff00"), 0.6)
+	else:
+		modulateTween.set_ease(Tween.EASE_IN)
+		modulateTween.set_trans(Tween.TRANS_SINE)
+		cameraTween.set_ease(Tween.EASE_OUT)
+		cameraTween.set_trans(Tween.TRANS_EXPO)
+		cameraTween.tween_property(player.camera, "zoom", Vector2(0.7,0.7), 0.75)
+		modulateTween.tween_property($HUDparent, "modulate", Color("ffffff"), 0.5)
 
 #func _refresh_perks():
 	#for item in DataStore.playerData["Passives"]:

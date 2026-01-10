@@ -7,7 +7,7 @@ script = ExtResource("1_iimpc")
 reelLength = 350.0
 abName = "Chain Link"
 abDesc = "Sends out a chain in your direction, pulling any enemy it hits toward you.
-If an enemy is grabbed, this ability can be [color=gold]recast[/color] to throw out a projectile that deals the [color=red]max health[/color] of the enemy you reeled in."
+If an enemy is grabbed, this ability can be [color=gold]recast[/color] to throw out a projectile that converts the [color=red]current health[/color] of the enemy you reeled in to its damage output."
 abilityID = 104
 function = 1
 duration = 1.0

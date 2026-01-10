@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://ctqbc2q7npeep"]
+[gd_scene load_steps=9 format=3 uid="uid://ctqbc2q7npeep"]
 
 [ext_resource type="Texture2D" uid="uid://bgcvio3c5ygos" path="res://icon.svg" id="1_1t3qa"]
 [ext_resource type="Script" uid="uid://hadmjmgs4xbp" path="res://Scripts/Characters/Enemies/Mods/skeletron.gd" id="1_a7e2u"]
 [ext_resource type="Texture2D" uid="uid://c0sdkkj6q8ri5" path="res://Sprites/Menus/GUI/healthPercent.png" id="3_rsbit"]
 [ext_resource type="Texture2D" uid="uid://cipyroiff6wvk" path="res://Sprites/Menus/GUI/healthBar.png" id="4_pbgwr"]
+[ext_resource type="Texture2D" uid="uid://dykokniofxcl4" path="res://Sprites/Menus/GUI/skillcheckInputFill.png" id="5_3rwap"]
+[ext_resource type="Texture2D" uid="uid://pj7fnav4kks" path="res://Sprites/Menus/GUI/skillcheckInputBorder.png" id="6_7cly1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a7e2u"]
 radius = 49.2544
@@ -12,7 +14,10 @@ radius = 49.2544
 radius = 49.0102
 
 [node name="skeletron" type="CharacterBody2D"]
+collision_layer = 0
 script = ExtResource("1_a7e2u")
+startingEnrageMode = 1
+timerStart = 37.0
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_a7e2u")
@@ -90,5 +95,37 @@ grow_vertical = 2
 text = "1:15"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="SC_Input" type="TextureProgressBar" parent="HUD/Screen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 312.5
+offset_top = -199.5
+offset_right = 425.5
+offset_bottom = 167.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+pivot_offset = Vector2(56.5, 183.5)
+max_value = 15.0
+step = 0.0
+value = 7.5
+fill_mode = 7
+texture_under = ExtResource("5_3rwap")
+texture_over = ExtResource("6_7cly1")
+texture_progress = ExtResource("5_3rwap")
+tint_under = Color(0.283854, 0.113098, 0.113098, 1)
+tint_progress = Color(0.934896, 0.234523, 0.0559963, 1)
+
+[node name="inputPrompts" type="VBoxContainer" parent="HUD/Screen/SC_Input"]
+layout_mode = 1
+offset_left = -145.0
+offset_top = 30.0
+offset_right = -20.0
+offset_bottom = 422.0
 
 [connection signal="body_entered" from="Hurtbox" to="." method="body_check"]
