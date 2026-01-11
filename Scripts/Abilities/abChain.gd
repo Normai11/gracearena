@@ -18,7 +18,7 @@ func _ready() -> void:
 	timer.wait_time = duration
 	print("Loaded!")
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	chain.target_position.x = reelLength * player.direction
 	chain.position = player.position
 	if timer.time_left > 0:

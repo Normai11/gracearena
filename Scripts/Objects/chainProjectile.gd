@@ -11,7 +11,7 @@ var hits : int = 0
 func _ready() -> void:
 	position = startingPos
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	velocity.x = speed * direction
 	move_and_slide()
 	if is_on_wall():

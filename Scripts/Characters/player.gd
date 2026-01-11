@@ -204,7 +204,7 @@ func _process(_delta: float) -> void:
 	if health > max_health:
 		health = max_health
 
-func damage_by(amt, dir, dealKnockback : bool = true, penetrate : bool = false):
+func damage_by(amt, _dir, dealKnockback : bool = true, penetrate : bool = false):
 	if invulnerable:
 		return
 	if passives.has(3) && !penetrate:

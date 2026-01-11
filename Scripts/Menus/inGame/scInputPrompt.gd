@@ -7,7 +7,7 @@ var evilParent
 var disabled : bool = true
 var prompt : Vector2 = Vector2(1, 0)
 var childID : int = 0
-var endlagTimer : float = -0.1
+var endlagTimer : float = -0.05
 
 var movementTween : Tween
 var colorTween : Tween
@@ -28,6 +28,7 @@ func _ready() -> void:
 
 func enable() -> void:
 	disabled = false
+	color_shift(true)
 	movementTween = get_tree().create_tween()
 	movementTween.set_ease(Tween.EASE_OUT)
 	movementTween.set_trans(Tween.TRANS_EXPO)
@@ -35,7 +36,7 @@ func enable() -> void:
 
 func prompt_triggered() -> void:
 	disabled = true
-	evilParent.next_prompt(childID)
+	evilParent.next_prompt()
 	$AnimationPlayer.play("queue_free")
 
 func kill_tweens() -> void:
@@ -43,10 +44,15 @@ func kill_tweens() -> void:
 		movementTween.kill()
 
 func color_shift(value : bool) -> void:
-	if !value:
-		colorTween = get_tree().create_tween()
-		colorTween.set_ease(Tween.EASE_OUT)
-		colorTween.set_trans(Tween.TRANS_CUBIC)
+	if colorTween:
+		colorTween.kill()
+	colorTween = get_tree().create_tween()
+	colorTween.set_ease(Tween.EASE_OUT)
+	colorTween.set_trans(Tween.TRANS_CUBIC)
+	
+	if value:
+		colorTween.tween_property($image, "modulate", Color("fff17b"), 0.3)
+	else:
 		colorTween.tween_property($image, "modulate", Color("b70505"), 0.2)
 
 func _process(delta: float) -> void:

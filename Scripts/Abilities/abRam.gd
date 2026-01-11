@@ -103,7 +103,7 @@ func side_effect() -> void:
 		tween2.tween_property(player, "accel", 90, 0.75)
 	else:
 		pass #inflict slowness effect
-	var timer = get_tree().create_timer(0.3)
-	await timer.timeout
+	var Etimer = get_tree().create_timer(0.3)
+	await Etimer.timeout
 	player.moveType = funcType.CONTINUE
 	kills = 0

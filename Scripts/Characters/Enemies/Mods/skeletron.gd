@@ -1,36 +1,66 @@
 extends CharacterBody2D
 
+## The base states that this special enemy can be in.
+## PASSIVE: This enemy deals no damage, slows to a crawl, and only glides towards the player.
+## ENRAGED: This enemy becomes hostile, speeding towards the player in seconds. See rageModes 
+## for greater detail.
+## TRANSITION: When entering this state, this enemy will stop in place momentarily before
+## immediately entering its ENRAGED state.
 enum states {
 	PASSIVE,
 	ENRAGED,
 	TRANSITION
 }
 
+## The rage states that determine what this enemy will do when attacking the player while ENRAGED.
+## HARM: This enemy charges into the player, being knocked back and dealing the base damage.
+## SKILLCHECK_INPUT: This enemy grabs the player, holding both of them in place while a minigame
+## appears on-screen. Arrow keys will appear, having to press a certain amount before the player
+## breaks free.
+## SKILLCHECK_CIRCLE: This state has not been developed yet.
 enum rageModes {
 	HARM,
 	SC_INPUT,
 	SC_CIRCLE
 }
 
+## Base damage for this special enemy. May have multipliers applied for certain rage modes.
 @export var damage : float = 30.5
+## The multiplier for the knockback this enemy recieves when HARM rage mode is active.
 @export var damageKnockbackMult : float = 2.5
+## Base speed for this enemy when its state is PASSIVE.
 @export var defaultSpeed : float = 105.2
+## Max speed for this enemy when its state is ENRAGED.
 @export var enragedSpeedCap : float = 1325.2
+## Acceleration value for when this enemy is PASSIVE.
 @export var acceleration : float = 4.5
+## Acceleration value for when this enemy is ENRAGED.
 @export var enragedAccel : float = 2.0
+## The length in seconds for when this enemy becomes ENRAGED.
 @export var transDuration : float = 1.25
 @export_category("Spawn")
+## If true, this enemy will have its timer set to 0, immediately causing it to burst into its ENRAGED state.
 @export var forceEnraged : bool = false
+## The state this enemy will be in when added to the scene tree. 
 @export var startingState = states.PASSIVE
+## The state this enemy will be in when entering ENRAGED for the first time. After becoming passive again,
+## the rage mode will be randomized.
 @export var startingEnrageMode = rageModes.HARM
+## The maximum value the timer can reach.
 @export var timerCap : float = 75.9
+## The value the timer will start at when the saferoom door is open.
 @export var timerStart : float = 30.9
+## The maximum amount of inputs (not including skillcheck drain and misses) required to drop the
+## player out of being grabbed.
+@export var skillcheckInputMax : float = 15.0
+## The amount of hits this enemy will inflict before becoming PASSIVE again.
 @export var hitMax : int = 3
 
 @onready var hurtBox : Area2D = $Hurtbox
 @onready var timeBar : TextureProgressBar = $HUD/Screen/TIMER
 @onready var timeLabel : Label = $HUD/Screen/TIMER/Time
 @onready var inputSC : TextureProgressBar = $HUD/Screen/SC_Input
+@onready var inputPrompts : VBoxContainer = $HUD/Screen/SC_Input/inputPrompts
 @onready var inputPromptPath = preload("res://Scenes/Menus/inGame/skillcheckInputPrompt.tscn")
 
 var rng = RandomNumberGenerator.new()
@@ -54,14 +84,17 @@ var timeTween : Tween
 var dispTween : Tween
 
 func _ready() -> void:
-	get_parent().specialStage = true
-	state = startingState
-	rageState = startingEnrageMode
 	dispTween = get_tree().create_tween()
 	timeTween = get_tree().create_tween()
 	dispTween.kill()
 	timeTween.kill()
+	
+	get_parent().specialStage = true
 	target = get_parent().playerReference
+	state = startingState
+	rageState = startingEnrageMode
+	inputSC.max_value = skillcheckInputMax
+	
 	timer = timerStart
 	if forceEnraged:
 		timer = 0.1
@@ -118,16 +151,12 @@ func _process(delta: float) -> void:
 	timeLabel.text = '%02d:%02d' % [minutes, seconds]
 	
 	if skillcheck:
-		inputSC.visible = true
-		
 		if scInputProgress <= 0:
 			scInputProgress = 0
-		elif scInputProgress >= 14:
+		elif scInputProgress >= skillcheckInputMax - 1:
 			release_rage_grab()
 		
 		inputSC.value = scInputProgress
-	else:
-		inputSC.visible = false
 
 func switch_state(stateSwap : states) -> void:
 	state = stateSwap
@@ -161,7 +190,7 @@ func add_prompt(prompt : Vector2, index : int):
 	if index == 0:
 		instance.disabled = false
 	
-	$HUD/Screen/SC_Input/inputPrompts.add_child(instance)
+	inputPrompts.add_child(instance)
 	scInputChildren.append(index)
 
 func skillcheck_input_check(value : bool) -> void:
@@ -170,9 +199,9 @@ func skillcheck_input_check(value : bool) -> void:
 	else:
 		scInputProgress -= 0.5
 
-func next_prompt(delete : int) -> void:
+func next_prompt() -> void:
 	scInputChildren.remove_at(0)
-	for child in $HUD/Screen/SC_Input/inputPrompts.get_children():
+	for child in inputPrompts.get_children():
 		child.childID -= 1
 		if child.childID == 0:
 			child.enable()
@@ -196,6 +225,7 @@ func release_rage_grab() -> void:
 	playerHits += 1
 	if playerHits >= hitMax:
 		exit_enrage()
+	$HUD/Screen/SC_Input/anims.play("Invisible")
 
 func start_rage_grab() -> void:
 	hurtBox.set_deferred("monitoring", false)
@@ -203,25 +233,26 @@ func start_rage_grab() -> void:
 	scInputProgress = 0.0
 	scTimer = 1.0
 	target.evilGrabbed = true
-	target.invulnerable = true
 	
 	velocity = Vector2(velocity.x + (600 * direction.x), -1200)
 	target.guiScene.toggle_skillcheck(true)
 	
 	if skillcheck:
 		return
-	target.health -= 15
+	target.damage_by(damage / 1.25, 0)
 	target.guiScene.update_health()
+	target.invulnerable = true
 	var idx = 0
 	scInputPrompt.clear()
 	scInputChildren.clear()
-	for child in $HUD/Screen/SC_Input/inputPrompts.get_children():
+	for child in inputPrompts.get_children():
 		child.queue_free()
 	for i in 3:
 		scInputPrompt.append(randomize_input_prompt())
 		add_prompt(scInputPrompt[idx], idx)
 		idx += 1
 	skillcheck = true
+	$HUD/Screen/SC_Input/anims.play("Visible")
 
 func transition_enrage() -> void:
 	isEnraged = true

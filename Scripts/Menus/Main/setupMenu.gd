@@ -19,19 +19,19 @@ func _ready() -> void:
 	tweenL.tween_property($segmentL, "position", Vector2(0, 0), 0.75)
 	tweenR.tween_property($segmentR, "position", Vector2(498, 0), 0.75)
 
-func set_tweening(tween, trans, ease):
+func set_tweening(tween, trans, TwEase):
 	if tween == tweenL:
 		if tweenL:
 			tweenL.kill()
 		tweenL = get_tree().create_tween()
 		tweenL.set_trans(trans)
-		tweenL.set_ease(ease)
+		tweenL.set_ease(TwEase)
 	elif tween == tweenR:
 		if tweenR:
 			tweenR.kill()
 		tweenR = get_tree().create_tween()
 		tweenR.set_trans(trans)
-		tweenR.set_ease(ease)
+		tweenR.set_ease(TwEase)
 
 func _close_menu():
 	set_tweening(tweenL, Tween.TRANS_SINE, Tween.EASE_OUT)
