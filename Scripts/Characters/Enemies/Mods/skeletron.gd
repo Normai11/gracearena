@@ -82,12 +82,15 @@ var timer : float = 0.0
 var dispTime : float = 0.0
 var timeTween : Tween
 var dispTween : Tween
+var scInputTween : Tween
 
 func _ready() -> void:
 	dispTween = get_tree().create_tween()
 	timeTween = get_tree().create_tween()
+	scInputTween = get_tree().create_tween()
 	dispTween.kill()
 	timeTween.kill()
+	scInputTween.kill()
 	
 	get_parent().specialStage = true
 	target = get_parent().playerReference
@@ -113,10 +116,10 @@ func _physics_process(delta: float) -> void:
 		
 		scTimer -= delta
 		if scTimer <= 0:
-			scInputProgress -= 0.25
+			scInputProgress -= 0.5
 			
 			scTimer = 0.5
-			target.health -= 0.5
+			target.health -= 0.75
 			target.guiScene.update_health()
 		
 		velocity = lerp(velocity, Vector2.ZERO, delta * acceleration)
@@ -156,7 +159,8 @@ func _process(delta: float) -> void:
 		elif scInputProgress >= skillcheckInputMax - 1:
 			release_rage_grab()
 		
-		inputSC.value = scInputProgress
+		if !scInputTween.is_valid():
+			inputSC.value = scInputProgress
 
 func switch_state(stateSwap : states) -> void:
 	state = stateSwap
@@ -197,7 +201,14 @@ func skillcheck_input_check(value : bool) -> void:
 	if value:
 		scInputProgress += 1
 	else:
-		scInputProgress -= 0.5
+		scInputProgress -= 2
+	
+	if scInputTween:
+		scInputTween.kill()
+	scInputTween = get_tree().create_tween()
+	scInputTween.set_ease(Tween.EASE_OUT)
+	scInputTween.set_trans(Tween.TRANS_EXPO)
+	scInputTween.tween_property(inputSC, "value", scInputProgress, 0.2)
 
 func next_prompt() -> void:
 	scInputChildren.remove_at(0)
@@ -282,13 +293,15 @@ func add_time(amt : float = 10.0) -> void:
 	if isEnraged:
 		isEnraged = false
 		switch_state(states.PASSIVE)
+		if skillcheck:
+			release_rage_grab()
 	timer += (amt + 1)
 	
 	if timeTween:
 		timeTween.kill()
-	timeTween = get_tree().create_tween()
 	if dispTween:
 		dispTween.kill()
+	timeTween = get_tree().create_tween()
 	dispTween = get_tree().create_tween()
 	
 	timeTween.set_ease(Tween.EASE_OUT)
@@ -301,3 +314,9 @@ func add_time(amt : float = 10.0) -> void:
 
 func force_display(value : float) -> void:
 	dispTime = value
+
+func debugEnrage() -> void:
+	timer = 0
+
+func debugAddTime() -> void:
+	add_time(5)

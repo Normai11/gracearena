@@ -116,16 +116,17 @@ disabled = true
 debug_color = Color(1, 0, 0, 0.42)
 
 [node name="REDACTION" type="CPUParticles2D" parent="."]
+z_index = 256
+z_as_relative = false
 amount = 16
 texture = ExtResource("1_1t3qa")
 lifetime = 0.5
 gravity = Vector2(0, 0)
-scale_amount_min = 0.75
+scale_amount_min = 1.25
 scale_amount_max = 1.25
 color = Color(0, 0, 0, 1)
 
 [node name="TextureRect" type="TextureRect" parent="."]
-modulate = Color(0, 0, 0, 1)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -148,7 +149,6 @@ shape = SubResource("CircleShape2D_8d8sn")
 debug_color = Color(0.99, 0, 0.264, 0)
 
 [node name="HUD" type="CanvasLayer" parent="."]
-layer = 0
 
 [node name="Screen" type="Control" parent="HUD"]
 layout_mode = 3
@@ -157,6 +157,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="TIMER" type="TextureProgressBar" parent="HUD/Screen"]
 layout_mode = 1
@@ -197,6 +198,35 @@ text = "1:15"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="force" type="Button" parent="HUD/Screen/TIMER"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = 9.0
+offset_right = 138.0
+offset_bottom = 40.0
+grow_vertical = 0
+focus_mode = 0
+text = "force enrage"
+
+[node name="add" type="Button" parent="HUD/Screen/TIMER"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = 9.0
+offset_right = -32.0
+offset_bottom = 40.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 0
+text = "add 5 seconds"
+
 [node name="SC_Input" type="TextureProgressBar" parent="HUD/Screen"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
@@ -206,9 +236,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 312.5
-offset_top = -199.5
+offset_top = -61.5
 offset_right = 425.5
-offset_bottom = 167.5
+offset_bottom = 305.5
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.8, 0.8)
@@ -236,3 +266,5 @@ libraries = {
 }
 
 [connection signal="body_entered" from="Hurtbox" to="." method="body_check"]
+[connection signal="pressed" from="HUD/Screen/TIMER/force" to="." method="debugEnrage"]
+[connection signal="pressed" from="HUD/Screen/TIMER/add" to="." method="debugAddTime"]

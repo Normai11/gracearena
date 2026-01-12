@@ -72,7 +72,7 @@ text = "damage"
 horizontal_alignment = 2
 
 [node name="reload" type="Button" parent="."]
-z_index = 5
+z_index = 10
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -85,7 +85,7 @@ focus_mode = 0
 text = "Reload Scene"
 
 [node name="recover" type="Button" parent="."]
-z_index = 5
+z_index = 10
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -106,7 +106,7 @@ step = 1.0
 rounded = true
 
 [node name="settings" type="Button" parent="."]
-z_index = 5
+z_index = 10
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -119,7 +119,7 @@ focus_mode = 0
 text = "Open Settings"
 
 [node name="main" type="Button" parent="."]
-z_index = 5
+z_index = 10
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -132,6 +132,7 @@ focus_mode = 0
 text = "Go to Main Menu"
 
 [node name="selection" type="OptionButton" parent="."]
+z_index = 10
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -155,6 +156,7 @@ popup/item_2/text = "enemySpore"
 popup/item_2/id = 1
 
 [node name="enable" type="CheckBox" parent="."]
+z_index = 10
 layout_mode = 0
 offset_left = 1037.0
 offset_top = 223.0
@@ -163,6 +165,7 @@ offset_bottom = 247.0
 focus_mode = 0
 
 [node name="hp" type="HScrollBar" parent="."]
+z_index = 10
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -180,6 +183,7 @@ value = 1.0
 allow_greater = true
 
 [node name="spd" type="HScrollBar" parent="."]
+z_index = 10
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -198,6 +202,7 @@ value = 50.0
 allow_greater = true
 
 [node name="dmg" type="HScrollBar" parent="."]
+z_index = 10
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0

@@ -13,9 +13,17 @@ var movementTween : Tween
 var colorTween : Tween
 
 func _ready() -> void:
-	$AnimationPlayer.play("add_child")
 	if !disabled:
 		enable()
+	# this bug with tweens is really annoying and i dont know how to fix it
+	# the bug occurs whenever skeletron grabs the player and releases them for the input skillcheck
+	# i wanna rip my hair out :((((
+	#movementTween = get_tree().create_tween()
+	#movementTween.kill()
+	#colorTween = get_tree().create_tween()
+	#colorTween.kill()
+	
+	$AnimationPlayer.play("add_child")
 	
 	if prompt.x == 1:
 		$image.frame = 1
@@ -28,31 +36,32 @@ func _ready() -> void:
 
 func enable() -> void:
 	disabled = false
-	color_shift(true)
+	if movementTween:
+		movementTween.kill()
 	movementTween = get_tree().create_tween()
 	movementTween.set_ease(Tween.EASE_OUT)
 	movementTween.set_trans(Tween.TRANS_EXPO)
 	movementTween.tween_property($image, "scale", Vector2(0.75, 0.75), 1.5)
+	color_shift(true)
 
 func prompt_triggered() -> void:
 	disabled = true
 	evilParent.next_prompt()
 	$AnimationPlayer.play("queue_free")
 
-func kill_tweens() -> void:
-	if movementTween:
-		movementTween.kill()
-
 func color_shift(value : bool) -> void:
 	if colorTween:
 		colorTween.kill()
-	colorTween = get_tree().create_tween()
-	colorTween.set_ease(Tween.EASE_OUT)
-	colorTween.set_trans(Tween.TRANS_CUBIC)
 	
 	if value:
+		colorTween = get_tree().create_tween()
+		colorTween.set_ease(Tween.EASE_OUT)
+		colorTween.set_trans(Tween.TRANS_CUBIC)
 		colorTween.tween_property($image, "modulate", Color("fff17b"), 0.3)
 	else:
+		colorTween = get_tree().create_tween()
+		colorTween.set_ease(Tween.EASE_OUT)
+		colorTween.set_trans(Tween.TRANS_CUBIC)
 		colorTween.tween_property($image, "modulate", Color("b70505"), 0.2)
 
 func _process(delta: float) -> void:

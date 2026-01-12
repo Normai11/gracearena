@@ -88,10 +88,10 @@ func toggle_skillcheck(value : bool) -> void:
 		modulateTween.kill()
 	if cameraTween:
 		cameraTween.kill()
-	modulateTween = get_tree().create_tween()
-	cameraTween = get_tree().create_tween()
 	
 	if value:
+		modulateTween = get_tree().create_tween()
+		cameraTween = get_tree().create_tween()
 		healthBar.top_level = true
 		
 		modulateTween.set_ease(Tween.EASE_OUT)
@@ -101,6 +101,9 @@ func toggle_skillcheck(value : bool) -> void:
 		cameraTween.tween_property(player.camera, "zoom", Vector2(1.2,1.2), 0.5)
 		modulateTween.tween_property($HUDparent, "modulate", Color("ffffff00"), 0.6)
 	else:
+		modulateTween = get_tree().create_tween()
+		cameraTween = get_tree().create_tween()
+		
 		modulateTween.set_ease(Tween.EASE_IN)
 		modulateTween.set_trans(Tween.TRANS_SINE)
 		cameraTween.set_ease(Tween.EASE_OUT)
