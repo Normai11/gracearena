@@ -36,6 +36,8 @@ enum rageModes {
 @export var acceleration : float = 4.5
 ## Acceleration value for when this enemy is ENRAGED.
 @export var enragedAccel : float = 2.0
+## The cap for acceleration when this enemy is ENRAGED.
+@export var enragedAccelCap : float = 10.0
 ## The length in seconds for when this enemy becomes ENRAGED.
 @export var transDuration : float = 1.25
 @export_category("Spawn")
@@ -62,6 +64,7 @@ enum rageModes {
 @onready var inputSC : TextureProgressBar = $HUD/Screen/SC_Input
 @onready var inputPrompts : VBoxContainer = $HUD/Screen/SC_Input/inputPrompts
 @onready var inputPromptPath = preload("res://Scenes/Menus/inGame/skillcheckInputPrompt.tscn")
+@onready var meter : TextureProgressBar = $HUD/Screen/accelMeter
 
 var rng = RandomNumberGenerator.new()
 var target : Player
@@ -71,6 +74,8 @@ var playerHits : int = 0
 var isEnraged : bool = false
 var state : states
 var rageState : rageModes
+var curAccel : float = 0.0
+var rageAccelTimer : float = 1.0
 
 var skillcheck : bool = false
 var scTimer : float = 1.0
@@ -83,6 +88,7 @@ var dispTime : float = 0.0
 var timeTween : Tween
 var dispTween : Tween
 var scInputTween : Tween
+var accelTween : Tween
 
 func _ready() -> void:
 	dispTween = get_tree().create_tween()
@@ -97,16 +103,30 @@ func _ready() -> void:
 	state = startingState
 	rageState = startingEnrageMode
 	inputSC.max_value = skillcheckInputMax
+	curAccel = acceleration
+	accel_timer_tween()
 	
 	timer = timerStart
 	if forceEnraged:
 		timer = 0.1
+
+func accel_timer_tween() -> void:
+	if accelTween:
+		accelTween.kill()
+	accelTween = get_tree().create_tween()
+	
+	accelTween.set_ease(Tween.EASE_OUT)
+	accelTween.set_trans(Tween.TRANS_EXPO)
+	accelTween.tween_property(meter, "value", curAccel, 1.5)
 
 func _physics_process(delta: float) -> void:
 	if timer <= 0:
 		timer = 0
 		if !isEnraged:
 			transition_enrage()
+	else:
+		if isEnraged:
+			exit_enrage()
 	direction = global_position.direction_to(target.position)
 	
 	if skillcheck:
@@ -131,12 +151,17 @@ func _physics_process(delta: float) -> void:
 		$Collision.disabled = true
 	
 	if state == states.ENRAGED:
-		var velocityWeight : float = delta * enragedAccel
 		$Hurtbox.monitoring = true
+		var velocityWeight : float = delta * curAccel
 		velocity = lerp(velocity, direction * enragedSpeedCap, velocityWeight)
+		
+		rageAccelTimer -= delta
+		if rageAccelTimer <= 0.0:
+			rageAccelTimer = 1.0
+			curAccel += 0.2
 	elif state == states.PASSIVE:
-		var velocityWeight : float = delta * acceleration
 		$Hurtbox.monitoring = false
+		var velocityWeight : float = delta * acceleration
 		velocity = lerp(velocity, direction * defaultSpeed, velocityWeight)
 	else:
 		velocity = lerp(velocity, Vector2.ZERO, delta * acceleration)
@@ -148,6 +173,8 @@ func _process(delta: float) -> void:
 	if !timeTween.is_valid():
 		timeBar.value = timer
 		dispTime = timer
+	if !accelTween.is_valid():
+		meter.value = curAccel
 	
 	var minutes = int(dispTime / 60)
 	var seconds = dispTime - minutes * 60
@@ -163,6 +190,8 @@ func _process(delta: float) -> void:
 			inputSC.value = scInputProgress
 
 func switch_state(stateSwap : states) -> void:
+	if stateSwap == states.ENRAGED && timer >= 0:
+		return
 	state = stateSwap
 
 func randomize_input_prompt() -> Vector2:
@@ -269,13 +298,19 @@ func transition_enrage() -> void:
 	isEnraged = true
 	playerHits = 0
 	state = states.TRANSITION
+	curAccel = enragedAccel
 	
 	var transTime = get_tree().create_timer(transDuration)
 	transTime.timeout.connect(switch_state.bind(states.ENRAGED))
+	accel_timer_tween()
 
 func exit_enrage() -> void:
-	add_time()
+	switch_state(states.PASSIVE)
+	if playerHits >= hitMax:
+		add_time(5)
 	rageState = randomize_ragemode()
+	curAccel = acceleration
+	accel_timer_tween()
 
 func body_check(body: Node2D) -> void:
 	if body is Player:
@@ -292,9 +327,9 @@ func body_check(body: Node2D) -> void:
 func add_time(amt : float = 10.0) -> void:
 	if isEnraged:
 		isEnraged = false
-		switch_state(states.PASSIVE)
 		if skillcheck:
 			release_rage_grab()
+		exit_enrage()
 	timer += (amt + 1)
 	
 	if timeTween:

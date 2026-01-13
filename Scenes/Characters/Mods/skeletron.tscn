@@ -1,11 +1,13 @@
-[gd_scene load_steps=13 format=3 uid="uid://ctqbc2q7npeep"]
+[gd_scene load_steps=15 format=3 uid="uid://ctqbc2q7npeep"]
 
 [ext_resource type="Texture2D" uid="uid://bgcvio3c5ygos" path="res://icon.svg" id="1_1t3qa"]
 [ext_resource type="Script" uid="uid://hadmjmgs4xbp" path="res://Scripts/Characters/Enemies/Mods/skeletron.gd" id="1_a7e2u"]
-[ext_resource type="Texture2D" uid="uid://c0sdkkj6q8ri5" path="res://Sprites/Menus/GUI/healthPercent.png" id="3_rsbit"]
-[ext_resource type="Texture2D" uid="uid://cipyroiff6wvk" path="res://Sprites/Menus/GUI/healthBar.png" id="4_pbgwr"]
+[ext_resource type="Texture2D" uid="uid://cp6lcd645s22g" path="res://Sprites/Menus/GUI/skeletronRageTimerFill.png" id="3_w3t13"]
+[ext_resource type="Texture2D" uid="uid://dt8b4vh2maho1" path="res://Sprites/Menus/GUI/skeletronRageTimer.png" id="4_2e6l7"]
 [ext_resource type="Texture2D" uid="uid://dykokniofxcl4" path="res://Sprites/Menus/GUI/skillcheckInputFill.png" id="5_3rwap"]
 [ext_resource type="Texture2D" uid="uid://pj7fnav4kks" path="res://Sprites/Menus/GUI/skillcheckInputBorder.png" id="6_7cly1"]
+[ext_resource type="Texture2D" uid="uid://b7x0kebb7yk12" path="res://Sprites/Menus/GUI/skeletronRageAccelFill.png" id="7_b60qk"]
+[ext_resource type="Texture2D" uid="uid://bkfu0uyrlg8h5" path="res://Sprites/Menus/GUI/skeletronRageAccel.png" id="8_adxd1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a7e2u"]
 radius = 49.2544
@@ -166,18 +168,18 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -165.0
+offset_left = -166.0
 offset_top = 208.0
-offset_right = 165.0
+offset_right = 166.0
 offset_bottom = 272.0
 grow_horizontal = 2
 grow_vertical = 2
 max_value = 75.0
 step = 0.0
 value = 37.0
-texture_under = ExtResource("3_rsbit")
-texture_over = ExtResource("4_pbgwr")
-texture_progress = ExtResource("3_rsbit")
+texture_under = ExtResource("3_w3t13")
+texture_over = ExtResource("4_2e6l7")
+texture_progress = ExtResource("3_w3t13")
 tint_under = Color(1, 1, 1, 0)
 tint_progress = Color(0.890625, 0, 1, 1)
 
@@ -188,10 +190,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -16.0
-offset_top = -11.5
-offset_right = 16.0
-offset_bottom = 11.5
+offset_left = -24.0
+offset_top = -14.5
+offset_right = 8.0
+offset_bottom = 8.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "1:15"
@@ -203,10 +205,10 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 32.0
-offset_top = 9.0
-offset_right = 138.0
-offset_bottom = 40.0
+offset_left = 24.0
+offset_top = 6.0
+offset_right = 130.0
+offset_bottom = 37.0
 grow_vertical = 0
 focus_mode = 0
 text = "force enrage"
@@ -218,10 +220,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -150.0
-offset_top = 9.0
-offset_right = -32.0
-offset_bottom = 40.0
+offset_left = -158.0
+offset_top = 6.0
+offset_right = -40.0
+offset_bottom = 37.0
 grow_horizontal = 0
 grow_vertical = 0
 focus_mode = 0
@@ -264,6 +266,29 @@ offset_bottom = 422.0
 libraries = {
 &"": SubResource("AnimationLibrary_2e6l7")
 }
+
+[node name="accelMeter" type="TextureProgressBar" parent="HUD/Screen"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -166.0
+offset_top = -157.0
+offset_right = 134.0
+offset_bottom = -127.0
+grow_horizontal = 2
+grow_vertical = 0
+min_value = 2.0
+max_value = 10.0
+step = 0.0
+value = 10.0
+texture_under = ExtResource("7_b60qk")
+texture_over = ExtResource("8_adxd1")
+texture_progress = ExtResource("7_b60qk")
+tint_under = Color(0.222216, 0.106669, 0.278646, 1)
+tint_progress = Color(1, 0, 0.578125, 1)
 
 [connection signal="body_entered" from="Hurtbox" to="." method="body_check"]
 [connection signal="pressed" from="HUD/Screen/TIMER/force" to="." method="debugEnrage"]
