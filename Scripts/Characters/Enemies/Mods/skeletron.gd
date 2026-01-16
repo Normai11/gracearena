@@ -21,7 +21,7 @@ enum states {
 enum rageModes {
 	HARM,
 	SC_INPUT,
-	SC_CIRCLE
+	SC_PULSE
 }
 
 ## Base damage for this special enemy. May have multipliers applied for certain rage modes.
@@ -63,7 +63,8 @@ enum rageModes {
 @onready var timeLabel : Label = $HUD/Screen/TIMER/Time
 @onready var inputSC : TextureProgressBar = $HUD/Screen/SC_Input
 @onready var inputPrompts : VBoxContainer = $HUD/Screen/SC_Input/inputPrompts
-@onready var inputPromptPath = preload("res://Scenes/Menus/inGame/skillcheckInputPrompt.tscn")
+@onready var inputPromptPath = preload("res://Scenes/Objects/skillcheckInputPrompt.tscn")
+@onready var pulseSCpath = preload("res://Scenes/Objects/skillcheckPulseParent.tscn")
 @onready var meter : TextureProgressBar = $HUD/Screen/accelMeter
 
 var rng = RandomNumberGenerator.new()
@@ -82,6 +83,7 @@ var scTimer : float = 1.0
 var scInputProgress : float = 0.0
 var scInputPrompt : Array[Vector2] = []
 var scInputChildren : Array[int] = []
+var activePulseSC
 
 var timer : float = 0.0
 var dispTime : float = 0.0
@@ -134,13 +136,14 @@ func _physics_process(delta: float) -> void:
 		target.moveType = 1
 		$Collision.disabled = false
 		
-		scTimer -= delta
-		if scTimer <= 0:
-			scInputProgress -= 0.5
-			
-			scTimer = 0.5
-			target.health -= 0.75
-			target.guiScene.update_health()
+		if rageState == rageModes.SC_INPUT:
+			scTimer -= delta
+			if scTimer <= 0:
+				scInputProgress -= 0.5
+				
+				scTimer = 0.5
+				target.health -= 0.75
+				target.guiScene.update_health()
 		
 		velocity = lerp(velocity, Vector2.ZERO, delta * acceleration)
 		move_and_slide()
@@ -180,7 +183,7 @@ func _process(delta: float) -> void:
 	var seconds = dispTime - minutes * 60
 	timeLabel.text = '%02d:%02d' % [minutes, seconds]
 	
-	if skillcheck:
+	if skillcheck && rageState == rageModes.SC_INPUT:
 		if scInputProgress <= 0:
 			scInputProgress = 0
 		elif scInputProgress >= skillcheckInputMax - 1:
@@ -209,7 +212,7 @@ func randomize_input_prompt() -> Vector2:
 	return newPrompt
 
 func randomize_ragemode() -> int:
-	var newRage : int = rng.randi_range(0, rageModes.size() - 2)
+	var newRage : int = rng.randi_range(0, rageModes.size() - 1)
 	return newRage
 
 func add_prompt(prompt : Vector2, index : int):
@@ -294,6 +297,32 @@ func start_rage_grab() -> void:
 	skillcheck = true
 	$HUD/Screen/SC_Input/anims.play("Visible")
 
+func start_pulse_minigame() -> void:
+	hurtBox.set_deferred("monitoring", false)
+	velocity = Vector2(velocity.x + (600 * direction.x), -1200)
+	
+	target.guiScene.toggle_skillcheck(true, false)
+	target.evilGrabbed = true
+	if skillcheck:
+		return
+	target.damage_by(damage / 1.25, 0)
+	target.guiScene.update_health()
+	target.invulnerable = true
+	
+	var instance = pulseSCpath.instantiate()
+	
+	instance.skillcheckComplete.connect(end_pulse_minigame)
+	activePulseSC = instance
+	
+	$HUD/Screen.add_child(instance)
+	$HUD/Screen/animMaster.play("hide")
+	skillcheck = true
+
+func end_pulse_minigame() -> void:
+	$HUD/Screen/animMaster.play("visible")
+	activePulseSC.queue_free()
+	release_rage_grab()
+
 func transition_enrage() -> void:
 	isEnraged = true
 	playerHits = 0
@@ -323,12 +352,17 @@ func body_check(body: Node2D) -> void:
 					exit_enrage()
 			elif rageState == rageModes.SC_INPUT:
 				start_rage_grab()
+			elif rageState == rageModes.SC_PULSE:
+				start_pulse_minigame()
 
 func add_time(amt : float = 10.0) -> void:
 	if isEnraged:
 		isEnraged = false
 		if skillcheck:
-			release_rage_grab()
+			if rageState == rageModes.SC_INPUT:
+				release_rage_grab()
+			elif rageState == rageModes.SC_PULSE:
+				end_pulse_minigame()
 		exit_enrage()
 	timer += (amt + 1)
 	

@@ -5,5 +5,5 @@
 [node name="Heavy" type="Node"]
 script = ExtResource("1_dwcev")
 abName = "Heavy"
-abDesc = "Grants the ability to drop through semisolids in exchange for [color=crimson]higher gravity[/color]."
+abDesc = "Grants the ability to drop through semisolids and fastfall midair."
 abilityID = 2

@@ -14,7 +14,7 @@ var stunDist : float = 0.0
 @export var move_speed : float = 350.0
 @export var sprintAdditive : float = 200.0
 @export var jump_force : float = 725.0
-@export var drop_force : float = 425.0
+@export var dropForce : float = 750.0
 @export var gravity_cap : float = 1500.0
 @export var coyoteFrames : int = 6
 var coyoteframe : int

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ctqbc2q7npeep"]
+[gd_scene load_steps=19 format=3 uid="uid://ctqbc2q7npeep"]
 
 [ext_resource type="Texture2D" uid="uid://bgcvio3c5ygos" path="res://icon.svg" id="1_1t3qa"]
 [ext_resource type="Script" uid="uid://hadmjmgs4xbp" path="res://Scripts/Characters/Enemies/Mods/skeletron.gd" id="1_a7e2u"]
@@ -105,10 +105,101 @@ _data = {
 &"Visible": SubResource("Animation_3rwap")
 }
 
+[sub_resource type="Animation" id="Animation_2e6l7"]
+resource_name = "hide"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 256)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.31864, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_b60qk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_adxd1"]
+resource_name = "visible"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.277393, 1),
+"update": 0,
+"values": [Vector2(0, 256), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_suc4y"]
+_data = {
+&"RESET": SubResource("Animation_b60qk"),
+&"hide": SubResource("Animation_2e6l7"),
+&"visible": SubResource("Animation_adxd1")
+}
+
 [node name="skeletron" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_a7e2u")
-startingEnrageMode = 1
+forceEnraged = true
+startingEnrageMode = 2
 timerStart = 37.0
 skillcheckInputMax = 20.0
 
@@ -126,7 +217,6 @@ lifetime = 0.5
 gravity = Vector2(0, 0)
 scale_amount_min = 1.25
 scale_amount_max = 1.25
-color = Color(0, 0, 0, 1)
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchors_preset = 8
@@ -151,6 +241,33 @@ shape = SubResource("CircleShape2D_8d8sn")
 debug_color = Color(0.99, 0, 0.264, 0)
 
 [node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="force" type="Button" parent="HUD"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 458.0
+offset_top = -59.5
+offset_right = 564.0
+offset_bottom = -28.5
+grow_vertical = 0
+focus_mode = 0
+text = "force enrage"
+
+[node name="add" type="Button" parent="HUD"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -592.0
+offset_top = -59.5
+offset_right = -474.0
+offset_bottom = -28.5
+grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 0
+text = "add 5 seconds"
 
 [node name="Screen" type="Control" parent="HUD"]
 layout_mode = 3
@@ -200,34 +317,28 @@ text = "1:15"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="force" type="Button" parent="HUD/Screen/TIMER"]
+[node name="accelMeter" type="TextureProgressBar" parent="HUD/Screen"]
 layout_mode = 1
-anchors_preset = 2
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 24.0
-offset_top = 6.0
-offset_right = 130.0
-offset_bottom = 37.0
+offset_left = -166.0
+offset_top = -157.0
+offset_right = 134.0
+offset_bottom = -127.0
+grow_horizontal = 2
 grow_vertical = 0
-focus_mode = 0
-text = "force enrage"
-
-[node name="add" type="Button" parent="HUD/Screen/TIMER"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -158.0
-offset_top = 6.0
-offset_right = -40.0
-offset_bottom = 37.0
-grow_horizontal = 0
-grow_vertical = 0
-focus_mode = 0
-text = "add 5 seconds"
+min_value = 2.0
+max_value = 10.0
+step = 0.0
+value = 10.0
+texture_under = ExtResource("7_b60qk")
+texture_over = ExtResource("8_adxd1")
+texture_progress = ExtResource("7_b60qk")
+tint_under = Color(0.222216, 0.106669, 0.278646, 1)
+tint_progress = Color(1, 0, 0.578125, 1)
 
 [node name="SC_Input" type="TextureProgressBar" parent="HUD/Screen"]
 modulate = Color(1, 1, 1, 0)
@@ -238,9 +349,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 312.5
-offset_top = -61.5
+offset_top = -199.5
 offset_right = 425.5
-offset_bottom = 305.5
+offset_bottom = 167.5
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.8, 0.8)
@@ -267,29 +378,11 @@ libraries = {
 &"": SubResource("AnimationLibrary_2e6l7")
 }
 
-[node name="accelMeter" type="TextureProgressBar" parent="HUD/Screen"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -166.0
-offset_top = -157.0
-offset_right = 134.0
-offset_bottom = -127.0
-grow_horizontal = 2
-grow_vertical = 0
-min_value = 2.0
-max_value = 10.0
-step = 0.0
-value = 10.0
-texture_under = ExtResource("7_b60qk")
-texture_over = ExtResource("8_adxd1")
-texture_progress = ExtResource("7_b60qk")
-tint_under = Color(0.222216, 0.106669, 0.278646, 1)
-tint_progress = Color(1, 0, 0.578125, 1)
+[node name="animMaster" type="AnimationPlayer" parent="HUD/Screen"]
+libraries = {
+&"": SubResource("AnimationLibrary_suc4y")
+}
 
 [connection signal="body_entered" from="Hurtbox" to="." method="body_check"]
-[connection signal="pressed" from="HUD/Screen/TIMER/force" to="." method="debugEnrage"]
-[connection signal="pressed" from="HUD/Screen/TIMER/add" to="." method="debugAddTime"]
+[connection signal="pressed" from="HUD/force" to="." method="debugEnrage"]
+[connection signal="pressed" from="HUD/add" to="." method="debugAddTime"]

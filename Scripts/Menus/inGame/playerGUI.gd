@@ -83,7 +83,7 @@ func show_description(object) -> void:
 func hide_description() -> void:
 	abilityInfo.visible = false
 
-func toggle_skillcheck(value : bool) -> void:
+func toggle_skillcheck(value : bool, showHP : bool = true) -> void:
 	if modulateTween:
 		modulateTween.kill()
 	if cameraTween:
@@ -92,7 +92,11 @@ func toggle_skillcheck(value : bool) -> void:
 	if value:
 		modulateTween = get_tree().create_tween()
 		cameraTween = get_tree().create_tween()
-		healthBar.top_level = true
+		
+		if showHP:
+			healthBar.top_level = true
+		else:
+			healthBar.top_level = false
 		
 		modulateTween.set_ease(Tween.EASE_OUT)
 		modulateTween.set_trans(Tween.TRANS_EXPO)

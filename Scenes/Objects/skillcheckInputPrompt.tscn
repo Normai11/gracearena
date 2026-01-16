@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dmoum8drq8adc"]
 
-[ext_resource type="Script" uid="uid://dbfjhjl1e21la" path="res://Scripts/Menus/inGame/scInputPrompt.gd" id="1_d4esp"]
+[ext_resource type="Script" uid="uid://dbfjhjl1e21la" path="res://Scripts/Objects/scInputPrompt.gd" id="1_d4esp"]
 [ext_resource type="Texture2D" uid="uid://lt1rpmbbmf1k" path="res://Sprites/Menus/GUI/skillcheckInputPrompts.png" id="1_hjbi1"]
 
 [sub_resource type="Animation" id="Animation_j5r3h"]

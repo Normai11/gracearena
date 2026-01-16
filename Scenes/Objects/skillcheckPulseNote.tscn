@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfiv4fe14mdih"]
+
+[ext_resource type="Script" uid="uid://khib0sfl4rj3" path="res://Scripts/Objects/scPulseNote.gd" id="1_kyjca"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l205f"]
+size = Vector2(30, 169)
+
+[node name="pulseNote" type="Control"]
+custom_minimum_size = Vector2(30, 168)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1170.0
+offset_bottom = -507.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kyjca")
+moveSpeed = 500.0
+
+[node name="collisionChecked" type="Area2D" parent="."]
+position = Vector2(15, 85)
+collision_layer = 2147483648
+collision_mask = 0
+monitoring = false
+
+[node name="shape" type="CollisionShape2D" parent="collisionChecked"]
+shape = SubResource("RectangleShape2D_l205f")
+debug_color = Color(0.505405, 0.68604, 0.716146, 0.42)
