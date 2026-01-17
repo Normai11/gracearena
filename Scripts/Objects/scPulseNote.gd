@@ -12,15 +12,17 @@ enum direction {
 
 func _ready() -> void:
 	position = startingPos
+	if moveDirection == direction.LEFT:
+		$Texture.flip_h = true
 
 func _process(delta: float) -> void:
 	position.x += (moveDirection * moveSpeed) * delta
 	if moveDirection == direction.RIGHT:
-		if position.x >= 500:
+		if position.x >= 600:
 			completeMiss.emit()
 			noteHit()
 	else:
-		if position.x <= 500:
+		if position.x <= 600:
 			completeMiss.emit()
 			noteHit()
 

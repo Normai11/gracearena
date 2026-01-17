@@ -4,6 +4,8 @@ var timer : float = 0.00
 var timerActive : bool = false
 var timerJustActive : bool = false
 
+var pulseHintSeen : bool = false
+
 @export var settings = {
 	"guiTrans" : 1,
 	"toggleHint" : true

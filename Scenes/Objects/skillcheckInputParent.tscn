@@ -1,0 +1,142 @@
+[gd_scene load_steps=8 format=3 uid="uid://evdx8u8lpxvx"]
+
+[ext_resource type="Script" uid="uid://cwvia3h1u2d64" path="res://Scripts/Objects/scInput.gd" id="1_epyj2"]
+[ext_resource type="Texture2D" uid="uid://dykokniofxcl4" path="res://Sprites/Menus/GUI/skillcheckInputFill.png" id="1_ulus3"]
+[ext_resource type="Texture2D" uid="uid://pj7fnav4kks" path="res://Sprites/Menus/GUI/skillcheckInputBorder.png" id="2_epyj2"]
+
+[sub_resource type="Animation" id="Animation_w3t13"]
+resource_name = "Invisible"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1.7411, 1),
+"update": 0,
+"values": [Vector2(912.5, 138), Vector2(912.5, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7cly1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(912.5, 138)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3rwap"]
+resource_name = "Visible"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.3, 1),
+"update": 0,
+"values": [Vector2(912.5, 276), Vector2(912.5, 138)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2e6l7"]
+_data = {
+&"Invisible": SubResource("Animation_w3t13"),
+&"RESET": SubResource("Animation_7cly1"),
+&"Visible": SubResource("Animation_3rwap")
+}
+
+[node name="SC_Input" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_epyj2")
+
+[node name="escapeProgress" type="TextureProgressBar" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 312.5
+offset_top = -199.5
+offset_right = 425.5
+offset_bottom = 167.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+pivot_offset = Vector2(56.5, 183.5)
+max_value = 15.0
+step = 0.0
+value = 7.5
+fill_mode = 7
+texture_under = ExtResource("1_ulus3")
+texture_over = ExtResource("2_epyj2")
+texture_progress = ExtResource("1_ulus3")
+tint_under = Color(0.283854, 0.113098, 0.113098, 1)
+tint_progress = Color(0.934896, 0.234523, 0.0559963, 1)
+
+[node name="inputPrompts" type="VBoxContainer" parent="escapeProgress"]
+layout_mode = 1
+offset_left = -145.0
+offset_top = 30.0
+offset_right = -20.0
+offset_bottom = 422.0
+
+[node name="anims" type="AnimationPlayer" parent="escapeProgress"]
+libraries = {
+&"": SubResource("AnimationLibrary_2e6l7")
+}

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dfiv4fe14mdih"]
+[gd_scene load_steps=4 format=3 uid="uid://dfiv4fe14mdih"]
 
 [ext_resource type="Script" uid="uid://khib0sfl4rj3" path="res://Scripts/Objects/scPulseNote.gd" id="1_kyjca"]
+[ext_resource type="Texture2D" uid="uid://bf76wroxk2x82" path="res://Sprites/Menus/GUI/skillcheckPulseNote.png" id="2_l205f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l205f"]
 size = Vector2(30, 169)
@@ -18,7 +19,15 @@ grow_vertical = 2
 script = ExtResource("1_kyjca")
 moveSpeed = 500.0
 
+[node name="Texture" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -24.0
+offset_right = 56.0
+offset_bottom = 136.0
+texture = ExtResource("2_l205f")
+
 [node name="collisionChecked" type="Area2D" parent="."]
+visible = false
 position = Vector2(15, 85)
 collision_layer = 2147483648
 collision_mask = 0

@@ -87,19 +87,13 @@ var activePulseSC
 
 var timer : float = 0.0
 var dispTime : float = 0.0
+var activeTweens : Array[bool] = [false, false, false, false]
 var timeTween : Tween
 var dispTween : Tween
 var scInputTween : Tween
 var accelTween : Tween
 
 func _ready() -> void:
-	dispTween = get_tree().create_tween()
-	timeTween = get_tree().create_tween()
-	scInputTween = get_tree().create_tween()
-	dispTween.kill()
-	timeTween.kill()
-	scInputTween.kill()
-	
 	get_parent().specialStage = true
 	target = get_parent().playerReference
 	state = startingState
@@ -112,6 +106,9 @@ func _ready() -> void:
 	if forceEnraged:
 		timer = 0.1
 
+func reset_activeTweens_value(slot : int) -> void:
+	activeTweens[slot] = false
+
 func accel_timer_tween() -> void:
 	if accelTween:
 		accelTween.kill()
@@ -120,6 +117,7 @@ func accel_timer_tween() -> void:
 	accelTween.set_ease(Tween.EASE_OUT)
 	accelTween.set_trans(Tween.TRANS_EXPO)
 	accelTween.tween_property(meter, "value", curAccel, 1.5)
+	accelTween.connect("finished", reset_activeTweens_value.bind(3))
 
 func _physics_process(delta: float) -> void:
 	if timer <= 0:
@@ -173,10 +171,10 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	timer -= delta
-	if !timeTween.is_valid():
+	if !activeTweens[0]:
 		timeBar.value = timer
 		dispTime = timer
-	if !accelTween.is_valid():
+	if !activeTweens[3]:
 		meter.value = curAccel
 	
 	var minutes = int(dispTime / 60)
@@ -189,7 +187,7 @@ func _process(delta: float) -> void:
 		elif scInputProgress >= skillcheckInputMax - 1:
 			release_rage_grab()
 		
-		if !scInputTween.is_valid():
+		if !activeTweens[2]:
 			inputSC.value = scInputProgress
 
 func switch_state(stateSwap : states) -> void:
@@ -241,6 +239,7 @@ func skillcheck_input_check(value : bool) -> void:
 	scInputTween.set_ease(Tween.EASE_OUT)
 	scInputTween.set_trans(Tween.TRANS_EXPO)
 	scInputTween.tween_property(inputSC, "value", scInputProgress, 0.2)
+	scInputTween.connect("finished", reset_activeTweens_value.bind(2))
 
 func next_prompt() -> void:
 	scInputChildren.remove_at(0)
@@ -314,7 +313,7 @@ func start_pulse_minigame() -> void:
 	instance.skillcheckComplete.connect(end_pulse_minigame)
 	activePulseSC = instance
 	
-	$HUD/Screen.add_child(instance)
+	$HUD/Screen.add_child.call_deferred(instance)
 	$HUD/Screen/animMaster.play("hide")
 	skillcheck = true
 
@@ -379,7 +378,9 @@ func add_time(amt : float = 10.0) -> void:
 	dispTween.set_trans(Tween.TRANS_EXPO)
 	
 	timeTween.tween_property(timeBar, "value", timer - 1, 1)
+	timeTween.connect("finished", reset_activeTweens_value.bind(0))
 	dispTween.tween_method(force_display, dispTime, timer, 1)
+	dispTween.connect("finished", reset_activeTweens_value.bind(1))
 
 func force_display(value : float) -> void:
 	dispTime = value

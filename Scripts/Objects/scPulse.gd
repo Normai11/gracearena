@@ -20,6 +20,7 @@ var recoverTween : Tween
 var healthTween : Tween
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var readyNotes : Array[bool] = [false, false]
+var hintFrameTimer : float = 0.35
 
 func _ready() -> void:
 	skeletron = get_parent().get_parent().get_parent()
@@ -27,6 +28,10 @@ func _ready() -> void:
 	progressRecover.max_value = noteHitEscape
 	progressRecover.value = currentHits
 	progressHealth.value = skeletron.target.health
+	if !DataStore.pulseHintSeen:
+		DataStore.pulseHintSeen = true
+	else:
+		$hintParent/master.active = false
 	$animMaster.play("add_child")
 
 func _input(event: InputEvent) -> void:
@@ -58,12 +63,21 @@ func _input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	intervalTimerL -= delta
 	intervalTimerR -= delta
+	hintFrameTimer -= delta
 	if intervalTimerL <= 0:
 		intervalTimerL = randf_range(noteIntervalRange.x, noteIntervalRange.y)
 		spawn_note(-1)
 	if intervalTimerR <= 0:
 		intervalTimerR = randf_range(noteIntervalRange.x, noteIntervalRange.y)
 		spawn_note(1)
+	if hintFrameTimer <= 0:
+		hintFrameTimer = 0.35
+		if $hintParent/hintLeft.frame_coords.y == 1:
+			$hintParent/hintLeft.frame_coords.y -= 1
+			$hintParent/hintRight.frame_coords.y -= 1
+		else:
+			$hintParent/hintLeft.frame_coords.y += 1
+			$hintParent/hintRight.frame_coords.y += 1
 
 func spawn_note(dir : int) -> void:
 	var instantiate = noteInstance.instantiate()
