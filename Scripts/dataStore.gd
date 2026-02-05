@@ -33,7 +33,8 @@ var pulseHintSeen : bool = false
 	101 : "res://Scenes/Abilities/101.tscn",
 	102 : "res://Scenes/Abilities/102.tscn",
 	103 : "res://Scenes/Abilities/103.tscn",
-	104 : "res://Scenes/Abilities/104.tscn"
+	104 : "res://Scenes/Abilities/104.tscn",
+	105 : "res://Scenes/Abilities/105.tscn"
 }
 
 @export var enemyModPaths = {

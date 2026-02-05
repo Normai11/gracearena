@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://dtgboi1ilwnuw"]
+
+[ext_resource type="Script" uid="uid://ccb3pi76lsmcc" path="res://Scripts/Abilities/abQuickHeal.gd" id="1_rt71r"]
+
+[node name="105" type="Node"]
+script = ExtResource("1_rt71r")
+healAmount = 7.5
+abName = "Quick Heal"
+abDesc = "Heals 7.5 HP after a 0.5s windup. Has a cooldown of 20s."
+abilityID = 105
+duration = 0.5
+cooldown = 20.0
+endlag = 1.0
+
+[node name="durTimer" type="Timer" parent="."]
+one_shot = true

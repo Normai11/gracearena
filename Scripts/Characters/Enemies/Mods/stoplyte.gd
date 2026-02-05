@@ -37,7 +37,7 @@ func _ready() -> void:
 		timer.wait_time = waitTime
 	timer.start()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	$debugStrike.text = "strikes: " + str(playerStrikes)
 	if isAttacking:
 		if Input.is_anything_pressed():

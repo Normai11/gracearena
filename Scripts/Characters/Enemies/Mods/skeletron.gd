@@ -61,9 +61,7 @@ enum rageModes {
 @onready var hurtBox : Area2D = $Hurtbox
 @onready var timeBar : TextureProgressBar = $HUD/Screen/TIMER
 @onready var timeLabel : Label = $HUD/Screen/TIMER/Time
-@onready var inputSC : TextureProgressBar = $HUD/Screen/SC_Input
-@onready var inputPrompts : VBoxContainer = $HUD/Screen/SC_Input/inputPrompts
-@onready var inputPromptPath = preload("res://Scenes/Objects/skillcheckInputPrompt.tscn")
+@onready var inputSCpath = preload("res://Scenes/Objects/skillcheckInputParent.tscn")
 @onready var pulseSCpath = preload("res://Scenes/Objects/skillcheckPulseParent.tscn")
 @onready var meter : TextureProgressBar = $HUD/Screen/accelMeter
 
@@ -79,11 +77,8 @@ var curAccel : float = 0.0
 var rageAccelTimer : float = 1.0
 
 var skillcheck : bool = false
-var scTimer : float = 1.0
-var scInputProgress : float = 0.0
-var scInputPrompt : Array[Vector2] = []
-var scInputChildren : Array[int] = []
 var activePulseSC
+var activeInputSC
 
 var timer : float = 0.0
 var dispTime : float = 0.0
@@ -98,7 +93,6 @@ func _ready() -> void:
 	target = get_parent().playerReference
 	state = startingState
 	rageState = startingEnrageMode
-	inputSC.max_value = skillcheckInputMax
 	curAccel = acceleration
 	accel_timer_tween()
 	
@@ -110,6 +104,7 @@ func reset_activeTweens_value(slot : int) -> void:
 	activeTweens[slot] = false
 
 func accel_timer_tween() -> void:
+	activeTweens[3] = true
 	if accelTween:
 		accelTween.kill()
 	accelTween = get_tree().create_tween()
@@ -133,15 +128,6 @@ func _physics_process(delta: float) -> void:
 		target.stunned = true
 		target.moveType = 1
 		$Collision.disabled = false
-		
-		if rageState == rageModes.SC_INPUT:
-			scTimer -= delta
-			if scTimer <= 0:
-				scInputProgress -= 0.5
-				
-				scTimer = 0.5
-				target.health -= 0.75
-				target.guiScene.update_health()
 		
 		velocity = lerp(velocity, Vector2.ZERO, delta * acceleration)
 		move_and_slide()
@@ -180,76 +166,18 @@ func _process(delta: float) -> void:
 	var minutes = int(dispTime / 60)
 	var seconds = dispTime - minutes * 60
 	timeLabel.text = '%02d:%02d' % [minutes, seconds]
-	
-	if skillcheck && rageState == rageModes.SC_INPUT:
-		if scInputProgress <= 0:
-			scInputProgress = 0
-		elif scInputProgress >= skillcheckInputMax - 1:
-			release_rage_grab()
-		
-		if !activeTweens[2]:
-			inputSC.value = scInputProgress
+
+func randomize_ragemode() -> int:
+	var newRage : int = rng.randi_range(0, rageModes.size() - 1)
+	return newRage
 
 func switch_state(stateSwap : states) -> void:
 	if stateSwap == states.ENRAGED && timer >= 0:
 		return
 	state = stateSwap
 
-func randomize_input_prompt() -> Vector2:
-	var newPrompt : Vector2
-	var result = rng.randi_range(0, 3)
-	if result == 0:
-		newPrompt = Vector2(1, 0)
-	elif result == 1:
-		newPrompt = Vector2(-1, 0)
-	elif result == 2:
-		newPrompt = Vector2(0, 1)
-	elif result == 3:
-		newPrompt = Vector2(0, -1)
-	
-	return newPrompt
-
-func randomize_ragemode() -> int:
-	var newRage : int = rng.randi_range(0, rageModes.size() - 1)
-	return newRage
-
-func add_prompt(prompt : Vector2, index : int):
-	var instance = inputPromptPath.instantiate()
-	
-	instance.prompt = prompt
-	instance.childID = index
-	instance.correct.connect(skillcheck_input_check.bind(true))
-	instance.incorrect.connect(skillcheck_input_check.bind(false))
-	instance.evilParent = self
-	if index == 0:
-		instance.disabled = false
-	
-	inputPrompts.add_child(instance)
-	scInputChildren.append(index)
-
-func skillcheck_input_check(value : bool) -> void:
-	if value:
-		scInputProgress += 1
-	else:
-		scInputProgress -= 2
-	
-	if scInputTween:
-		scInputTween.kill()
-	scInputTween = get_tree().create_tween()
-	scInputTween.set_ease(Tween.EASE_OUT)
-	scInputTween.set_trans(Tween.TRANS_EXPO)
-	scInputTween.tween_property(inputSC, "value", scInputProgress, 0.2)
-	scInputTween.connect("finished", reset_activeTweens_value.bind(2))
-
-func next_prompt() -> void:
-	scInputChildren.remove_at(0)
-	for child in inputPrompts.get_children():
-		child.childID -= 1
-		if child.childID == 0:
-			child.enable()
-	add_prompt(randomize_input_prompt(), 2)
-
 func release_rage_grab() -> void:
+	rageState = randomize_ragemode()
 	velocity = Vector2((-650 * target.direction) * damageKnockbackMult, 400 * damageKnockbackMult)
 	
 	target.moveType = 0
@@ -267,13 +195,9 @@ func release_rage_grab() -> void:
 	playerHits += 1
 	if playerHits >= hitMax:
 		exit_enrage()
-	$HUD/Screen/SC_Input/anims.play("Invisible")
 
 func start_rage_grab() -> void:
 	hurtBox.set_deferred("monitoring", false)
-	
-	scInputProgress = 0.0
-	scTimer = 1.0
 	target.evilGrabbed = true
 	
 	velocity = Vector2(velocity.x + (600 * direction.x), -1200)
@@ -284,17 +208,13 @@ func start_rage_grab() -> void:
 	target.damage_by(damage / 1.25, 0)
 	target.guiScene.update_health()
 	target.invulnerable = true
-	var idx = 0
-	scInputPrompt.clear()
-	scInputChildren.clear()
-	for child in inputPrompts.get_children():
-		child.queue_free()
-	for i in 3:
-		scInputPrompt.append(randomize_input_prompt())
-		add_prompt(scInputPrompt[idx], idx)
-		idx += 1
+	
+	var instance = inputSCpath.instantiate()
+	instance.skillcheckComplete.connect(end_input_minigame)
+	activeInputSC = instance
+	
 	skillcheck = true
-	$HUD/Screen/SC_Input/anims.play("Visible")
+	$HUD/Screen.add_child.call_deferred(instance)
 
 func start_pulse_minigame() -> void:
 	hurtBox.set_deferred("monitoring", false)
@@ -317,6 +237,10 @@ func start_pulse_minigame() -> void:
 	$HUD/Screen/animMaster.play("hide")
 	skillcheck = true
 
+func end_input_minigame() -> void:
+	activeInputSC.queue_free()
+	release_rage_grab()
+
 func end_pulse_minigame() -> void:
 	$HUD/Screen/animMaster.play("visible")
 	activePulseSC.queue_free()
@@ -332,9 +256,9 @@ func transition_enrage() -> void:
 	transTime.timeout.connect(switch_state.bind(states.ENRAGED))
 	accel_timer_tween()
 
-func exit_enrage() -> void:
+func exit_enrage(fromCollect : bool = false) -> void:
 	switch_state(states.PASSIVE)
-	if playerHits >= hitMax:
+	if (playerHits >= hitMax) && !fromCollect:
 		add_time(5)
 	rageState = randomize_ragemode()
 	curAccel = acceleration
@@ -347,6 +271,7 @@ func body_check(body: Node2D) -> void:
 				body.damage_by(damage, direction.x)
 				velocity = -velocity * damageKnockbackMult
 				playerHits += 1
+				rageState = randomize_ragemode()
 				if playerHits >= hitMax:
 					exit_enrage()
 			elif rageState == rageModes.SC_INPUT:
@@ -359,12 +284,14 @@ func add_time(amt : float = 10.0) -> void:
 		isEnraged = false
 		if skillcheck:
 			if rageState == rageModes.SC_INPUT:
-				release_rage_grab()
+				end_input_minigame()
 			elif rageState == rageModes.SC_PULSE:
 				end_pulse_minigame()
-		exit_enrage()
+		exit_enrage(true)
 	timer += (amt + 1)
 	
+	activeTweens[0] = true
+	activeTweens[1] = true
 	if timeTween:
 		timeTween.kill()
 	if dispTween:
@@ -389,4 +316,4 @@ func debugEnrage() -> void:
 	timer = 0
 
 func debugAddTime() -> void:
-	add_time(5)
+	add_time(10)

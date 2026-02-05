@@ -34,7 +34,7 @@ func _ready() -> void:
 		$hintParent/master.active = false
 	$animMaster.play("add_child")
 
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	#if Input.is_key_pressed(KEY_ENTER):
 		#var instantiate = noteInstance.instantiate()
 		#add_child(instantiate)
@@ -123,14 +123,14 @@ func apply_health_tween() -> void:
 	healthTween.set_trans(Tween.TRANS_CIRC)
 	healthTween.tween_property(progressHealth, "value", skeletron.target.health, 0.25)
 
-func _sideL_detection(area: Area2D) -> void:
+func _sideL_detection(_area: Area2D) -> void:
 	readyNotes[0] = true
 
-func _sideL_release(area: Area2D) -> void:
+func _sideL_release(_area: Area2D) -> void:
 	readyNotes[0] = false
 
-func _sideR_detection(area: Area2D) -> void:
+func _sideR_detection(_area: Area2D) -> void:
 	readyNotes[1] = true
 
-func _sideR_release(area: Area2D) -> void:
+func _sideR_release(_area: Area2D) -> void:
 	readyNotes[1] = false

@@ -20,6 +20,7 @@ var stunDist : float = 0.0
 var coyoteframe : int
 
 @export_category("Attributes")
+@export var maxAbilities : int = 2
 @export var invulnerable : bool = false
 @export var maxJumps : int = 1
 var curJumps : int
@@ -66,7 +67,11 @@ func add_abilities() -> void:
 		if i != moveNode:
 			addons.remove_child(i)
 	
+	var cur = 0
 	for item in DataStore.playerData["Actives"]:
+		cur += 1
+		if cur > 2:
+			break
 		var child = abButtonRef.instantiate()
 		var abFuncRef = load(DataStore.abilityPaths[int(item)])
 		var vessel = abFuncRef.instantiate()

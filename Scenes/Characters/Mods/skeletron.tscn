@@ -1,11 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://ctqbc2q7npeep"]
+[gd_scene load_steps=13 format=3 uid="uid://ctqbc2q7npeep"]
 
 [ext_resource type="Texture2D" uid="uid://bgcvio3c5ygos" path="res://icon.svg" id="1_1t3qa"]
 [ext_resource type="Script" uid="uid://hadmjmgs4xbp" path="res://Scripts/Characters/Enemies/Mods/skeletron.gd" id="1_a7e2u"]
 [ext_resource type="Texture2D" uid="uid://cp6lcd645s22g" path="res://Sprites/Menus/GUI/skeletronRageTimerFill.png" id="3_w3t13"]
 [ext_resource type="Texture2D" uid="uid://dt8b4vh2maho1" path="res://Sprites/Menus/GUI/skeletronRageTimer.png" id="4_2e6l7"]
-[ext_resource type="Texture2D" uid="uid://dykokniofxcl4" path="res://Sprites/Menus/GUI/skillcheckInputFill.png" id="5_3rwap"]
-[ext_resource type="Texture2D" uid="uid://pj7fnav4kks" path="res://Sprites/Menus/GUI/skillcheckInputBorder.png" id="6_7cly1"]
 [ext_resource type="Texture2D" uid="uid://b7x0kebb7yk12" path="res://Sprites/Menus/GUI/skeletronRageAccelFill.png" id="7_b60qk"]
 [ext_resource type="Texture2D" uid="uid://bkfu0uyrlg8h5" path="res://Sprites/Menus/GUI/skeletronRageAccel.png" id="8_adxd1"]
 
@@ -14,96 +12,6 @@ radius = 49.2544
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8d8sn"]
 radius = 49.0102
-
-[sub_resource type="Animation" id="Animation_w3t13"]
-resource_name = "Invisible"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(0.5, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1.7411, 1),
-"update": 0,
-"values": [Vector2(912.5, 138), Vector2(912.5, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_7cly1"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(912.5, 138)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_3rwap"]
-resource_name = "Visible"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(0.3, 1),
-"update": 0,
-"values": [Vector2(912.5, 276), Vector2(912.5, 138)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(0.5, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_2e6l7"]
-_data = {
-&"Invisible": SubResource("Animation_w3t13"),
-&"RESET": SubResource("Animation_7cly1"),
-&"Visible": SubResource("Animation_3rwap")
-}
 
 [sub_resource type="Animation" id="Animation_b60qk"]
 length = 0.001
@@ -198,8 +106,7 @@ _data = {
 [node name="skeletron" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_a7e2u")
-forceEnraged = true
-startingEnrageMode = 2
+startingEnrageMode = 1
 timerStart = 37.0
 skillcheckInputMax = 20.0
 
@@ -339,44 +246,6 @@ texture_over = ExtResource("8_adxd1")
 texture_progress = ExtResource("7_b60qk")
 tint_under = Color(0.222216, 0.106669, 0.278646, 1)
 tint_progress = Color(1, 0, 0.578125, 1)
-
-[node name="SC_Input" type="TextureProgressBar" parent="HUD/Screen"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 312.5
-offset_top = -199.5
-offset_right = 425.5
-offset_bottom = 167.5
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.8, 0.8)
-pivot_offset = Vector2(56.5, 183.5)
-max_value = 15.0
-step = 0.0
-value = 7.5
-fill_mode = 7
-texture_under = ExtResource("5_3rwap")
-texture_over = ExtResource("6_7cly1")
-texture_progress = ExtResource("5_3rwap")
-tint_under = Color(0.283854, 0.113098, 0.113098, 1)
-tint_progress = Color(0.934896, 0.234523, 0.0559963, 1)
-
-[node name="inputPrompts" type="VBoxContainer" parent="HUD/Screen/SC_Input"]
-layout_mode = 1
-offset_left = -145.0
-offset_top = 30.0
-offset_right = -20.0
-offset_bottom = 422.0
-
-[node name="anims" type="AnimationPlayer" parent="HUD/Screen/SC_Input"]
-libraries = {
-&"": SubResource("AnimationLibrary_2e6l7")
-}
 
 [node name="animMaster" type="AnimationPlayer" parent="HUD/Screen"]
 libraries = {
