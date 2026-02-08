@@ -14,14 +14,16 @@ var pulseHintSeen : bool = false
 @export var playerData = {
 	"Inventory" : [100],
 	"Actives" : [100],
-	"Passives" : []
+	"Passives" : [],
+	"Junk" : 0
 }
 
 @export var RUNDATA = {
 	"gameExists" : false,
 	"saferoomNum" : 0,
 	"Cash" : 0,
-	"Kills" : 0
+	"Kills" : 0,
+	"activeMods" : []
 }
 
 @export var abilityPaths = {
@@ -34,7 +36,8 @@ var pulseHintSeen : bool = false
 	102 : "res://Scenes/Abilities/102.tscn",
 	103 : "res://Scenes/Abilities/103.tscn",
 	104 : "res://Scenes/Abilities/104.tscn",
-	105 : "res://Scenes/Abilities/105.tscn"
+	105 : "res://Scenes/Abilities/105.tscn",
+	106 : "res://Scenes/Abilities/106.tscn"
 }
 
 @export var enemyModPaths = {

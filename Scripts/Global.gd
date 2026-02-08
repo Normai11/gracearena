@@ -9,11 +9,13 @@ func _Save_Data():
 	save_data.Inventory = DataStore.playerData["Inventory"]
 	save_data.Actives = DataStore.playerData["Actives"]
 	save_data.Passives = DataStore.playerData["Passives"]
+	save_data.Junk = DataStore.playerData["Junk"]
 	
 	save_data.exists = DataStore.RUNDATA["gameExists"]
 	save_data.Saferoom = DataStore.RUNDATA["saferoomNum"]
 	save_data.Money = DataStore.RUNDATA["Cash"]
 	save_data.Kills = DataStore.RUNDATA["Kills"]
+	save_data.Mods = DataStore.RUNDATA["activeMods"]
 	
 	save_data.guiTrans = DataStore.settings["guiTrans"]
 	
@@ -40,11 +42,13 @@ func _Load_Data():
 	DataStore.playerData["Inventory"] = save_data.Inventory
 	DataStore.playerData["Actives"] = save_data.Actives
 	DataStore.playerData["Passives"] = save_data.Passives
+	DataStore.playerData["Junk"] = save_data.Junk
 	
 	DataStore.RUNDATA["gameExists"] = save_data.exists
 	DataStore.RUNDATA["saferoomNum"] = save_data.Saferoom
 	DataStore.RUNDATA["Cash"] = save_data.Money
 	DataStore.RUNDATA["Kills"] = save_data.Kills
+	DataStore.RUNDATA["activeMods"] = save_data.Mods
 	
 	DataStore.settings["guiTrans"] = save_data.guiTrans
 

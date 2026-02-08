@@ -7,6 +7,8 @@ extends Node
 var saferoomTimer : float = 150.9
 
 func _ready() -> void:
+	activeMods = DataStore.RUNDATA["activeMods"]
+	
 	specialStage = false
 	
 	for mod in activeMods:

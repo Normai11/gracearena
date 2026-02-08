@@ -16,7 +16,6 @@ size = Vector2(270, 15)
 
 [node name="testStage" type="Node2D" node_paths=PackedStringArray("playerReference")]
 script = ExtResource("1_qm2tv")
-activeMods = ["skeletron", "Lyte"]
 playerReference = NodePath("Player")
 
 [node name="Player" parent="." instance=ExtResource("1_k0dl8")]
@@ -25,7 +24,7 @@ position = Vector2(131, 387)
 [node name="enemySpawner" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
 position = Vector2(760, 448)
 injectNode = NodePath("..")
-enemyType = 1
+enemyType = 0
 
 [node name="enemySpawner2" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
 position = Vector2(2876, 213)
@@ -83,7 +82,6 @@ spawnDirection = -1
 
 [node name="timeDoor" parent="." instance=ExtResource("4_qm2tv")]
 position = Vector2(601, 423)
-forceOpen = true
 
 [node name="mainplatform" type="StaticBody2D" parent="."]
 position = Vector2(579, 730)

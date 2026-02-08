@@ -70,7 +70,7 @@ func add_abilities() -> void:
 	var cur = 0
 	for item in DataStore.playerData["Actives"]:
 		cur += 1
-		if cur > 2:
+		if cur > maxAbilities:
 			break
 		var child = abButtonRef.instantiate()
 		var abFuncRef = load(DataStore.abilityPaths[int(item)])
