@@ -1,9 +1,11 @@
 extends Node
 
 var savedataPath = "user://SaveData.data"
+var configPath = "user://GlobalSettings.cfg"
 var loadfinishPath : String
 
 func _Save_Data():
+	#region saveFile
 	var save_file = FileAccess.open(savedataPath, FileAccess.WRITE)
 	var save_data = {}
 	save_data.Inventory = DataStore.playerData["Inventory"]
@@ -17,16 +19,23 @@ func _Save_Data():
 	save_data.Kills = DataStore.RUNDATA["Kills"]
 	save_data.Mods = DataStore.RUNDATA["activeMods"]
 	
-	save_data.guiTrans = DataStore.settings["guiTrans"]
-	
 	if save_file == null:
 		print("FAILED TO SAVE FILE ", FileAccess.get_open_error())
 		return
 	
-	var jsonString = JSON.stringify(save_data)
+	var jsonString = JSON.stringify(save_data, "\t")
 	save_file.store_string(jsonString)
+	#endregion
+	#region configFile
+	var config_file = ConfigFile.new()
+	config_file.set_value("General", "firstOpen", DataStore.settings["firstOpen"])
+	config_file.set_value("Video", "guiTransparency", DataStore.settings["guiTrans"])
+	config_file.set_value("Game", "showHints", DataStore.settings["toggleHint"])
+	config_file.save(configPath)
+	#endregion
 
 func _Load_Data():
+	#region saveFile
 	if !FileAccess.file_exists(savedataPath):
 		print("Save Data not found")
 		return
@@ -49,10 +58,22 @@ func _Load_Data():
 	DataStore.RUNDATA["Cash"] = save_data.Money
 	DataStore.RUNDATA["Kills"] = save_data.Kills
 	DataStore.RUNDATA["activeMods"] = save_data.Mods
+	#endregion
+	#region configFile
+	var config_file = ConfigFile.new()
+	var failCheck = config_file.load(configPath)
+	if failCheck != OK:
+		print("configFile " + configPath + "failed to load.")
+		return
 	
-	DataStore.settings["guiTrans"] = save_data.guiTrans
+	DataStore.settings["guiTrans"] = config_file.get_value("Video", "guiTransparency")
+	DataStore.settings["firstOpen"] = config_file.get_value("General", "firstOpen")
+	DataStore.settings["toggleHint"] = config_file.get_value("Game", "showHints")
+	#endregion
 
 func _ready() -> void:
-	#_Save_Data()
-	_Load_Data()
-	pass
+	if FileAccess.file_exists(savedataPath):
+		_Load_Data()
+	else:
+		_Save_Data()
+		print("generated new save file")

@@ -103,6 +103,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_epyj2")
+breakRequirement = 10.0
 
 [node name="escapeProgress" type="TextureProgressBar" parent="."]
 modulate = Color(1, 1, 1, 0)
@@ -113,9 +114,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 312.5
-offset_top = -337.5
+offset_top = -199.5
 offset_right = 425.5
-offset_bottom = 29.5
+offset_bottom = 167.5
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.8, 0.8)

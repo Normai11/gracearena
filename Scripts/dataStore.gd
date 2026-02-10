@@ -6,15 +6,17 @@ var timerJustActive : bool = false
 
 var pulseHintSeen : bool = false
 
+#everything here is the default value
 @export var settings = {
+	"firstOpen" : true,
 	"guiTrans" : 1,
 	"toggleHint" : true
 }
 
 @export var playerData = {
-	"Inventory" : [100],
+	"Inventory" : [100,101,1],
 	"Actives" : [100],
-	"Passives" : [],
+	"Passives" : [0],
 	"Junk" : 0
 }
 
@@ -27,6 +29,8 @@ var pulseHintSeen : bool = false
 }
 
 @export var abilityPaths = {
+	0 : "res://Scenes/Abilities/Perks/2.tscn",
+	1 : "res://Scenes/Abilities/Perks/2.tscn",
 	2 : "res://Scenes/Abilities/Perks/2.tscn",
 	3 : "res://Scenes/Abilities/Perks/3.tscn",
 	4 : "res://Scenes/Abilities/Perks/4.tscn",

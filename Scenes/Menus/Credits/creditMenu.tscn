@@ -108,9 +108,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -294.0
-offset_top = -82.5
+offset_top = -111.5
 offset_right = 294.0
-offset_bottom = 82.5
+offset_bottom = 111.5
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -119,14 +119,15 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 46.0
+offset_left = 13.0
 offset_top = 18.0
-offset_right = -46.0
+offset_right = -13.0
 offset_bottom = -72.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "This link leads to \"https://link.com/subweb\". Are you sure you would like to open this link? Only proceed if you trust the website and the person."
 horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 3
 
 [node name="y" type="Button" parent="LinkPrompt"]
@@ -137,9 +138,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -117.0
-offset_top = 32.5
+offset_top = 64.5
 offset_right = -27.0
-offset_bottom = 63.5
+offset_bottom = 95.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "Proceed"
@@ -152,9 +153,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = 27.0
-offset_top = 32.5
+offset_top = 64.5
 offset_right = 117.0
-offset_bottom = 63.5
+offset_bottom = 95.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "Cancel"
@@ -162,3 +163,5 @@ text = "Cancel"
 [connection signal="pressed" from="plateNext" to="." method="_scroll_next"]
 [connection signal="pressed" from="platePrev" to="." method="_scroll_back"]
 [connection signal="pressed" from="plateBack" to="." method="_credits_leave"]
+[connection signal="pressed" from="LinkPrompt/y" to="." method="_linkPrompt_confirmed"]
+[connection signal="pressed" from="LinkPrompt/n" to="." method="_linkPrompt_denied"]

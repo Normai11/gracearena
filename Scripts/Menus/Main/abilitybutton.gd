@@ -9,7 +9,6 @@ signal _selected
 @export_category("Perk")
 var texturePath : String
 
-@onready var Cd = $cdTimer
 @onready var abButton = $Ability/abButton
 @onready var abInfo = $Ability/abInfo
 @onready var cdDisp = $Ability/abCooldown
@@ -17,6 +16,7 @@ var texturePath : String
 @onready var perkBase = $Perk
 
 var tween : Tween
+var cd : float = 0.0
 
 var inputName : String = "Placeholder"
 var promptID : int = 0
@@ -67,9 +67,13 @@ func _ready() -> void:
 		if FileAccess.file_exists(texturePath):
 			perkBase.get_child(0).texture = load(texturePath)
 
-func _process(_delta: float) -> void:
-	cdDisp.text = str(snapped(Cd.time_left, 0.1))
-	perkCd.text = str(snapped(Cd.time_left, 1))
+func _process(delta: float) -> void:
+	cd -= delta
+	cdDisp.text = str(snapped(cd, 0.1))
+	perkCd.text = str(snapped(cd, 1))
+	if cd <= 0 && abFunc.onCooldown == true:
+		cd = 0
+		_end_cooldown()
 	if inGame:
 		$".".modulate.a = DataStore.settings["guiTrans"]
 
@@ -109,14 +113,14 @@ func _start_cooldown(duration):
 	if isAbility:
 		abButton.disabled = true
 		cdDisp.visible = true
-		Cd.start(duration)
+		cd = duration
 		abFunc.onCooldown = true
 		
 		shader.set_shader_parameter("value_mult", 0.6)
 		shader.set_shader_parameter("brightness_add", -0.1)
 	else:
 		perkCd.visible = true
-		Cd.start(duration)
+		cd = duration
 		abFunc.onCooldown = true
 		shaderP.set_shader_parameter("value_mult", 0.6)
 		shaderP.set_shader_parameter("brightness_add", -0.1)

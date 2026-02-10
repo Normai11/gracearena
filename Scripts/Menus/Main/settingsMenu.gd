@@ -4,9 +4,10 @@ var CurrentMenu : int = 0
 
 @onready var categoryParent = $Categories
 @onready var categoryGame = $catGame
+@onready var categoryVideo = $catVideo
 
 @onready var transSlider = $catGame/guiTransSlider
-@onready var hintToggle = $catGame/hintToggle
+@onready var hintToggle = $catVideo/hintToggle
 
 func _ready() -> void:
 	switchMenu(0)
@@ -22,16 +23,16 @@ func _process(_delta: float) -> void:
 func switchMenu(menu : int = 0) -> void:
 	categoryParent.visible = false
 	categoryGame.visible = false
+	categoryVideo.visible = false
 	position = Vector2(0, 0)
 	CurrentMenu = menu
 	if menu == 0:
 		categoryParent.visible = true
 		position = Vector2(-784, 0)
+	elif menu == 1:
+		categoryVideo.visible = true
 	elif menu == 3:
 		categoryGame.visible = true
-
-func _Game_Open() -> void:
-	switchMenu(3)
 
 func _Return() -> void:
 	if CurrentMenu != 0:
@@ -54,3 +55,9 @@ func _hintToggle_switched(toggled_on: bool) -> void:
 		DataStore.settings["toggleHint"] = true
 	else:
 		DataStore.settings["toggleHint"] = false
+
+func _Game_Open() -> void:
+	switchMenu(3)
+
+func _Video_Open() -> void:
+	switchMenu(1)

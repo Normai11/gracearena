@@ -3,11 +3,13 @@ extends Control
 @onready var plateTemp = preload("res://Scenes/Menus/Credits/credit_plate.tscn")
 @onready var display = $plateContainer/Display
 @onready var container = $plateContainer
+@onready var linkConfirmation = $LinkPrompt
 
 var creditsPath : String = "res://Credits/"
 var creditsData : Dictionary = {}
 var creditsFiles : Array = []
 var currentPlate : int
+var linkPath : String
 
 var tween : Tween
 var finalVal : float
@@ -53,6 +55,7 @@ func _begin_instantiating():
 		plateChild.Links = creditsData["Links"] 
 		plateChild.extraLink = creditsData["extraLink"] 
 		plateChild.URL = creditsData["URLS"] 
+		plateChild.openLink.connect(link_prompt)
 		display.add_child(plateChild)
 		idx += 1
 	creditsData.clear()
@@ -101,3 +104,15 @@ func _credits_leave() -> void:
 	var loadingPath = load("res://Scenes/Menus/loadingScreen.tscn")
 	Global.loadfinishPath = "res://Scenes/Menus/Main/mainMenu.tscn"
 	get_tree().change_scene_to_packed(loadingPath)
+
+func link_prompt(link) -> void:
+	linkPath = link
+	$LinkPrompt/text.text = 'This link leads to:\n"' + link + '"\nAre you sure you would like to open this link? Only proceed if you trust the website and the person.'
+	linkConfirmation.visible = true
+
+func _linkPrompt_confirmed() -> void:
+	OS.shell_open(linkPath)
+	linkConfirmation.visible = false
+
+func _linkPrompt_denied() -> void:
+	linkConfirmation.visible = false

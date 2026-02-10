@@ -1,5 +1,5 @@
 extends Control
-signal openLink
+signal openLink(linkPath)
 
 #LINK REF: 0 = YT 1 = X 2 = Blu 3 = Twitch 4 = Tik 5 = Insta
 @export var iconPath : String
@@ -23,5 +23,5 @@ func _ready() -> void:
 	#extra
 
 func _Tik_pressed() -> void:
-	openLink.emit()
-	OS.shell_open(URL[4])
+	openLink.emit(URL[4])
+	#OS.shell_open(URL[4])

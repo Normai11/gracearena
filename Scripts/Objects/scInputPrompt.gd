@@ -61,6 +61,7 @@ func enable() -> void:
 	movementTween.set_trans(Tween.TRANS_EXPO)
 	movementTween.tween_property($image, "scale", Vector2(0.6, 0.6), 1.5)
 	movementTween.connect("finished", reset_activeTweens_value.bind(0))
+	self.modulate.a = 1
 	color_shift(true)
 
 func prompt_triggered() -> void:

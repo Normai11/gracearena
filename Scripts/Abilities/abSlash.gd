@@ -30,7 +30,7 @@ func _physics_process(delta: float) -> void:
 	if timer.time_left > 0 && active:
 		$dashHurtbox.position = player.position
 		var released = check_release()
-		print(released)
+		#print(released)
 		curHeld += delta
 		if curHeld >= dashTimer:
 			cancelled = false

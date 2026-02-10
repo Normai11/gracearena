@@ -34,9 +34,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_eqe06")
 
-[node name="cdTimer" type="Timer" parent="."]
-one_shot = true
-
 [node name="Ability" type="Control" parent="."]
 anchors_preset = 0
 offset_right = 100.0
@@ -156,7 +153,6 @@ text = "100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="timeout" from="cdTimer" to="." method="_end_cooldown"]
 [connection signal="mouse_entered" from="Ability/abButton" to="." method="_abButton_focused"]
 [connection signal="mouse_exited" from="Ability/abButton" to="." method="_abButton_unfocused"]
 [connection signal="pressed" from="Ability/abButton" to="." method="_on_abButton_pressed"]

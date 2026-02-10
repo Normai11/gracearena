@@ -135,6 +135,8 @@ func _end_lag() -> void:
 	onLag = false
 
 func _input(_event: InputEvent) -> void:
+	if moveType == -1:
+		return
 	if !onLag && !stunned:
 		if Input.is_action_just_pressed("primary"):
 			trigger_ability(abilities[0])
@@ -149,6 +151,8 @@ func _input(_event: InputEvent) -> void:
 				trigger_ability(abilities[3])
 
 func _physics_process(delta: float) -> void:
+	if moveType == -1:
+		return
 	var movement = moveNode.get_movement_input()
 	var speed : float = move_speed
 	if moveNode.get_sprint():
@@ -212,6 +216,8 @@ func _process(_delta: float) -> void:
 func damage_by(amt, _dir, dealKnockback : bool = true, penetrate : bool = false):
 	if invulnerable:
 		return
+	if moveType == -1:
+		return
 	if passives.has(3) && !penetrate:
 		var target = addons.find_child(str(3), false, false)
 		if !target._check_cooldown():
@@ -225,6 +231,8 @@ func damage_by(amt, _dir, dealKnockback : bool = true, penetrate : bool = false)
 	if dealKnockback:
 		velocity.y = -500
 		#velocity.x += dir * 25
+	if health <= 0:
+		moveType = -1
 
 func stun(dir, dist):
 	stunned = true

@@ -106,7 +106,9 @@ _data = {
 [node name="skeletron" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_a7e2u")
-startingEnrageMode = 1
+damage = 23.7
+enragedSpeedCap = 1125.5
+enragedAccelCap = 8.5
 timerStart = 37.0
 skillcheckInputMax = 20.0
 
