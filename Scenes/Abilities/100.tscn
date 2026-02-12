@@ -11,6 +11,7 @@ abName = "Punch"
 abDesc = "A basic melee attack. Deals 15 damage to enemies caught within your punch."
 abilityID = 100
 function = 2
+melee_piercing = false
 dmg = 7.0
 duration = 0.25
 cooldown = 0.7
@@ -26,5 +27,3 @@ collision_mask = 4
 position = Vector2(37, 0)
 shape = SubResource("RectangleShape2D_iieql")
 debug_color = Color(1, 0, 0, 0)
-
-[connection signal="body_entered" from="hurtbox" to="." method="body_check"]

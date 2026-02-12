@@ -10,6 +10,7 @@ abDesc = "Sends out a chain in your direction, pulling any enemy it hits toward 
 If an enemy is grabbed, this ability can be [color=gold]recast[/color] to throw out a projectile that converts the [color=red]current health[/color] of the enemy you reeled in to its damage output."
 abilityID = 104
 function = 1
+melee_piercing = false
 duration = 1.0
 cooldown = 25.0
 endlag = 0.5

@@ -32,6 +32,8 @@ var abilitySlot : int
 @export_category("Ability")
 ## If true, this ability keybind must be held in order to function.
 @export var holdAbility : bool = false 
+##
+@export var melee_piercing : bool = true
 ## If true, this ability will not be able to be used until the cooldown is off.
 @export var onCooldown : bool 
 ## The amount of damage the ability inflicts on enemies if the ability has a hitbox.
@@ -51,3 +53,22 @@ func _ability_activate():
 
 func _check_cooldown():
 	return onCooldown
+
+func attack_check(hurtbox : Area2D) -> void:
+	if !melee_piercing:
+		var bestProximity = INF
+		var target : Node
+		for enemies in hurtbox.get_overlapping_bodies():
+			var curProximity = enemies.position.x - player.position.x
+			if sign(curProximity) == player.direction:
+				curProximity = abs(curProximity)
+				
+				if curProximity < bestProximity:
+					bestProximity = curProximity
+					target = enemies
+		if target:
+			target.damage_by(dmg, player.direction)
+			hurtbox.get_child(0).disabled = true
+	else:
+		for enemies in hurtbox.get_overlapping_bodies():
+			enemies.damage_by(dmg, player.direction)

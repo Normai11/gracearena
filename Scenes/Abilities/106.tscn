@@ -15,7 +15,7 @@ abName = "Slash"
 abDesc = "Activating this ability sends a vertical slash, dealing 15 damage to enemies. Holding down this abilty for 0.3s sends you in a forward-slash, making a short dash and dealing 17 damage. Using the forward-slash increases the cooldown to 12.6s."
 holdAbility = true
 dmg = 15.0
-duration = 0.5
+duration = 0.35
 cooldown = 1.5
 endlag = 0.2
 
@@ -41,6 +41,3 @@ monitorable = false
 position = Vector2(29.5, 0)
 shape = SubResource("RectangleShape2D_5ob8e")
 debug_color = Color(1, 0, 0, 0)
-
-[connection signal="body_entered" from="dashHurtbox" to="." method="body_check"]
-[connection signal="body_entered" from="slashHurtbox" to="." method="body_check"]

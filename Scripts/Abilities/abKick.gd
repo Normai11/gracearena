@@ -16,6 +16,8 @@ func _physics_process(_delta: float) -> void:
 			hurtbox.rotation_degrees = 0
 		else:
 			hurtbox.rotation_degrees = 180
+	if hurtbox.has_overlapping_bodies():
+		attack_check(hurtbox)
 
 func _ability_activate():
 	timer.start()
@@ -30,8 +32,3 @@ func _end_cooldown():
 	timer.stop()
 	collision.disabled = true
 	player.moveType = funcType.CONTINUE
-
-func body_check(body: Node) -> void:
-	#print(body)
-	if body is Enemy:
-		body.damage_by(dmg, player.direction)

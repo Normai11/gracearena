@@ -57,6 +57,17 @@ func _physics_process(delta: float) -> void:
 			if !Input.is_action_pressed("quarternary") && !abDisplay.abButton.button_pressed:
 				cancelled = true
 				timer.emit_signal("timeout")
+	if hurtbox.has_overlapping_bodies():
+		attack_check(hurtbox)
+		kills += 1
+		currentSpeed -= 200
+		if kills >= ramPierce:
+			timer.emit_signal("timeout")
+			player.velocity.y = -1300
+			player.accel = 90
+			player.friction = 20
+			player.stun(-player.direction, speedCap / 3)
+			player.move_and_slide()
 
 func _ability_activate():
 	$crashCheck.target_position.x = 25 * player.direction
@@ -78,20 +89,6 @@ func _end_cooldown():
 	abDisplay._start_cooldown(cooldown)
 	collision.set_deferred("disabled", true) 
 	player._start_endlag(1)
-
-func body_check(body: Node) -> void:
-	#print(body)
-	if body is Enemy:
-		kills += 1
-		currentSpeed -= 200
-		body.damage_by(dmg, player.direction)
-		if kills >= ramPierce:
-			timer.emit_signal("timeout")
-			player.velocity.y = -1300
-			player.accel = 90
-			player.friction = 20
-			player.stun(-player.direction, speedCap / 3)
-			player.move_and_slide()
 
 func side_effect() -> void:
 	player.gravity = originalGrav

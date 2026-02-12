@@ -11,6 +11,7 @@ var curHeld : float = 0.0
 
 var cancelled : bool = false
 var active : bool = false
+var dashed : bool = false
 
 func _ready() -> void:
 	dashHurtbox.disabled = true
@@ -39,9 +40,16 @@ func _physics_process(delta: float) -> void:
 			cancelled = true
 			timer.start(0.2)
 			trigger_attack()
+	if dashHurtbox.get_parent().has_overlapping_bodies():
+		if !dashed:
+			dashed = true
+			attack_check(dashHurtbox.get_parent())
+	if slashHurtbox.get_parent().has_overlapping_bodies():
+		attack_check(slashHurtbox.get_parent())
 
 func _ability_activate():
 	active = true
+	dashed = false
 	curHeld = 0
 	timer.start(duration)
 	player._start_endlag(duration)
@@ -53,9 +61,11 @@ func trigger_attack() -> void:
 	active = false
 	player._start_endlag(endlag)
 	if cancelled:
+		melee_piercing = false
 		dashHurtbox.disabled = true
 		slashHurtbox.disabled = false
 	else:
+		melee_piercing = true
 		dashHurtbox.disabled = false
 		slashHurtbox.disabled = true
 		#player.position.x += 238
@@ -87,8 +97,3 @@ func check_release() -> bool:
 		if !Input.is_action_pressed("quarternary") && !abDisplay.abButton.button_pressed:
 			return true
 	return false
-
-func body_check(body: Node) -> void:
-	#print(body)
-	if body is Enemy:
-		body.damage_by(dmg, player.direction)

@@ -71,11 +71,11 @@ func _process(delta: float) -> void:
 	cd -= delta
 	cdDisp.text = str(snapped(cd, 0.1))
 	perkCd.text = str(snapped(cd, 1))
-	if cd <= 0 && abFunc.onCooldown == true:
-		cd = 0
-		_end_cooldown()
 	if inGame:
 		$".".modulate.a = DataStore.settings["guiTrans"]
+		if cd <= 0 && abFunc.onCooldown == true:
+			cd = 0
+			_end_cooldown()
 
 func _on_abButton_pressed() -> void:
 	if inGame:
