@@ -14,6 +14,13 @@ enum funcType {
 	DISABLE # Nullify player movement input
 }
 
+const abilityInputKeys = {
+	0 : "primary",
+	1 : "secondary",
+	2 : "tertiary",
+	3 : "quarternary"
+}
+
 @export_category("Identity")
 ## The name that will be displayed for the ability.
 @export var abName : String 
@@ -66,9 +73,12 @@ func attack_check(hurtbox : Area2D) -> void:
 				if curProximity < bestProximity:
 					bestProximity = curProximity
 					target = enemies
-		if target:
+		if target && !player.get_wall_collision():
 			target.damage_by(dmg, player.direction)
 			hurtbox.get_child(0).disabled = true
 	else:
 		for enemies in hurtbox.get_overlapping_bodies():
 			enemies.damage_by(dmg, player.direction)
+
+func get_ability_activation() -> bool:
+	return Input.is_action_pressed(abilityInputKeys[abilitySlot])

@@ -1,7 +1,6 @@
 class_name Player
 extends CharacterBody2D
 
-@onready var interactArea = $interactionArea
 var abButtonRef = preload("res://Scenes/Menus/Main/inputButton.tscn")
 
 @export var loadGuiScene : PackedScene
@@ -40,6 +39,8 @@ var iFrames : int = 0
 @onready var moveNode = $moveAddons/movementComponent
 @onready var addons = $moveAddons
 @onready var lagTimer = $endlag
+@onready var interactArea = $interactionArea
+@onready var wallCollision = $wallCollider
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction : int = 1
@@ -213,7 +214,7 @@ func _process(_delta: float) -> void:
 	if health > max_health:
 		health = max_health
 
-func damage_by(amt, _dir, dealKnockback : bool = true, penetrate : bool = false):
+func damage_by(amt, dir, dealKnockback : bool = true, penetrate : bool = false):
 	if invulnerable:
 		return
 	if moveType == -1:
@@ -230,7 +231,7 @@ func damage_by(amt, _dir, dealKnockback : bool = true, penetrate : bool = false)
 	guiScene.update_health()
 	if dealKnockback:
 		velocity.y = -500
-		#velocity.x += dir * 25
+		velocity.x += dir * 700
 	if health <= 0:
 		moveType = -1
 
@@ -250,3 +251,6 @@ func check_interaction() -> void:
 			guiScene.show_prompt(false)
 	else:
 		guiScene.show_prompt(false)
+
+func get_wall_collision() -> bool:
+	return wallCollision.is_colliding()

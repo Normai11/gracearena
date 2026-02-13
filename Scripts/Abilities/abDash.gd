@@ -37,5 +37,5 @@ func _physics_process(_delta: float) -> void:
 func side_effect() -> void:
 	var tween = get_tree().create_tween()
 	var tween2 = get_tree().create_tween()
-	tween.tween_property(player, "friction", 20, 0.5)
-	tween2.tween_property(player, "accel", 90, 0.5)
+	tween.tween_property(player, "friction", 12, 0.5)
+	tween2.tween_property(player, "accel", 12, 0.5)

@@ -30,7 +30,7 @@ func _physics_process(delta: float) -> void:
 			$dashHurtbox.rotation_degrees = 180
 	if timer.time_left > 0 && active:
 		$dashHurtbox.position = player.position
-		var released = check_release()
+		var released = !get_ability_activation()
 		#print(released)
 		curHeld += delta
 		if curHeld >= dashTimer:
@@ -82,18 +82,3 @@ func _end_cooldown():
 	player.moveType = funcType.CONTINUE
 	dashHurtbox.disabled = true
 	slashHurtbox.disabled = true
-
-func check_release() -> bool:
-	if abilitySlot == 0:
-		if !Input.is_action_pressed("primary") && !abDisplay.abButton.button_pressed:
-			return true
-	elif abilitySlot == 1:
-		if !Input.is_action_pressed("secondary") && !abDisplay.abButton.button_pressed:
-			return true
-	elif abilitySlot == 2:
-		if !Input.is_action_pressed("tertiary") && !abDisplay.abButton.button_pressed:
-			return true
-	elif abilitySlot == 3:
-		if !Input.is_action_pressed("quarternary") && !abDisplay.abButton.button_pressed:
-			return true
-	return false

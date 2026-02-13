@@ -41,22 +41,9 @@ func _physics_process(delta: float) -> void:
 			player.friction = 20
 			player.stun(-player.direction, speedCap / 3)
 			player.move_and_slide()
-		if abilitySlot == 0:
-			if !Input.is_action_pressed("primary") && !abDisplay.abButton.button_pressed:
-				cancelled = true
-				timer.emit_signal("timeout")
-		elif abilitySlot == 1:
-			if !Input.is_action_pressed("secondary") && !abDisplay.abButton.button_pressed:
-				cancelled = true
-				timer.emit_signal("timeout")
-		elif abilitySlot == 2:
-			if !Input.is_action_pressed("tertiary") && !abDisplay.abButton.button_pressed:
-				cancelled = true
-				timer.emit_signal("timeout")
-		elif abilitySlot == 3:
-			if !Input.is_action_pressed("quarternary") && !abDisplay.abButton.button_pressed:
-				cancelled = true
-				timer.emit_signal("timeout")
+		if !get_ability_activation():
+			cancelled = true
+			timer.emit_signal("timeout")
 	if hurtbox.has_overlapping_bodies():
 		attack_check(hurtbox)
 		kills += 1
@@ -96,8 +83,8 @@ func side_effect() -> void:
 	#if !cancelled:
 		var tween = get_tree().create_tween()
 		var tween2 = get_tree().create_tween()
-		tween.tween_property(player, "friction", 20, 0.75)
-		tween2.tween_property(player, "accel", 90, 0.75)
+		tween.tween_property(player, "friction", 12, 0.75)
+		tween2.tween_property(player, "accel", 12, 0.75)
 	else:
 		pass #inflict slowness effect
 	var Etimer = get_tree().create_timer(0.3)

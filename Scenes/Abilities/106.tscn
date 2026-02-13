@@ -10,7 +10,7 @@ size = Vector2(59, 166)
 
 [node name="106" type="Node"]
 script = ExtResource("1_76c3c")
-dashVelocity = 9500.0
+dashVelocity = 4500.0
 abName = "Slash"
 abDesc = "Activating this ability sends a vertical slash, dealing 15 damage to enemies. Holding down this abilty for 0.3s sends you in a forward-slash, making a short dash and dealing 17 damage. Using the forward-slash increases the cooldown to 12.6s."
 holdAbility = true
