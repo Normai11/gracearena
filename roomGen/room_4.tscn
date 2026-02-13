@@ -1,0 +1,67 @@
+[gd_scene load_steps=5 format=3 uid="uid://dc8hui5gr86he"]
+
+[ext_resource type="Script" uid="uid://fjbti2nu5vtf" path="res://roomGen/roomProperties.gd" id="1_65og2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cfqqn"]
+size = Vector2(658, 1102)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_65og2"]
+size = Vector2(658, 102)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3gjfn"]
+size = Vector2(82, 250)
+
+[node name="room4" type="Node2D" node_paths=PackedStringArray("roomContObj")]
+script = ExtResource("1_65og2")
+roomSize = Vector2(658, 1102)
+roomOffset = Vector2(328, -448)
+roomContObj = NodePath("genCont")
+
+[node name="boundsVisual" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -329.0
+offset_top = -551.0
+offset_right = 329.0
+offset_bottom = 551.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 1, 0.196078)
+
+[node name="Bounds" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 0
+
+[node name="size" type="CollisionShape2D" parent="Bounds"]
+shape = SubResource("RectangleShape2D_cfqqn")
+debug_color = Color(0.890196, 0, 0, 0)
+
+[node name="genCont" type="Marker2D" parent="."]
+position = Vector2(329, -351)
+
+[node name="Roof2" type="StaticBody2D" parent="."]
+position = Vector2(0, 500)
+
+[node name="size" type="CollisionShape2D" parent="Roof2"]
+shape = SubResource("RectangleShape2D_65og2")
+
+[node name="Roof" type="StaticBody2D" parent="."]
+position = Vector2(0, -500)
+
+[node name="size" type="CollisionShape2D" parent="Roof"]
+shape = SubResource("RectangleShape2D_65og2")
+
+[node name="Wall0" type="StaticBody2D" parent="."]
+position = Vector2(-288, 220)
+
+[node name="size" type="CollisionShape2D" parent="Wall0"]
+shape = SubResource("RectangleShape2D_3gjfn")
+
+[node name="Wall1" type="StaticBody2D" parent="."]
+position = Vector2(288, 220)
+
+[node name="size" type="CollisionShape2D" parent="Wall1"]
+shape = SubResource("RectangleShape2D_3gjfn")

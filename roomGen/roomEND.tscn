@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=3 uid="uid://bs6oknddda5n6"]
+
+[ext_resource type="Script" uid="uid://fjbti2nu5vtf" path="res://roomGen/roomProperties.gd" id="1_qx4nc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_07xu5"]
+size = Vector2(930, 558)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_77etp"]
+size = Vector2(930, 102)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3gjfn"]
+size = Vector2(82, 250)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pevkm"]
+size = Vector2(82, 354)
+
+[node name="roomEND" type="Node2D"]
+script = ExtResource("1_qx4nc")
+endGen = true
+roomOffset = Vector2(465, -177)
+
+[node name="boundsVisual" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -465.0
+offset_top = -279.0
+offset_right = 465.0
+offset_bottom = 279.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 0.333333)
+
+[node name="Bounds" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 512
+monitoring = false
+
+[node name="size" type="CollisionShape2D" parent="Bounds"]
+shape = SubResource("RectangleShape2D_07xu5")
+debug_color = Color(0.890196, 0, 0, 0)
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(0, 228)
+
+[node name="size" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("RectangleShape2D_77etp")
+
+[node name="Roof" type="StaticBody2D" parent="."]
+position = Vector2(0, -228)
+
+[node name="size" type="CollisionShape2D" parent="Roof"]
+shape = SubResource("RectangleShape2D_77etp")
+
+[node name="Wall0" type="StaticBody2D" parent="."]
+position = Vector2(-424, -52)
+
+[node name="size" type="CollisionShape2D" parent="Wall0"]
+shape = SubResource("RectangleShape2D_3gjfn")
+
+[node name="Wall1" type="StaticBody2D" parent="."]
+position = Vector2(424, -52)
+
+[node name="size" type="CollisionShape2D" parent="Wall1"]
+position = Vector2(0, 52)
+shape = SubResource("RectangleShape2D_pevkm")

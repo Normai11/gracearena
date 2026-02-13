@@ -1,0 +1,92 @@
+[gd_scene load_steps=8 format=3 uid="uid://ii6jfbym33gh"]
+
+[ext_resource type="Script" uid="uid://fjbti2nu5vtf" path="res://roomGen/roomProperties.gd" id="1_pq0st"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1dst7"]
+size = Vector2(1298, 866)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r5c2i"]
+size = Vector2(1298, 102)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_whq21"]
+size = Vector2(82, 678)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rmmc5"]
+size = Vector2(82, 446)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uy76r"]
+size = Vector2(422, 44)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e2gd5"]
+size = Vector2(218, 20)
+
+[node name="room2" type="Node2D" node_paths=PackedStringArray("roomContObj")]
+script = ExtResource("1_pq0st")
+roomSize = Vector2(1298, 866)
+startFlipping = true
+roomOffset = Vector2(649, 223)
+roomContObj = NodePath("genCont")
+
+[node name="boundsVisual" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -649.0
+offset_top = -433.0
+offset_right = 649.0
+offset_bottom = 433.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 1, 0.196078)
+
+[node name="Bounds" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 0
+
+[node name="size" type="CollisionShape2D" parent="Bounds"]
+shape = SubResource("RectangleShape2D_1dst7")
+debug_color = Color(0.890196, 0, 0, 0)
+
+[node name="genCont" type="Marker2D" parent="."]
+position = Vector2(-649, 331)
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(0, 382)
+
+[node name="size" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("RectangleShape2D_r5c2i")
+
+[node name="Roof" type="StaticBody2D" parent="."]
+position = Vector2(0, -382)
+
+[node name="size" type="CollisionShape2D" parent="Roof"]
+shape = SubResource("RectangleShape2D_r5c2i")
+
+[node name="Wall1" type="StaticBody2D" parent="."]
+position = Vector2(608, 0)
+
+[node name="size" type="CollisionShape2D" parent="Wall1"]
+shape = SubResource("RectangleShape2D_whq21")
+
+[node name="Wall2" type="StaticBody2D" parent="."]
+position = Vector2(-608, 0)
+
+[node name="size" type="CollisionShape2D" parent="Wall2"]
+shape = SubResource("RectangleShape2D_rmmc5")
+
+[node name="Platform0" type="StaticBody2D" parent="."]
+position = Vector2(-288, 182)
+scale = Vector2(-1, -1)
+
+[node name="size" type="CollisionShape2D" parent="Platform0"]
+shape = SubResource("RectangleShape2D_uy76r")
+
+[node name="Platform1" type="StaticBody2D" parent="."]
+position = Vector2(-392, -18)
+
+[node name="size" type="CollisionShape2D" parent="Platform1"]
+shape = SubResource("RectangleShape2D_e2gd5")
+one_way_collision = true
+debug_color = Color(0, 0.643457, 0.299661, 0.42)
