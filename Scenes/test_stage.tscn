@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://b04o0wf67xtf4"]
+[gd_scene load_steps=9 format=3 uid="uid://b04o0wf67xtf4"]
 
 [ext_resource type="PackedScene" uid="uid://dcc6jvd4qehdq" path="res://Scenes/Characters/player.tscn" id="1_k0dl8"]
 [ext_resource type="Script" uid="uid://cqs7q18yivgnu" path="res://Scripts/stageManager.gd" id="1_qm2tv"]
+[ext_resource type="PackedScene" uid="uid://8exbkp7gn8aw" path="res://Scenes/Objects/advCamera.tscn" id="2_4hca1"]
 [ext_resource type="PackedScene" uid="uid://dmosm4lm85gtt" path="res://Scenes/Objects/timeDoor.tscn" id="4_qm2tv"]
 [ext_resource type="PackedScene" uid="uid://blpirsion1ret" path="res://Scenes/Characters/Enemies/enemySpawner.tscn" id="5_4hca1"]
 
@@ -20,6 +21,10 @@ playerReference = NodePath("Player")
 
 [node name="Player" parent="." instance=ExtResource("1_k0dl8")]
 position = Vector2(131, 387)
+
+[node name="advCamera" parent="." node_paths=PackedStringArray("targetNode") instance=ExtResource("2_4hca1")]
+targetNode = NodePath("../Player")
+dragMult = 0.25
 
 [node name="enemySpawner" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
 position = Vector2(760, 448)

@@ -10,11 +10,11 @@ script = ExtResource("1_rbi0k")
 speedCap = 2300.0
 ramPierce = 3
 abName = "Ram"
-abDesc = "Puts you in a constant charging state. Deals [color=red][shake]256[/shake][/color] damage to any enemy hit by this attack. Killing three enemies or crashing into a wall will stun you backwards. Cancelling the ability will apply [color=purple][wave]Slowness II[/wave][/color] for 7 seconds."
+abDesc = "Puts you in a constant charging state. Deals [color=red]32[/color] damage to any enemy hit by this attack. Killing three enemies or crashing into a wall will stun you backwards. Cancelling the ability will apply [color=purple][wave]Slowness II[/wave][/color] for 7 seconds."
 abilityID = 103
 function = 5
 holdAbility = true
-dmg = 256.0
+dmg = 32.0
 duration = 25.0
 cooldown = 20.0
 

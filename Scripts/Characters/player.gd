@@ -34,7 +34,7 @@ var extraJumps : int
 @export var iFrameMax : int = 30 ## IN FRAMES!!!!!
 var iFrames : int = 0
 
-@onready var camera = $Camera
+#@onready var camera = $Camera
 @onready var animations = $animations
 @onready var moveNode = $moveAddons/movementComponent
 @onready var addons = $moveAddons
@@ -153,6 +153,7 @@ func _input(_event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	if moveType == -1:
+		velocity = Vector2.ZERO
 		return
 	var movement = moveNode.get_movement_input()
 	var speed : float = move_speed
@@ -199,7 +200,6 @@ func _physics_process(delta: float) -> void:
 	if moveType == 1:
 		velocity = Vector2.ZERO
 	move_and_slide()
-	
 	check_interaction()
 
 func _process(_delta: float) -> void:
