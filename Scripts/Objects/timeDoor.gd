@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends interactableObject
 
 @onready var timer = $openTimer
 @onready var collision = $collisionBox
@@ -14,6 +14,9 @@ func _ready() -> void:
 		collision.disabled = true
 
 func _interacted():
+	if overhaulCamera:
+		var camera = get_parent().find_child("advCamera")
+		camera.change_targets(self, cameraFocusMode, 0.5)
 	area.monitorable = false
 	timer.start()
 

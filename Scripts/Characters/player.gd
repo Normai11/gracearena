@@ -244,7 +244,7 @@ func check_interaction() -> void:
 	if interactArea.is_colliding():
 		var target = interactArea.get_collider()
 		if target.monitorable:
-			guiScene.show_prompt()
+			guiScene.show_prompt(true, target.get_parent()._get_object_name())
 			if Input.is_action_just_pressed("interact"):
 				target.get_parent()._interacted()
 		else:

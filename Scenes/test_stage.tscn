@@ -1,10 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://b04o0wf67xtf4"]
+[gd_scene load_steps=11 format=3 uid="uid://b04o0wf67xtf4"]
 
 [ext_resource type="PackedScene" uid="uid://dcc6jvd4qehdq" path="res://Scenes/Characters/player.tscn" id="1_k0dl8"]
 [ext_resource type="Script" uid="uid://cqs7q18yivgnu" path="res://Scripts/stageManager.gd" id="1_qm2tv"]
 [ext_resource type="PackedScene" uid="uid://8exbkp7gn8aw" path="res://Scenes/Objects/advCamera.tscn" id="2_4hca1"]
 [ext_resource type="PackedScene" uid="uid://dmosm4lm85gtt" path="res://Scenes/Objects/timeDoor.tscn" id="4_qm2tv"]
+[ext_resource type="PackedScene" uid="uid://c4hxk0o4u4vdy" path="res://assets/shopkeeper/shopkeeper.tscn" id="4_qotmv"]
 [ext_resource type="PackedScene" uid="uid://blpirsion1ret" path="res://Scenes/Characters/Enemies/enemySpawner.tscn" id="5_4hca1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qotmv"]
+size = Vector2(2832, 164)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gk40"]
 size = Vector2(1362, 164)
@@ -25,6 +29,10 @@ position = Vector2(131, 387)
 [node name="advCamera" parent="." node_paths=PackedStringArray("targetNode") instance=ExtResource("2_4hca1")]
 targetNode = NodePath("../Player")
 dragMult = 0.25
+
+[node name="shopkeeper" parent="." instance=ExtResource("4_qotmv")]
+position = Vector2(-1097, 335)
+cameraFocusZoom = Vector2(4.5, 4)
 
 [node name="enemySpawner" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_4hca1")]
 position = Vector2(760, 448)
@@ -93,7 +101,8 @@ position = Vector2(579, 730)
 scale = Vector2(1, 3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="mainplatform"]
-shape = SubResource("RectangleShape2D_3gk40")
+position = Vector2(-735, 0)
+shape = SubResource("RectangleShape2D_qotmv")
 
 [node name="mainplatform2" type="StaticBody2D" parent="."]
 position = Vector2(1243, 734)

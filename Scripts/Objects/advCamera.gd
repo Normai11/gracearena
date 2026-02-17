@@ -28,7 +28,13 @@ func _physics_process(delta: float) -> void:
 	
 	if cameraType == camType.FOLLOW:
 		var targetPos = curTarget.position.x + (curTarget.velocity.x * 0.15)
-		position.x = lerp(position.x, targetPos, 0.2)
+		position.x = lerp(position.x, targetPos, dragMult)
 		position.y = curTarget.position.y
 	elif cameraType == camType.LOCK:
-		position = curTarget.position
+		position = lerp(position, curTarget.position, dragMult)
+
+func change_targets(newTarget : Node, focusType, newDrag : float, newZoom : Vector2) -> void:
+	curTarget = newTarget
+	cameraType = focusType
+	dragMult = newDrag
+	targetZoom = newZoom

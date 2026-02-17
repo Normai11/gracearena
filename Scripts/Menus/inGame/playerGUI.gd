@@ -65,8 +65,9 @@ func shield_anim(form : bool = true) -> void:
 	else:
 		$HUDparent/Healthbar/Display/AnimationPlayer.play("armorBreak")
 
-func show_prompt(active : bool = true):
+func show_prompt(active : bool = true, promptName : String = ""):
 	if active:
+		$HUDparent/prompt/promptName.text = promptName
 		$HUDparent/prompt.visible = true
 		$HUDparent/prompt/loop.play("loop")
 	else:
@@ -120,6 +121,10 @@ func toggle_skillcheck(value : bool, showHP : bool = true) -> void:
 		modulateTween.tween_property($HUDparent, "modulate", Color("ffffff"), 0.5)
 		modulateTween.connect("finished", reset_activeTweens_value.bind(1))
 		cameraTween.connect("finished", reset_activeTweens_value.bind(2))
+
+func shop_toggle(value : bool) -> void:
+	if value:
+		visible = false
 
 #func _refresh_perks():
 	#for item in DataStore.playerData["Passives"]:
