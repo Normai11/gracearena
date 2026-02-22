@@ -125,6 +125,8 @@ func toggle_skillcheck(value : bool, showHP : bool = true) -> void:
 func shop_toggle(value : bool) -> void:
 	if value:
 		visible = false
+	else:
+		visible = true
 
 #func _refresh_perks():
 	#for item in DataStore.playerData["Passives"]:

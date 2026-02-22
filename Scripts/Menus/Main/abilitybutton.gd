@@ -26,20 +26,33 @@ var altPath : String = ""
 var promptkeybind : Array = ["Z", "X", "C", "A"]
 
 func refresh_texture() -> void:
-	var path = "res://Sprites/Abilities/ab" + str(int(inputID)) + ".png"
-	if FileAccess.file_exists(path):
-		abButton.get_child(0).texture = load(path)
-		perkBase.get_child(0).texture = load(path)
+	set_atlas_region(inputID, abButton.get_child(0))
+	set_atlas_region(inputID, perkBase.get_child(0))
 	if altPath != "":
-		if FileAccess.file_exists(altPath):
-			abButton.get_child(0).texture = load(altPath)
-			perkBase.get_child(0).texture = load(altPath)
+		set_atlas_region(inputID, perkBase.get_child(0), true)
+		set_atlas_region(inputID, abButton.get_child(0), true)
+	#var path = "res://Sprites/Abilities/ab" + str(int(inputID)) + ".png"
+	#if FileAccess.file_exists(path):
+		#abButton.get_child(0).texture = load(path)
+		#perkBase.get_child(0).texture = load(path)
+	#if altPath != "":
+		#if FileAccess.file_exists(altPath):
+			#abButton.get_child(0).texture = load(altPath)
+			#perkBase.get_child(0).texture = load(altPath)
 
 func _ready() -> void:
-	var path = "res://Sprites/Abilities/ab" + str(int(inputID)) + ".png"
-	if FileAccess.file_exists(path):
-		abButton.get_child(0).texture = load(path)
-		perkBase.get_child(0).texture = load(path)
+	var atlasTexture = AtlasTexture.new()
+	var atlasPath = "res://assets/abilities/abilityAtlas.png"
+	atlasTexture.atlas = load(atlasPath)
+	abButton.get_child(0).texture = atlasTexture
+	perkBase.get_child(0).texture = atlasTexture
+	
+	set_atlas_region(inputID, abButton.get_child(0))
+	set_atlas_region(inputID, perkBase.get_child(0))
+	#var path = "res://Sprites/Abilities/ab" + str(int(inputID)) + ".png"
+	#if FileAccess.file_exists(path):
+		#abButton.get_child(0).texture = load(path)
+		#perkBase.get_child(0).texture = load(path)
 	
 	#abButton.get_child(0).material = abButton.get_child(0).material.make_unique()
 	#perkBase.get_child(0).material = abButton.get_child(0).material.make_unique()
@@ -67,6 +80,15 @@ func _ready() -> void:
 		if FileAccess.file_exists(texturePath):
 			perkBase.get_child(0).texture = load(texturePath)
 
+func set_atlas_region(id : int, texture, isAlt : bool = false) -> void:
+	var atlas = texture.texture
+	
+	var x = 250 * (id if id < 100 else id - 100)
+	var y = (0 if id < 100 else 250)
+	if isAlt:
+		y = 500
+	atlas.region = Rect2(x, y, 250, 250)
+
 func _process(delta: float) -> void:
 	cd -= delta
 	cdDisp.text = str(snapped(cd, 0.1))
@@ -93,9 +115,9 @@ func _abButton_focused() -> void:
 	if tween:
 		tween.kill()
 	tween = get_tree().create_tween()
-	tween.tween_property(abButton, "scale", Vector2(1.1, 1.1), 0.15)
 	tween.set_trans(Tween.TRANS_EXPO)
 	tween.set_ease(Tween.EASE_OUT)
+	tween.tween_property(abButton, "scale", Vector2(1.1, 1.1), 0.15)
 	mouse_entered.emit()
 
 func _abButton_unfocused() -> void:

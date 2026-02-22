@@ -138,7 +138,7 @@ func _end_lag() -> void:
 func _input(_event: InputEvent) -> void:
 	if moveType == -1:
 		return
-	if !onLag && !stunned:
+	if !onLag && !stunned && moveType != 5:
 		if Input.is_action_just_pressed("primary"):
 			trigger_ability(abilities[0])
 		if Input.is_action_just_pressed("secondary"):

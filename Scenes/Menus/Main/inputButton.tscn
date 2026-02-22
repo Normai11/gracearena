@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1oyluiows8tj"]
+[gd_scene load_steps=7 format=3 uid="uid://c1oyluiows8tj"]
 
 [ext_resource type="Script" uid="uid://2dl0yrre4lqq" path="res://Scripts/Menus/Main/abilitybutton.gd" id="1_eqe06"]
-[ext_resource type="Texture2D" uid="uid://nijf1v28d5le" path="res://Sprites/Abilities/holderOfPlaces.png" id="2_eqe06"]
+[ext_resource type="Texture2D" uid="uid://c4gp2qoiyyxhv" path="res://assets/abilities/abilityAtlas.png" id="3_c76al"]
 [ext_resource type="Shader" uid="uid://bcwmir5oxi3di" path="res://Sprites/Shaders/colorHSV.gdshader" id="3_eqe06"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c76al"]
@@ -12,6 +12,10 @@ shader_parameter/saturation_mult = 1.0
 shader_parameter/value_mult = 1.0
 shader_parameter/brightness_add = 0.0
 shader_parameter/contrast_mult = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_085rj"]
+atlas = ExtResource("3_c76al")
+region = Rect2(0, 500, 250, 250)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_eqe06"]
 resource_local_to_scene = true
@@ -103,7 +107,7 @@ material = SubResource("ShaderMaterial_c76al")
 layout_mode = 0
 offset_right = 100.0
 offset_bottom = 100.0
-texture = ExtResource("2_eqe06")
+texture = SubResource("AtlasTexture_085rj")
 expand_mode = 1
 
 [node name="Perk" type="Control" parent="."]
@@ -128,7 +132,7 @@ grow_horizontal = 2
 grow_vertical = 2
 rotation = 0.785398
 pivot_offset = Vector2(36, 36)
-texture = ExtResource("2_eqe06")
+texture = SubResource("AtlasTexture_085rj")
 expand_mode = 1
 
 [node name="perkCooldown" type="RichTextLabel" parent="Perk"]

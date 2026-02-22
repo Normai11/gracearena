@@ -29,8 +29,9 @@ func _Save_Data():
 	#region configFile
 	var config_file = ConfigFile.new()
 	config_file.set_value("General", "firstOpen", DataStore.settings["firstOpen"])
-	config_file.set_value("Video", "guiTransparency", DataStore.settings["guiTrans"])
-	config_file.set_value("Game", "showHints", DataStore.settings["toggleHint"])
+	config_file.set_value("Game", "guiTransparency", DataStore.settings["guiTrans"])
+	config_file.set_value("Video", "showHints", DataStore.settings["toggleHint"])
+	config_file.set_value("Video", "toggleSmooth", DataStore.settings["toggleSmooth"])
 	config_file.save(configPath)
 	#endregion
 
@@ -66,9 +67,10 @@ func _Load_Data():
 		print("configFile " + configPath + "failed to load.")
 		return
 	
-	DataStore.settings["guiTrans"] = config_file.get_value("Video", "guiTransparency")
+	DataStore.settings["guiTrans"] = config_file.get_value("Game", "guiTransparency")
 	DataStore.settings["firstOpen"] = config_file.get_value("General", "firstOpen")
-	DataStore.settings["toggleHint"] = config_file.get_value("Game", "showHints")
+	DataStore.settings["toggleHint"] = config_file.get_value("Video", "showHints")
+	DataStore.settings["toggleSmooth"] = config_file.get_value("Video", "toggleSmooth")
 	#endregion
 
 func _ready() -> void:
@@ -77,3 +79,4 @@ func _ready() -> void:
 	else:
 		_Save_Data()
 		print("generated new save file")
+	pass

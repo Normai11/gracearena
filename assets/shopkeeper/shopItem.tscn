@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://n3rkqjhrl1ed"]
+
+[ext_resource type="Script" uid="uid://dr0q2jbtlnlhu" path="res://assets/shopkeeper/shopItem.gd" id="1_wk34x"]
+[ext_resource type="Texture2D" uid="uid://c4gp2qoiyyxhv" path="res://assets/abilities/abilityAtlas.png" id="2_np6j1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6mky"]
+atlas = ExtResource("2_np6j1")
+region = Rect2(0, 500, 250, 250)
+
+[node name="shopItem" type="Control"]
+custom_minimum_size = Vector2(116, 116)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1200.0
+offset_bottom = -675.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wk34x")
+
+[node name="Display" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(58, 58)
+texture = SubResource("AtlasTexture_k6mky")
+expand_mode = 1
+
+[node name="itemBuy" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "buy"
+
+[connection signal="mouse_entered" from="itemBuy" to="." method="_itemBuy_hovered"]
+[connection signal="mouse_exited" from="itemBuy" to="." method="_itemBuy_lose_hover"]
+[connection signal="pressed" from="itemBuy" to="." method="_item_purchase"]

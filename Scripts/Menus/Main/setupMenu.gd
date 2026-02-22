@@ -13,6 +13,11 @@ var tweenL : Tween
 var tweenR : Tween
 
 func _ready() -> void:
+	var atlasTexture = AtlasTexture.new()
+	var atlasPath = "res://assets/abilities/abilityAtlas.png"
+	atlasTexture.atlas = load(atlasPath)
+	buttonAb0.get_child(0).texture = atlasTexture
+	buttonAb1.get_child(0).texture = atlasTexture.duplicate()
 	_Load_Inventory(-1)
 	set_tweening(tweenL, Tween.TRANS_EXPO, Tween.EASE_OUT)
 	set_tweening(tweenR, Tween.TRANS_EXPO, Tween.EASE_OUT)
@@ -80,16 +85,28 @@ func _Load_Inventory(id):
 			if i <= 99:
 				gridInv.add_child(ability)
 	
-	var texturePath = pathAbilitySprite + str(int(DataStore.playerData["Actives"][0])) + ".png"
-	if FileAccess.file_exists(texturePath):
-		buttonAb0.get_child(0).texture = load(texturePath)
-	else:
-		buttonAb0.get_child(0).texture = load("res://Sprites/Abilities/holderOfPlaces.png")
-	texturePath = pathAbilitySprite + str(int(DataStore.playerData["Passives"][0])) + ".png"
-	if FileAccess.file_exists(texturePath):
-		buttonAb1.get_child(0).texture = load(texturePath)
-	else:
-		buttonAb1.get_child(0).texture = load("res://Sprites/Abilities/holderOfPlaces.png")
+	set_atlas_region(DataStore.playerData["Actives"][0], buttonAb0.get_child(0))
+	set_atlas_region(DataStore.playerData["Passives"][0], buttonAb1.get_child(0))
+	
+	#var texturePath = pathAbilitySprite + str(int(DataStore.playerData["Actives"][0])) + ".png"
+	#if FileAccess.file_exists(texturePath):
+		#buttonAb0.get_child(0).texture = load(texturePath)
+	#else:
+		#buttonAb0.get_child(0).texture = load("res://Sprites/Abilities/holderOfPlaces.png")
+	#texturePath = pathAbilitySprite + str(int(DataStore.playerData["Passives"][0])) + ".png"
+	#if FileAccess.file_exists(texturePath):
+		#buttonAb1.get_child(0).texture = load(texturePath)
+	#else:
+		#buttonAb1.get_child(0).texture = load("res://Sprites/Abilities/holderOfPlaces.png")
+
+func set_atlas_region(id : int, texture, isAlt : bool = false) -> void:
+	var atlas = texture.texture
+	
+	var x = 250 * (id if id < 100 else id - 100)
+	var y = (0 if id < 100 else 250)
+	if isAlt:
+		y = 500
+	atlas.region = Rect2(x, y, 250, 250)
 
 func _focused_0() -> void:
 	buttonAb0.get_child(1).play("hovering")

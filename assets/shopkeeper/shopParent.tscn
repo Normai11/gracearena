@@ -1,6 +1,10 @@
-[gd_scene format=3 uid="uid://cddiji07mlsq8"]
+[gd_scene load_steps=3 format=3 uid="uid://cddiji07mlsq8"]
+
+[ext_resource type="Script" uid="uid://cv3ucyjih2jeg" path="res://assets/shopkeeper/shopParent.gd" id="1_qkbvr"]
+[ext_resource type="PackedScene" uid="uid://n3rkqjhrl1ed" path="res://assets/shopkeeper/shopItem.tscn" id="2_4dmxt"]
 
 [node name="shopParent" type="CanvasLayer"]
+script = ExtResource("1_qkbvr")
 
 [node name="GUI" type="Control" parent="."]
 layout_mode = 3
@@ -20,3 +24,118 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+color = Color(0.1348, 0.28701, 0.372396, 0.470588)
+
+[node name="Exit" type="Button" parent="GUI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -88.0
+offset_right = 88.0
+offset_bottom = -24.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "<"
+
+[node name="itemInfo" type="Control" parent="GUI"]
+custom_minimum_size = Vector2(188, 14)
+anchors_preset = 0
+offset_left = 600.0
+offset_top = 337.0
+offset_right = 788.0
+offset_bottom = 351.0
+
+[node name="textContainer" type="PanelContainer" parent="GUI/itemInfo"]
+z_index = 1028
+custom_minimum_size = Vector2(188, 14)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -94.0
+offset_right = 94.0
+offset_bottom = 17.0
+grow_horizontal = 2
+
+[node name="textDisplay" type="RichTextLabel" parent="GUI/itemInfo/textContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "Lorem ipsum dolor sit amet"
+fit_content = true
+scroll_active = false
+
+[node name="buy" type="Button" parent="GUI/itemInfo"]
+visible = false
+z_index = 1029
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -82.5
+offset_top = -15.5
+offset_right = -13.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "BUY"
+
+[node name="cancel" type="Button" parent="GUI/itemInfo"]
+visible = false
+z_index = 1029
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 13.5
+offset_top = -15.5
+offset_right = 82.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "CANCEL"
+
+[node name="shopItem" parent="GUI" instance=ExtResource("2_4dmxt")]
+layout_mode = 1
+offset_left = 145.0
+offset_top = 434.0
+offset_right = -939.0
+offset_bottom = -125.0
+sellType = 1
+
+[node name="shopItem2" parent="GUI" instance=ExtResource("2_4dmxt")]
+layout_mode = 1
+offset_left = 431.0
+offset_top = 440.0
+offset_right = -653.0
+offset_bottom = -119.0
+sellType = 1
+sellID = 2
+
+[node name="shopItem3" parent="GUI" instance=ExtResource("2_4dmxt")]
+layout_mode = 1
+offset_left = 738.0
+offset_top = 444.0
+offset_right = -346.0
+offset_bottom = -115.0
+sellType = 1
+sellID = 103
+
+[node name="shopItem4" parent="GUI" instance=ExtResource("2_4dmxt")]
+layout_mode = 1
+offset_left = 994.0
+offset_top = 438.0
+offset_right = -90.0
+offset_bottom = -121.0
+sellType = 1
+sellID = 101
+
+[connection signal="pressed" from="GUI/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="GUI/itemInfo/cancel" to="." method="_cancel_purchase"]

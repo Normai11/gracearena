@@ -8,11 +8,14 @@ var CurrentMenu : int = 0
 
 @onready var transSlider = $catGame/guiTransSlider
 @onready var hintToggle = $catVideo/hintToggle
+@onready var smoothToggle = $catVideo/smoothToggle
 
 func _ready() -> void:
 	switchMenu(0)
+	loadfile()
 	transSlider.value = DataStore.settings["guiTrans"]
 	hintToggle.button_pressed = DataStore.settings["toggleHint"]
+	smoothToggle.button_pressed = DataStore.settings["toggleSmooth"]
 
 func _process(_delta: float) -> void:
 	var sliderValStr = str(int(transSlider.value * 100)) + "%"
@@ -38,6 +41,7 @@ func _Return() -> void:
 	if CurrentMenu != 0:
 		switchMenu(0)
 	else:
+		savefile()
 		queue_free()
 
 func savefile() -> void:
@@ -55,6 +59,12 @@ func _hintToggle_switched(toggled_on: bool) -> void:
 		DataStore.settings["toggleHint"] = true
 	else:
 		DataStore.settings["toggleHint"] = false
+
+func _on_smoothToggle_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		DataStore.settings["toggleSmooth"] = true
+	else:
+		DataStore.settings["toggleSmooth"] = false
 
 func _Game_Open() -> void:
 	switchMenu(3)

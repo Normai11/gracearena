@@ -10,7 +10,8 @@ var pulseHintSeen : bool = false
 @export var settings = {
 	"firstOpen" : true,
 	"guiTrans" : 1,
-	"toggleHint" : true
+	"toggleHint" : true,
+	"toggleSmooth" : true
 }
 
 @export var playerData = {

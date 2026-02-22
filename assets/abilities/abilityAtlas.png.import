@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwnumkeflec7h"
-path="res://.godot/imported/ab104.png-98d71b039e50113ada68de7712542f34.ctex"
+uid="uid://c4gp2qoiyyxhv"
+path="res://.godot/imported/abilityAtlas.png-414e9990e53b59b6c5a688c7fc0f4ff0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Abilities/ab104.png"
-dest_files=["res://.godot/imported/ab104.png-98d71b039e50113ada68de7712542f34.ctex"]
+source_file="res://assets/abilities/abilityAtlas.png"
+dest_files=["res://.godot/imported/abilityAtlas.png-414e9990e53b59b6c5a688c7fc0f4ff0.ctex"]
 
 [params]
 
