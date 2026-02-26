@@ -1,3 +1,4 @@
+@tool
 extends Node2D
 
 enum typeDisplay {
@@ -32,23 +33,31 @@ var randGen : RandomNumberGenerator = RandomNumberGenerator.new()
 @export var customSpeed : float = 200.0
 
 func _ready() -> void:
-	if disabled:
+	if !Engine.is_editor_hint():
+		if disabled:
+			self.queue_free()
+			return
+		var enemyPath
+		if enemyType == -1 or enemyType == 1028:
+			var randEnemy = randGen.randi_range(0, enemyRef.size() - 1)
+			enemyPath = load(enemyRef[randEnemy])
+		else:
+			enemyPath = load(enemyRef[enemyType])
+		var enemyChild = enemyPath.instantiate()
+		
+		enemyChild.position = self.position
+		enemyChild.startingDirection = spawnDirection
+		if overrideAttributes:
+			enemyChild.health = customHealth
+			enemyChild.moveSpeed = customSpeed
+			enemyChild.dmg = customDamage
+		
+		injectNode.add_child.call_deferred(enemyChild)
 		self.queue_free()
-		return
-	var enemyPath
-	if enemyType == -1 or enemyType == 1028:
-		var randEnemy = randGen.randi_range(0, enemyRef.size() - 1)
-		enemyPath = load(enemyRef[randEnemy])
-	else:
-		enemyPath = load(enemyRef[enemyType])
-	var enemyChild = enemyPath.instantiate()
-	
-	enemyChild.position = self.position
-	enemyChild.startingDirection = spawnDirection
-	if overrideAttributes:
-		enemyChild.health = customHealth
-		enemyChild.moveSpeed = customSpeed
-		enemyChild.dmg = customDamage
-	
-	injectNode.add_child.call_deferred(enemyChild)
-	self.queue_free()
+
+func _process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		if spawnDirection == 1:
+			$EnemySpawner.flip_h = true
+		else:
+			$EnemySpawner.flip_h = false

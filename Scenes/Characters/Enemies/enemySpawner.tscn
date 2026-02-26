@@ -9,3 +9,4 @@ script = ExtResource("1_6no2s")
 [node name="EnemySpawner" type="Sprite2D" parent="."]
 scale = Vector2(0.53, 0.53)
 texture = ExtResource("2_qrqr4")
+flip_h = true

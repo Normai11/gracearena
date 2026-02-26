@@ -4,6 +4,7 @@ extends CanvasLayer
 
 var shopParent : Node
 var purchasing : bool = false
+var selectedItem : shopItem
 
 func _ready() -> void:
 	shopParent = get_parent()
@@ -43,6 +44,8 @@ func set_info_text(object, isItem : bool = false) -> void:
 func open_purchase_prompt(object : shopItem) -> void:
 	if purchasing:
 		return
+	object.button.visible = false
+	selectedItem = object
 	set_info_text(object, true)
 	purchasing = true
 	$GUI/itemInfo/buy.visible = true
@@ -59,6 +62,27 @@ func _on_exit_pressed() -> void:
 
 func _cancel_purchase() -> void:
 	purchasing = false
+	selectedItem.button.visible = true
 	$GUI/itemInfo/buy.visible = false
 	$GUI/itemInfo/cancel.visible = false
+	selectedItem = null
 	hide_itemInfo()
+
+func _purchase_item() -> void:
+	if selectedItem && !check_item_purchaseable():
+		selectedItem._offsale()
+		if selectedItem.sellID >= 100:
+			DataStore.playerData["Actives"].append(selectedItem.sellID)
+		else:
+			DataStore.playerData["Passives"].append(selectedItem.sellID)
+	shopParent.player.refresh_abilities()
+	_cancel_purchase()
+
+func check_item_purchaseable() -> bool:
+	if selectedItem.sellID >= 100:
+		if shopParent.player.abilities.has(selectedItem.sellID) or ((shopParent.player.abilities.size()) >= shopParent.player.maxAbilities):
+			return true
+	else:
+		if shopParent.player.passives.size() >= 4:
+			return true
+	return false

@@ -8,6 +8,7 @@ enum sellTypes {
 }
 
 @onready var texture : TextureRect = $Display
+@onready var button : Button = $itemBuy
 
 @export var sellType := sellTypes.ITEM
 @export var sellID : int = 0
@@ -56,3 +57,6 @@ func get_description() -> String:
 
 func _item_purchase() -> void:
 	_purchase.emit()
+
+func _offsale() -> void:
+	queue_free()

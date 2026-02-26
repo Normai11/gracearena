@@ -49,6 +49,12 @@ func _process(_delta: float) -> void:
 	var seconds = DataStore.timer - minutes * 60
 	$HUDparent/timerplaceholder/display.text = '%02d:%02d' % [minutes, seconds]
 
+func clear_gameplay_elements() -> void:
+	for ability in hudPath.get_children():
+		ability.queue_free()
+	for perk in perkPath.get_children():
+		perk.queue_free()
+
 func update_health() -> void:
 	if tween:
 		tween.kill()

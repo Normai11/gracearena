@@ -40,6 +40,7 @@ theme_override_font_sizes/font_size = 32
 text = "<"
 
 [node name="itemInfo" type="Control" parent="GUI"]
+z_index = 24
 custom_minimum_size = Vector2(188, 14)
 anchors_preset = 0
 offset_left = 600.0
@@ -58,6 +59,7 @@ offset_left = -94.0
 offset_right = 94.0
 offset_bottom = 17.0
 grow_horizontal = 2
+mouse_filter = 2
 
 [node name="textDisplay" type="RichTextLabel" parent="GUI/itemInfo/textContainer"]
 layout_mode = 2
@@ -138,4 +140,5 @@ sellType = 1
 sellID = 101
 
 [connection signal="pressed" from="GUI/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="GUI/itemInfo/buy" to="." method="_purchase_item"]
 [connection signal="pressed" from="GUI/itemInfo/cancel" to="." method="_cancel_purchase"]

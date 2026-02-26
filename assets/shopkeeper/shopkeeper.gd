@@ -6,6 +6,7 @@ var shopOpened : bool = false
 var curTime : float = 0.0
 var shopChild : Node
 var preOpenValues : Array = [0, 0, 0]
+var player : Player
 
 var pathInstantiated : bool = false
 @onready var shopPath := preload("res://assets/shopkeeper/shopParent.tscn")
@@ -13,6 +14,7 @@ var pathInstantiated : bool = false
 
 func _ready() -> void:
 	curTime = loadTimeCap
+	player = get_parent().find_child("Player")
 
 func _interacted():
 	shopOpened = true

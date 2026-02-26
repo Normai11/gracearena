@@ -63,6 +63,9 @@ func _ready() -> void:
 
 func add_abilities() -> void:
 	var injectHUD = guiScene.hudPath
+	guiScene.clear_gameplay_elements()
+	abilities.clear()
+	passives.clear()
 	
 	for i in addons.get_children():
 		if i != moveNode:
@@ -73,55 +76,83 @@ func add_abilities() -> void:
 		cur += 1
 		if cur > maxAbilities:
 			break
-		var child = abButtonRef.instantiate()
-		var abFuncRef = load(DataStore.abilityPaths[int(item)])
-		var vessel = abFuncRef.instantiate()
-		abilities.append(int(item))
-		
-		#region UI
-		child.inputID = int(item)
-		child.promptID = int(abilities.size()) - 1
-		child.hold = vessel.holdAbility
-		child.inGame = true
-		child.abFunc = vessel
-		child.inputName = vessel.abName
-		child.mouse_entered.connect(guiScene.show_description.bind(child))
-		child.mouse_exited.connect(guiScene.hide_description)
-		child._selected.connect(trigger_ability)
-		injectHUD.add_child(child)
-		#endregion
-		
-		#region Function
-		vessel.name = str(int(item))
-		vessel.abDisplay = child
-		vessel.player = self
-		vessel.abilitySlot = abilities.find(int(item))
-		addons.add_child(vessel)
-		#endregion
-	
+		add_ability(injectHUD, item)
+	cur = 0
 	for item in DataStore.playerData["Passives"]:
-		var abFuncRef = load(DataStore.abilityPaths[int(item)])
-		var vessel = abFuncRef.instantiate()
-		var child = abButtonRef.instantiate()
-		passives.append(int(item))
-		
-		child.isAbility = false
-		child.inputID = int(item)
-		child.inGame = true
-		child.abFunc = vessel
-		child.inputName = vessel.abName
-		child.mouse_entered.connect(guiScene.show_description.bind(child))
-		child.mouse_exited.connect(guiScene.hide_description)
-		guiScene.perkPath.add_child(child)
-		
-		vessel.name = str(int(item))
-		vessel.player = self
-		vessel.abDisplay = child
-		addons.add_child(vessel)
-		if item == 3:
-			vessel.formShield()
-		
-	#guiScene._refresh_perks()
+		cur += 1
+		if cur > 4:
+			break
+		add_perk(injectHUD, item)
+
+func add_ability(injectHUD, item) -> void:
+	var child = abButtonRef.instantiate()
+	var abFuncRef = load(DataStore.abilityPaths[int(item)])
+	var vessel = abFuncRef.instantiate()
+	abilities.append(int(item))
+	
+	#region UI
+	child.inputID = int(item)
+	child.promptID = int(abilities.size()) - 1
+	child.hold = vessel.holdAbility
+	child.inGame = true
+	child.abFunc = vessel
+	child.inputName = vessel.abName
+	child.mouse_entered.connect(guiScene.show_description.bind(child))
+	child.mouse_exited.connect(guiScene.hide_description)
+	child._selected.connect(trigger_ability)
+	injectHUD.add_child(child)
+	#endregion
+	
+	#region Function
+	vessel.name = str(int(item))
+	vessel.abDisplay = child
+	vessel.player = self
+	vessel.abilitySlot = abilities.find(int(item))
+	addons.add_child(vessel)
+	#endregion
+
+func add_perk(injectHUD, item) -> void:
+	var abFuncRef = load(DataStore.abilityPaths[int(item)])
+	var vessel = abFuncRef.instantiate()
+	var child = abButtonRef.instantiate()
+	passives.append(int(item))
+	
+	child.isAbility = false
+	child.inputID = int(item)
+	child.inGame = true
+	child.abFunc = vessel
+	child.inputName = vessel.abName
+	child.mouse_entered.connect(guiScene.show_description.bind(child))
+	child.mouse_exited.connect(guiScene.hide_description)
+	guiScene.perkPath.add_child(child)
+	
+	vessel.name = str(int(item))
+	vessel.player = self
+	vessel.abDisplay = child
+	addons.add_child(vessel)
+	if item == 3:
+		vessel.formShield()
+
+func refresh_abilities() -> void:
+	var injectHUD = guiScene.hudPath
+	var cur = abilities.size() - 1
+	
+	# adding elements
+	for pending in DataStore.playerData["Actives"]:
+		if abilities.has(int(pending)):
+			continue
+		cur += 1
+		if not cur >= maxAbilities:
+			add_ability(injectHUD, pending)
+	DataStore.playerData["Actives"].clear()
+	DataStore.playerData["Actives"] = abilities.duplicate()
+	
+	for pending in DataStore.playerData["Passives"]:
+		if passives.has(int(pending)):
+			continue
+		add_perk(injectHUD, pending)
+	DataStore.playerData["Passives"].clear()
+	DataStore.playerData["Passives"] = passives.duplicate()
 
 func trigger_ability(id):
 	var target = addons.find_child(str(id), false, false)
@@ -164,8 +195,10 @@ func _physics_process(delta: float) -> void:
 			direction = movement
 	if direction == 1:
 		interactArea.rotation_degrees = 0
+		wallCollision.rotation_degrees = 0
 	else:
 		interactArea.rotation_degrees = 180
+		wallCollision.rotation_degrees = 180
 	
 	if moveType == 5:
 		movement = 0
