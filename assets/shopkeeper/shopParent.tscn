@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cddiji07mlsq8"]
+[gd_scene load_steps=2 format=3 uid="uid://cddiji07mlsq8"]
 
 [ext_resource type="Script" uid="uid://cv3ucyjih2jeg" path="res://assets/shopkeeper/shopParent.gd" id="1_qkbvr"]
-[ext_resource type="PackedScene" uid="uid://n3rkqjhrl1ed" path="res://assets/shopkeeper/shopItem.tscn" id="2_4dmxt"]
 
 [node name="shopParent" type="CanvasLayer"]
 script = ExtResource("1_qkbvr")
@@ -104,40 +103,17 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "CANCEL"
 
-[node name="shopItem" parent="GUI" instance=ExtResource("2_4dmxt")]
-layout_mode = 1
-offset_left = 145.0
-offset_top = 434.0
-offset_right = -939.0
-offset_bottom = -125.0
-sellType = 1
-
-[node name="shopItem2" parent="GUI" instance=ExtResource("2_4dmxt")]
-layout_mode = 1
-offset_left = 431.0
-offset_top = 440.0
-offset_right = -653.0
-offset_bottom = -119.0
-sellType = 1
-sellID = 2
-
-[node name="shopItem3" parent="GUI" instance=ExtResource("2_4dmxt")]
-layout_mode = 1
-offset_left = 738.0
-offset_top = 444.0
-offset_right = -346.0
-offset_bottom = -115.0
-sellType = 1
-sellID = 103
-
-[node name="shopItem4" parent="GUI" instance=ExtResource("2_4dmxt")]
-layout_mode = 1
-offset_left = 994.0
-offset_top = 438.0
-offset_right = -90.0
-offset_bottom = -121.0
-sellType = 1
-sellID = 101
+[node name="Stock" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(116, 116)
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 98.5
+offset_bottom = 221.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
 
 [connection signal="pressed" from="GUI/Exit" to="." method="_on_exit_pressed"]
 [connection signal="pressed" from="GUI/itemInfo/buy" to="." method="_purchase_item"]

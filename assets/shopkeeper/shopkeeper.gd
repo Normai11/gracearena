@@ -1,6 +1,13 @@
+class_name Shopkeeper
 extends interactableObject
 
 @export var loadTimeCap : float = 0.25
+@export_category("Spawn Properties")
+@export var forceOpen : bool = false ## does nothing right now
+@export_group("Shop Properties", "shop")
+@export var shopRandomizeContents : bool = true
+@export_range(1, 4, 1) var shopMaxContent : int = 4
+@export var shopSellContent : Array[int] = [2,3,103,105]
 
 var shopOpened : bool = false
 var curTime : float = 0.0
@@ -15,6 +22,16 @@ var pathInstantiated : bool = false
 func _ready() -> void:
 	curTime = loadTimeCap
 	player = get_parent().find_child("Player")
+	if shopRandomizeContents:
+		shopSellContent.clear()
+		randomize_shop()
+
+func randomize_shop() -> void:
+	var rng = RandomNumberGenerator.new()
+	var abilityRoster = DataStore.abilityPaths.keys()
+	var rosterSize = abilityRoster.size() - 1
+	for content in shopMaxContent:
+		shopSellContent.append(abilityRoster[rng.randi_range(0, rosterSize)])
 
 func _interacted():
 	shopOpened = true

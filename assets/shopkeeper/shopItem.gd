@@ -14,6 +14,7 @@ enum sellTypes {
 @export var sellID : int = 0
 
 var sizeTween : Tween
+var bought : bool = false
 
 func set_frame(id : int) -> void:
 	var atlas = texture.texture
@@ -24,6 +25,9 @@ func set_frame(id : int) -> void:
 		atlas.region = Rect2(x, y, 250, 250)
 
 func _ready() -> void:
+	if sellID == -1:
+		_offsale()
+		return
 	if sellType == sellTypes.ABILITY:
 		var atlasTexture = AtlasTexture.new()
 		var atlasPath = "res://assets/abilities/abilityAtlas.png"
@@ -53,10 +57,13 @@ func get_item_name() -> String:
 	return "placeholder"
 
 func get_description() -> String:
-	return "placeholder"
+	return ("placeholder" if !bought else "")
 
 func _item_purchase() -> void:
 	_purchase.emit()
 
 func _offsale() -> void:
-	queue_free()
+	$itemBuy.disabled = true
+	bought = true
+	set_frame(-1)
+	#queue_free()
