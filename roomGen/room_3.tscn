@@ -1,15 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://bqisu433ih8y7"]
+[gd_scene load_steps=7 format=3 uid="uid://lm0rwr1jnsev"]
 
 [ext_resource type="Script" uid="uid://fjbti2nu5vtf" path="res://roomGen/roomProperties.gd" id="1_6o86q"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6o86q"]
-size = Vector2(1298, 866)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5c2i"]
 size = Vector2(1298, 102)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6bbv7"]
-size = Vector2(82, 558)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_whq21"]
+size = Vector2(82, 678)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rmmc5"]
+size = Vector2(82, 702)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uy76r"]
 size = Vector2(422, 44)
@@ -17,11 +17,13 @@ size = Vector2(422, 44)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e2gd5"]
 size = Vector2(218, 20)
 
-[node name="room3" type="Node2D" node_paths=PackedStringArray("roomContObj")]
+[node name="room3" type="Node2D" node_paths=PackedStringArray("roomContObj", "boundControlObject")]
 script = ExtResource("1_6o86q")
-roomSize = Vector2(1298, 866)
-roomOffset = Vector2(649, -331)
+roomSize = Vector2(1298, 1138)
+roomOffset = Vector2(649, -467)
+startFlipping = true
 roomContObj = NodePath("genCont")
+boundControlObject = NodePath("boundsVisual")
 
 [node name="boundsVisual" type="ColorRect" parent="."]
 anchors_preset = 8
@@ -30,57 +32,50 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -649.0
-offset_top = -433.0
+offset_top = -569.0
 offset_right = 649.0
-offset_bottom = 433.0
+offset_bottom = 569.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 0.67451, 1, 0.196078)
-
-[node name="Bounds" type="Area2D" parent="."]
-collision_layer = 512
-collision_mask = 0
-
-[node name="size" type="CollisionShape2D" parent="Bounds"]
-shape = SubResource("RectangleShape2D_6o86q")
-debug_color = Color(0.890196, 0, 0, 0)
+color = Color(1, 0.734375, 0, 0.196078)
 
 [node name="genCont" type="Marker2D" parent="."]
-position = Vector2(649, -227)
+position = Vector2(-649, -455)
 
 [node name="Floor" type="StaticBody2D" parent="."]
-position = Vector2(0, 382)
+position = Vector2(0, 518)
 
 [node name="size" type="CollisionShape2D" parent="Floor"]
 shape = SubResource("RectangleShape2D_r5c2i")
 
 [node name="Roof" type="StaticBody2D" parent="."]
-position = Vector2(0, -382)
+position = Vector2(0, -518)
 
 [node name="size" type="CollisionShape2D" parent="Roof"]
 shape = SubResource("RectangleShape2D_r5c2i")
 
 [node name="Wall1" type="StaticBody2D" parent="."]
-position = Vector2(-608, -52)
+position = Vector2(608, 136)
 
 [node name="size" type="CollisionShape2D" parent="Wall1"]
-shape = SubResource("RectangleShape2D_6bbv7")
+shape = SubResource("RectangleShape2D_whq21")
 
 [node name="Wall2" type="StaticBody2D" parent="."]
-position = Vector2(608, 52)
+position = Vector2(-608, 136)
 
 [node name="size" type="CollisionShape2D" parent="Wall2"]
-shape = SubResource("RectangleShape2D_6bbv7")
+position = Vector2(0, -128)
+shape = SubResource("RectangleShape2D_rmmc5")
 
 [node name="Platform0" type="StaticBody2D" parent="."]
-position = Vector2(-32, 174)
+position = Vector2(-288, 318)
 scale = Vector2(-1, -1)
 
 [node name="size" type="CollisionShape2D" parent="Platform0"]
 shape = SubResource("RectangleShape2D_uy76r")
 
 [node name="Platform1" type="StaticBody2D" parent="."]
-position = Vector2(304, -18)
+position = Vector2(-392, 118)
 
 [node name="size" type="CollisionShape2D" parent="Platform1"]
 shape = SubResource("RectangleShape2D_e2gd5")

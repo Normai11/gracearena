@@ -50,5 +50,5 @@ func _Load_Data():
 
 func _ready() -> void:
 	#_Save_Data()
-	_Load_Data()
+	#_Load_Data()
 	pass

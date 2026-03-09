@@ -23,7 +23,6 @@ var timerJustActive : bool = false
 }
 
 @export var abilityPaths = {
-	"END" : "res://roomGen/roomEND.tscn",
 	2 : "res://Scenes/Abilities/Perks/2.tscn",
 	3 : "res://Scenes/Abilities/Perks/3.tscn",
 	4 : "res://Scenes/Abilities/Perks/4.tscn",
@@ -39,10 +38,9 @@ var timerJustActive : bool = false
 	"Lyte" : "res://Scenes/Characters/Mods/stoplyte.tscn"
 }
 
-@export var roomPaths = {
+@export var biomeTest = {
 	0 : "res://roomGen/room0.tscn",
 	1 : "res://roomGen/room_1.tscn",
 	2 : "res://roomGen/room_2.tscn",
 	3 : "res://roomGen/room_3.tscn",
-	4 : "res://roomGen/room_4.tscn"
 }

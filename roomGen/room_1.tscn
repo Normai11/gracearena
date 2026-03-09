@@ -17,11 +17,12 @@ size = Vector2(422, 44)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e2gd5"]
 size = Vector2(218, 20)
 
-[node name="room1" type="Node2D" node_paths=PackedStringArray("roomContObj")]
+[node name="room1" type="Node2D" node_paths=PackedStringArray("roomContObj", "boundControlObject")]
 script = ExtResource("1_uy76r")
 roomSize = Vector2(1298, 866)
 roomOffset = Vector2(649, 227)
 roomContObj = NodePath("genCont")
+boundControlObject = NodePath("boundsVisual")
 
 [node name="boundsVisual" type="ColorRect" parent="."]
 anchors_preset = 8

@@ -1,9 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://c1vj2odi0f1mt"]
+[gd_scene load_steps=4 format=3 uid="uid://c1vj2odi0f1mt"]
 
 [ext_resource type="Script" uid="uid://fjbti2nu5vtf" path="res://roomGen/roomProperties.gd" id="1_77etp"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_830lj"]
-size = Vector2(930, 558)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_77etp"]
 size = Vector2(930, 102)
@@ -11,11 +8,12 @@ size = Vector2(930, 102)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gjfn"]
 size = Vector2(82, 250)
 
-[node name="room0" type="Node2D" node_paths=PackedStringArray("roomContObj")]
+[node name="room0" type="Node2D" node_paths=PackedStringArray("roomContObj", "boundControlObject")]
 script = ExtResource("1_77etp")
 roomSize = Vector2(930, 558)
 roomOffset = Vector2(465, -177)
 roomContObj = NodePath("genCont")
+boundControlObject = NodePath("boundsVisual")
 
 [node name="boundsVisual" type="ColorRect" parent="."]
 anchors_preset = 8
@@ -30,14 +28,6 @@ offset_bottom = 279.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 1, 1, 0.196078)
-
-[node name="Bounds" type="Area2D" parent="."]
-collision_layer = 512
-collision_mask = 0
-
-[node name="size" type="CollisionShape2D" parent="Bounds"]
-shape = SubResource("RectangleShape2D_830lj")
-debug_color = Color(0.890196, 0, 0, 0)
 
 [node name="genCont" type="Marker2D" parent="."]
 position = Vector2(465, 177)

@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://biyquqvwen0a8"]
+[gd_scene load_steps=2 format=3 uid="uid://umwqchrgaxeu"]
 
-[ext_resource type="Script" uid="uid://cuphd42fuxmxr" path="res://roomGen/roomManager.gd" id="1_00jtm"]
+[ext_resource type="Script" uid="uid://cxnvwl1iqwmlv" path="res://roomGen/roomManager.gd" id="1_00jtm"]
 
 [node name="roomManager" type="Node2D"]
 script = ExtResource("1_00jtm")
+roomOffset = Vector2(3526, -174)
+floorRoomCap = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.1, 0.1)

@@ -8,11 +8,11 @@ size = Vector2(1298, 866)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5c2i"]
 size = Vector2(1298, 102)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_whq21"]
-size = Vector2(82, 678)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qirfc"]
+size = Vector2(82, 714)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rmmc5"]
-size = Vector2(82, 446)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pq0st"]
+size = Vector2(82, 445.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uy76r"]
 size = Vector2(422, 44)
@@ -20,12 +20,13 @@ size = Vector2(422, 44)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e2gd5"]
 size = Vector2(218, 20)
 
-[node name="room2" type="Node2D" node_paths=PackedStringArray("roomContObj")]
+[node name="room2" type="Node2D" node_paths=PackedStringArray("roomContObj", "boundControlObject")]
 script = ExtResource("1_pq0st")
 roomSize = Vector2(1298, 866)
-startFlipping = true
 roomOffset = Vector2(649, 223)
+startFlipping = true
 roomContObj = NodePath("genCont")
+boundControlObject = NodePath("boundsVisual")
 
 [node name="boundsVisual" type="ColorRect" parent="."]
 anchors_preset = 8
@@ -68,13 +69,14 @@ shape = SubResource("RectangleShape2D_r5c2i")
 position = Vector2(608, 0)
 
 [node name="size" type="CollisionShape2D" parent="Wall1"]
-shape = SubResource("RectangleShape2D_whq21")
+shape = SubResource("RectangleShape2D_qirfc")
 
 [node name="Wall2" type="StaticBody2D" parent="."]
-position = Vector2(-608, 0)
+position = Vector2(-608, -56)
 
 [node name="size" type="CollisionShape2D" parent="Wall2"]
-shape = SubResource("RectangleShape2D_rmmc5")
+position = Vector2(0, 35.75)
+shape = SubResource("RectangleShape2D_pq0st")
 
 [node name="Platform0" type="StaticBody2D" parent="."]
 position = Vector2(-288, 182)
