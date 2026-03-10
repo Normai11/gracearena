@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var timer : Timer = $waitTimer
 @onready var intTimer : Timer = $intervalTimer
-@onready var head : Sprite2D = $Head
+@onready var head : TextureRect = $Head
 @onready var anims : AnimationPlayer = $Head/Expressions
 
 ## Makes Stoplyte instantly appear after one second.
@@ -88,15 +88,15 @@ func set_stall_position(Ypos : float, toggle : bool) -> void:
 	stallTween.set_trans(Tween.TRANS_SINE)
 	if toggle:
 		if !anims.is_playing() && isActive:
-			head.frame = 4
+			set_frame(2)
 			stallTween.tween_property(self, "position", Vector2(position.x, Ypos), 0.3)
 	else:
 		if !isAttacking && isActive:
-			head.frame = 0
+			set_frame(1)
 			stallTween.tween_property(self, "position", Vector2(position.x, 128), 0.3)
 
 func shift_lyte_stage(color : Color, stallTime : float) -> void:
-	head.material.set_shader_parameter("new_color", color)
+	head.get_child(0).material.set_shader_parameter("new_color", color)
 	intTimer.start(stallTime)
 
 func reroll_wait() -> void:
@@ -114,3 +114,10 @@ func lyte_reset() -> void:
 	tween.tween_property(self, "position", Vector2(position.x, -100), 1)
 	isActive = false
 	reroll_wait()
+
+func set_frame(id : int) -> void:
+	var atlas = head.texture
+	
+	var x = 220 * (id if id < 3 else id - 3)
+	var y = (0 if id < 3 else 220)
+	atlas.region = Rect2(x, y, 220, 220)
