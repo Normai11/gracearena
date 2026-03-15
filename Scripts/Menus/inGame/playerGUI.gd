@@ -6,6 +6,7 @@ extends CanvasLayer
 @onready var perkPath = $HUDparent/Perks
 @onready var healthBar = $HUDparent/Healthbar
 @onready var perkLoad = preload("res://Scenes/Menus/Main/inputButton.tscn")
+@onready var pauseLoad = preload("res://assets/menus/pauseMenu.tscn")
 @onready var abilityInfo = $HUDparent/abilityInfo
 @onready var infoText = $HUDparent/abilityInfo/textDisplay
 
@@ -13,6 +14,7 @@ var activeTweens : Array[bool] = [false, false, false]
 var tween : Tween
 var modulateTween : Tween
 var cameraTween : Tween 
+var pauseDelay : int = 3 ## Frames to run after unpausing before player can pause again
 
 func datastore_settings_refresh() -> void:
 	if DataStore.settings["toggleHint"] == false:
@@ -27,7 +29,19 @@ func _ready() -> void:
 	abilityInfo.size = abilityInfo.custom_minimum_size
 	healthBar.max_value = player.max_health
 
+func _input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("pause") && pauseDelay <= 0:
+		pauseDelay = 3
+		$HUDparent.modulate.a = 0
+		healthBar.visible = false
+		var menu = pauseLoad.instantiate()
+		menu.resumed.connect(unpaused)
+		add_child(menu)
+
 func _process(_delta: float) -> void:
+	pauseDelay -= 1
+	if pauseDelay <= 0:
+		pauseDelay = 0
 	var mousePos : Vector2 = get_viewport().get_mouse_position()
 	var farEdge : Vector2 = get_window().size
 	abilityInfo.position = mousePos
@@ -47,7 +61,11 @@ func _process(_delta: float) -> void:
 		$HUDparent/timerplaceholder.visible = true
 	var minutes = int(DataStore.timer / 60)
 	var seconds = DataStore.timer - minutes * 60
-	$HUDparent/timerplaceholder/display.text = '%02d:%02d' % [minutes, seconds]
+	$HUDparent/timerplaceholder/display.text = '%01d:%02d' % [minutes, seconds]
+
+func unpaused() -> void:
+	$HUDparent.modulate.a = 1
+	healthBar.visible = true
 
 func clear_gameplay_elements() -> void:
 	for ability in hudPath.get_children():
@@ -111,7 +129,7 @@ func toggle_skillcheck(value : bool, showHP : bool = true) -> void:
 		modulateTween.set_trans(Tween.TRANS_EXPO)
 		cameraTween.set_ease(Tween.EASE_OUT)
 		cameraTween.set_trans(Tween.TRANS_EXPO)
-		cameraTween.tween_property(player.camera, "zoom", Vector2(1.2,1.2), 0.5)
+		#cameraTween.tween_property(player.camera, "zoom", Vector2(1.2,1.2), 0.5)
 		modulateTween.tween_property($HUDparent, "modulate", Color("ffffff00"), 0.6)
 		modulateTween.connect("finished", reset_activeTweens_value.bind(1))
 		cameraTween.connect("finished", reset_activeTweens_value.bind(2))
@@ -123,7 +141,7 @@ func toggle_skillcheck(value : bool, showHP : bool = true) -> void:
 		modulateTween.set_trans(Tween.TRANS_SINE)
 		cameraTween.set_ease(Tween.EASE_OUT)
 		cameraTween.set_trans(Tween.TRANS_EXPO)
-		cameraTween.tween_property(player.camera, "zoom", Vector2(0.7,0.7), 0.75)
+		#cameraTween.tween_property(player.camera, "zoom", Vector2(0.7,0.7), 0.75)
 		modulateTween.tween_property($HUDparent, "modulate", Color("ffffff"), 0.5)
 		modulateTween.connect("finished", reset_activeTweens_value.bind(1))
 		cameraTween.connect("finished", reset_activeTweens_value.bind(2))

@@ -40,7 +40,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	$debugStrike.text = "strikes: " + str(playerStrikes)
 	if isAttacking:
-		if Input.is_anything_pressed():
+		if get_parent().player.moveNode.get_movement_input():
 			playerStrikes += 1
 			if playerStrikes == 3:
 				get_parent().player.damage_by(100000, 0, false, true)

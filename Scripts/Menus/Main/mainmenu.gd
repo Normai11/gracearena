@@ -4,8 +4,8 @@ extends Node2D
 var menuSetupRun = preload("res://Scenes/Menus/Main/nsetupMenu.tscn")
 var menuSettings = preload("res://Scenes/Menus/Main/settingsMenu.tscn")
 
-func _ready() -> void:
-	pass
+#func _ready() -> void:
+	#pass
 
 func _Start_Pressed() -> void:
 	$Interface/Play.release_focus()

@@ -1,0 +1,166 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7ul08qx0hkin"]
+
+[ext_resource type="Script" uid="uid://bcno75hjytkxh" path="res://assets/menus/pauseMenu.gd" id="1_8gvfh"]
+[ext_resource type="Texture2D" uid="uid://cldslsu74me43" path="res://assets/menus/textures/angularBackdrop.png" id="1_mom36"]
+
+[node name="pauseMenu" type="Control"]
+process_mode = 3
+top_level = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8gvfh")
+
+[node name="bgOverlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.24573, 0.161357, 0.268229, 0.298039)
+
+[node name="menuBackdrop" type="TextureRect" parent="."]
+self_modulate = Color(0.627451, 0.384314, 0.647059, 0.666667)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -272.0
+offset_top = -337.5
+offset_right = 272.0
+offset_bottom = 337.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(272, 337)
+texture = ExtResource("1_mom36")
+expand_mode = 1
+
+[node name="MENU" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="title" type="Label" parent="MENU"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -92.5
+offset_top = 72.0
+offset_right = 92.5
+offset_bottom = 139.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 48
+text = "PAUSED"
+
+[node name="timer" type="Label" parent="MENU"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -158.0
+offset_right = 32.0
+offset_bottom = -113.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "0:00"
+
+[node name="TextureRect" type="TextureRect" parent="MENU/timer"]
+self_modulate = Color(0, 0, 0, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 86.0
+offset_top = -30.0
+offset_right = 164.0
+offset_bottom = 134.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.68468
+texture = ExtResource("1_mom36")
+expand_mode = 1
+
+[node name="resume" type="Button" parent="MENU"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -152.0
+offset_top = -4.0
+offset_right = 152.0
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "RESUME"
+
+[node name="settings" type="Button" parent="MENU"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = 76.0
+offset_right = 165.0
+offset_bottom = 118.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "SETTINGS"
+
+[node name="reload" type="Button" parent="MENU"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -187.0
+offset_top = 164.0
+offset_right = 187.0
+offset_bottom = 206.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "RELOAD"
+
+[node name="quit" type="Button" parent="MENU"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -203.0
+offset_top = 252.0
+offset_right = 203.0
+offset_bottom = 294.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "QUIT"
+
+[connection signal="pressed" from="MENU/resume" to="." method="_resume_game"]
+[connection signal="pressed" from="MENU/settings" to="." method="_open_settings"]
+[connection signal="pressed" from="MENU/quit" to="." method="_quit_run"]

@@ -32,6 +32,7 @@ func randomize_shop() -> void:
 	var rosterSize = abilityRoster.size() - 1
 	for content in shopMaxContent:
 		shopSellContent.append(abilityRoster[rng.randi_range(0, rosterSize)])
+	shopSellContent.sort()
 
 func _interacted():
 	shopOpened = true
