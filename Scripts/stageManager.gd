@@ -20,6 +20,8 @@ func _ready() -> void:
 			
 			if mod == "Lyte":
 				playerReference.guiScene.call_deferred("add_child", child)
+			elif mod == "Stargazer":
+				playerReference.guiScene.call_deferred("add_child", child)
 			else:
 				add_child(child)
 

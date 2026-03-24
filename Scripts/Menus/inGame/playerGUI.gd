@@ -29,10 +29,10 @@ func _ready() -> void:
 	abilityInfo.size = abilityInfo.custom_minimum_size
 	healthBar.max_value = player.max_health
 	
-	var path = load("res://assets/modifiers/enemies/stargazer.tscn")
-	var child = path.instantiate()
-	child.playerTarget = player
-	add_child(child)
+	#var path = load("res://assets/modifiers/enemies/stargazer.tscn")
+	#var child = path.instantiate()
+	#child.playerTarget = player
+	#add_child(child)
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("pause") && pauseDelay <= 0:

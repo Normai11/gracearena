@@ -15,6 +15,21 @@ region = Rect2(0, 0, 300, 300)
 atlas = ExtResource("1_ngv7j")
 region = Rect2(600, 300, 300, 300)
 
+[sub_resource type="Animation" id="Animation_4edp3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.001),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="Animation" id="Animation_ajuep"]
 resource_name = "appear"
 length = 0.9
@@ -52,21 +67,6 @@ tracks/1/keys = {
 "values": [true]
 }
 
-[sub_resource type="Animation" id="Animation_4edp3"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.001),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pnpul"]
 _data = {
 &"RESET": SubResource("Animation_4edp3"),
@@ -81,6 +81,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ajuep")
 starShakeTime = 0.15
+forceGaze = false
 metadata/_edit_use_anchors_ = true
 
 [node name="Appearance" type="Control" parent="."]

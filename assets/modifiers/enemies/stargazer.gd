@@ -14,6 +14,7 @@ enum gazeTypes {
 }
 
 var starFaceRegions = {
+	-1 : Rect2(600, 300, 300, 300),
 	0 : Rect2(600, 300, 300, 300),
 	1 : Rect2(300, 300, 300, 300),
 	2 : Rect2(300, 300, 300, 300),
@@ -30,11 +31,12 @@ var starFaceRegions = {
 var curShake : float = 0.0
 @export var forceGaze : bool = true
 var gazing : bool = false
-@export var gazeTimer : float = 5.0
-var curTimer : float = 0.0
 @export var gazeWait : Vector2 = Vector2(15, 60)
 
 @export_group("Gaze Settings")
+@export var judgeDamage : float = 31.5
+@export var gazeTimer : float = 5.0
+var curTimer : float = 0.0
 @export var typeDefaults : Dictionary = {
 	"FREEZE" : Vector2(0.75, 1.5),
 	"MOVEL" : Vector2i(50, 100),
@@ -63,14 +65,19 @@ func set_y_position(y : float, time : float) -> void:
 
 func _ready() -> void:
 	curShake = starShakeTime
-	anims.play("appear")
+	curTimer = randf_range(gazeWait.x, gazeWait.y)
 	global_position.x = 500
+	if forceGaze:
+		anims.play("appear")
 
 func _process(delta: float) -> void:
 	curShake -= delta
+	curTimer -= delta
 	if gazing:
-		curTimer -= delta
 		gazeFunction(delta)
+	elif curTimer <= 0:
+		curTimer = 20
+		anims.play("appear")
 	
 	if curShake <= 0:
 		curShake = starShakeTime
@@ -92,10 +99,11 @@ func starAppear() -> void:
 
 func gazeStart(gazeState : gazeStates) -> void:
 	var defaultsArray : Array = typeDefaults.values()
-	var randRange = snapped(randf_range(defaultsArray[gazeState].x, defaultsArray[gazeState].y), 0.1)
-	if gazeState == gazeStates.JUMP:
-		randRange = randi_range(defaultsArray[gazeState].x, defaultsArray[gazeState].y)
+	var randRange = randi_range(defaultsArray[gazeState].x, defaultsArray[gazeState].y)
+	if gazeState == gazeStates.FREEZE:
+		randRange = snapped(randf_range(defaultsArray[gazeState].x, defaultsArray[gazeState].y), 0.1)
 	gazeRequirements[gazeState] = randRange
+	curGazeStage[gazeState] = 0
 	print(randRange)
 	
 	if gazeState == gazeStates.MOVEL or gazeState == gazeStates.MOVER:
@@ -135,9 +143,18 @@ func gazeFunction(delta : float) -> void:
 			moveDistance = playerTarget.position.x
 	if curGazeState == gazeStates.JUMP:
 		if playerTarget.moveNode.get_jump(true) == true:
+			if playerTarget.curJumps > (playerTarget.maxJumps + playerTarget.extraJumps): ## fix this it works funky
+				return
 			curGazeStage[curGazeState] += 1
 			if curGazeStage[curGazeState] >= gazeRequirements[curGazeState]:
 				curTimer = 0.1
 
 func gazeJudge() -> void:
-	visible = false
+	gazing = false
+	sprite.visible = false
+	set_atlas_region(starFaceRegions[-1], $Appearance/Face)
+	set_y_position(-200, 0)
+	curTimer = randf_range(gazeWait.x, gazeWait.y) + 0.5
+	
+	if not(curGazeStage[curGazeState] >= gazeRequirements[curGazeState]):
+		playerTarget.damage_by(judgeDamage, 0, false)

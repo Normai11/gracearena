@@ -47,5 +47,6 @@ var pulseHintSeen : bool = false
 
 @export var enemyModPaths = {
 	"Lyte" : "res://Scenes/Characters/Mods/stoplyte.tscn",
-	"skeletron" : "res://Scenes/Characters/Mods/skeletron.tscn"
+	"skeletron" : "res://Scenes/Characters/Mods/skeletron.tscn",
+	"Stargazer" : "res://assets/modifiers/enemies/stargazer.tscn"
 }
