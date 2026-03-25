@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://yt2k17f6hcwp"]
+
+[ext_resource type="Script" uid="uid://cafqa3l48rdbh" path="res://assets/abilities/perks/perkHeavy.gd" id="1_dwcev"]
+
+[node name="Heavy" type="Node"]
+script = ExtResource("1_dwcev")
+abName = "Heavy"
+abDesc = "Grants the ability to drop through semisolids and fastfall midair."
+abilityID = 2

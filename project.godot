@@ -18,8 +18,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Global="*res://Scripts/Global.gd"
-DataStore="*res://Scripts/dataStore.gd"
+Global="*res://assets/Global.gd"
+DataStore="*res://assets/dataStore.gd"
 
 [display]
 
@@ -30,12 +30,8 @@ window/stretch/mode="viewport"
 [file_customization]
 
 folder_colors={
-"res://Scenes/Abilities/Perks/": "yellow",
-"res://Scenes/Menus/Credits/": "yellow",
-"res://Scenes/Menus/Main/": "blue",
-"res://Scripts/Abilities/Perks/": "yellow",
-"res://Scripts/Menus/Main/": "blue",
-"res://Sprites/Shaders/": "purple"
+"res://assets/abilities/perks/": "yellow",
+"res://assets/shaders/": "purple"
 }
 
 [input]

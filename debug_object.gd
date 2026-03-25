@@ -5,7 +5,7 @@ extends Control
 @export var collisionsShow : bool = false
 @export var enabled : bool = true
 
-@onready var enemySpawn = preload("res://Scenes/Characters/Enemies/enemySpawner.tscn")
+@onready var enemySpawn = preload("res://assets/characters/enemySpawner.tscn")
 
 func _ready() -> void:
 	if !enabled:

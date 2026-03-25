@@ -66,6 +66,7 @@ func set_y_position(y : float, time : float) -> void:
 func _ready() -> void:
 	curShake = starShakeTime
 	curTimer = randf_range(gazeWait.x, gazeWait.y)
+	playerTarget = get_parent().player
 	global_position.x = 500
 	if forceGaze:
 		anims.play("appear")

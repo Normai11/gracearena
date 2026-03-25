@@ -1,7 +1,7 @@
 extends Control
 signal resumed
 
-var menuSettings = preload("res://Scenes/Menus/Main/settingsMenu.tscn")
+var menuSettings = preload("res://assets/menus/settingsMenu.tscn")
 var existingMenu : Control
 
 @onready var backdrop = $menuBackdrop
@@ -72,8 +72,8 @@ func kill_menu() -> void:
 
 func _quit_run() -> void:
 	get_tree().paused = false
-	var loadingPath = load("res://Scenes/Menus/loadingScreen.tscn")
-	Global.loadfinishPath = "res://Scenes/Menus/Main/MainMenu.tscn"
+	var loadingPath = load("res://assets/menus/loadingScreen.tscn")
+	Global.loadfinishPath = "res://assets/menus/MainMenu.tscn"
 	get_tree().change_scene_to_packed(loadingPath)
 
 func _open_settings() -> void:

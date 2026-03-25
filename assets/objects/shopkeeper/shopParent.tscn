@@ -1,0 +1,120 @@
+[gd_scene load_steps=2 format=3 uid="uid://cddiji07mlsq8"]
+
+[ext_resource type="Script" uid="uid://cv3ucyjih2jeg" path="res://assets/objects/shopkeeper/shopParent.gd" id="1_qkbvr"]
+
+[node name="shopParent" type="CanvasLayer"]
+script = ExtResource("1_qkbvr")
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="bg" type="ColorRect" parent="GUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.1348, 0.28701, 0.372396, 0.470588)
+
+[node name="Exit" type="Button" parent="GUI"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -88.0
+offset_right = 88.0
+offset_bottom = -24.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "<"
+
+[node name="itemInfo" type="Control" parent="GUI"]
+z_index = 24
+custom_minimum_size = Vector2(188, 14)
+anchors_preset = 0
+offset_left = 600.0
+offset_top = 337.0
+offset_right = 788.0
+offset_bottom = 351.0
+
+[node name="textContainer" type="PanelContainer" parent="GUI/itemInfo"]
+z_index = 1028
+custom_minimum_size = Vector2(188, 14)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -94.0
+offset_right = 94.0
+offset_bottom = 17.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="textDisplay" type="RichTextLabel" parent="GUI/itemInfo/textContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "Lorem ipsum dolor sit amet"
+fit_content = true
+scroll_active = false
+
+[node name="buy" type="Button" parent="GUI/itemInfo"]
+visible = false
+z_index = 1029
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -82.5
+offset_top = -15.5
+offset_right = -13.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "BUY"
+
+[node name="cancel" type="Button" parent="GUI/itemInfo"]
+visible = false
+z_index = 1029
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 13.5
+offset_top = -15.5
+offset_right = 82.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "CANCEL"
+
+[node name="Stock" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(116, 116)
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 98.5
+offset_bottom = 221.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[connection signal="pressed" from="GUI/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="GUI/itemInfo/buy" to="." method="_purchase_item"]
+[connection signal="pressed" from="GUI/itemInfo/cancel" to="." method="_cancel_purchase"]
