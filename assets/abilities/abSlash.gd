@@ -2,10 +2,11 @@ extends abilityTemp
 
 @onready var timer = $durTimer
 @onready var dashHurtbox = $dashHurtbox/size
-@onready var slashHurtbox = $slashHurtbox/size
 
 @export var dashCooldown : float = 12.6
-@export var dashTimer : float = 0.3
+@export var holdMax : float = 1.4
+@export var holdMin : float = 0.25
+@export var holdAdditive : float = 0.08 ##per frame
 var curHeld : float = 0.0
 @export var dashVelocity : float = 9520.0
 
@@ -15,25 +16,22 @@ var dashed : bool = false
 
 func _ready() -> void:
 	dashHurtbox.disabled = true
-	slashHurtbox.disabled = true
 	timer.wait_time = duration
 	print("Loaded!")
 
 func _physics_process(delta: float) -> void:
-	$slashHurtbox.position = player.position
 	if player.direction != 0:
 		if player.direction == 1:
-			$slashHurtbox.rotation_degrees = 0
 			$dashHurtbox.rotation_degrees = 0
 		else:
-			$slashHurtbox.rotation_degrees = 180
 			$dashHurtbox.rotation_degrees = 180
 	if timer.time_left > 0 && active:
 		$dashHurtbox.position = player.position
+		$dashHurtbox.scale.x += 0.01 + (holdAdditive * (abs(timer.time_left - timer.wait_time)))
 		var released = !get_ability_activation()
 		#print(released)
 		curHeld += delta
-		if curHeld >= dashTimer:
+		if $dashHurtbox.scale.x >= holdMax:
 			cancelled = false
 			trigger_attack()
 		if released:
@@ -44,12 +42,11 @@ func _physics_process(delta: float) -> void:
 		if !dashed:
 			dashed = true
 			attack_check(dashHurtbox.get_parent())
-	if slashHurtbox.get_parent().has_overlapping_bodies():
-		attack_check(slashHurtbox.get_parent())
 
 func _ability_activate():
 	active = true
 	dashed = false
+	$dashHurtbox.scale.x = holdMin 
 	curHeld = 0
 	timer.start(duration)
 	player._start_endlag(duration)
@@ -59,26 +56,22 @@ func _ability_activate():
 
 func trigger_attack() -> void:
 	active = false
+	timer.start(0.1)
 	player._start_endlag(endlag)
-	if cancelled:
-		melee_piercing = false
-		dashHurtbox.disabled = true
-		slashHurtbox.disabled = false
-	else:
-		melee_piercing = true
-		dashHurtbox.disabled = false
-		slashHurtbox.disabled = true
-		#player.position.x += 238
-		player.moveType = funcType.DISABLE
-		player.iFrames = 7
-		player.velocity.x += dashVelocity * player.direction
+	#if cancelled:
+		#melee_piercing = false
+		#dashHurtbox.disabled = true
+	melee_piercing = true
+	dashHurtbox.disabled = false
+	#player.position.x += 238
+	player.moveType = funcType.DISABLE
+	player.iFrames = 7
+	player.velocity.x += ((dashHurtbox.shape.size.x * $dashHurtbox.scale.x) * 16) * player.direction
+	if !cancelled:
+		player.velocity.x = player.velocity.x * 1.3
 
 func _end_cooldown():
 	timer.stop()
-	if !cancelled:
-		abDisplay._start_cooldown(dashCooldown)
-	else:
-		abDisplay._start_cooldown(cooldown)
+	abDisplay._start_cooldown(dashCooldown)
 	player.moveType = funcType.CONTINUE
 	dashHurtbox.disabled = true
-	slashHurtbox.disabled = true

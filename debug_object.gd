@@ -49,11 +49,11 @@ func heal() -> void:
 	parentRef.update_health()
 
 func _on_settings_pressed() -> void:
-	var scene = load("res://Scenes/Menus/Main/settingsMenu.tscn")
+	var scene = load("res://assets/menus/settingsMenu.tscn")
 	var child = scene.instantiate()
 	parentRef.add_child(child)
 
 func _on_main_pressed() -> void:
-	var loadingPath = load("res://Scenes/Menus/loadingScreen.tscn")
-	Global.loadfinishPath = "res://Scenes/Menus/Main/MainMenu.tscn"
+	var loadingPath = load("res://assets/menus/settingsMenu.tscn")
+	Global.loadfinishPath = "res://assets/menus/settingsMenu.tscn"
 	get_tree().change_scene_to_packed(loadingPath)

@@ -1,22 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://bjusa6x28f5tl"]
+[gd_scene load_steps=3 format=3 uid="uid://bjusa6x28f5tl"]
 
 [ext_resource type="Script" uid="uid://vhep2ij6vfac" path="res://assets/abilities/abSlash.gd" id="1_76c3c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_beuxd"]
 size = Vector2(300, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ob8e"]
-size = Vector2(59, 166)
-
 [node name="106" type="Node"]
 script = ExtResource("1_76c3c")
+dashCooldown = 20.7
+holdMax = 1.7
 dashVelocity = 4500.0
 abName = "Slash"
-abDesc = "Activating this ability sends a vertical slash, dealing 15 damage to enemies. Holding down this abilty for 0.3s sends you in a forward-slash, making a short dash and dealing 17 damage. Using the forward-slash increases the cooldown to 12.6s."
+abDesc = "Holding down this ability charges up a horizontal slash towards the player's direction. The size of the slash scales with the time this ability is held down, sending you far at its strongest output. Has a cooldown of 20.7s."
 holdAbility = true
 dmg = 15.0
-duration = 0.35
-cooldown = 1.5
+duration = 1.0
+cooldown = 20.7
 endlag = 0.2
 
 [node name="durTimer" type="Timer" parent="."]
@@ -30,14 +29,4 @@ monitorable = false
 [node name="size" type="CollisionShape2D" parent="dashHurtbox"]
 position = Vector2(149.5, 0)
 shape = SubResource("RectangleShape2D_beuxd")
-debug_color = Color(1, 0, 0, 0)
-
-[node name="slashHurtbox" type="Area2D" parent="."]
-collision_layer = 8
-collision_mask = 4
-monitorable = false
-
-[node name="size" type="CollisionShape2D" parent="slashHurtbox"]
-position = Vector2(29.5, 0)
-shape = SubResource("RectangleShape2D_5ob8e")
 debug_color = Color(1, 0, 0, 0)
