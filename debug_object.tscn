@@ -117,7 +117,7 @@ offset_top = 129.0
 offset_bottom = 160.0
 grow_horizontal = 0
 focus_mode = 0
-text = "Open Settings"
+text = "Reset cooldowns"
 
 [node name="main" type="Button" parent="."]
 z_index = 10

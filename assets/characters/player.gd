@@ -1,6 +1,15 @@
 class_name Player
 extends CharacterBody2D
 
+enum moveVariants {
+	CONTINUE, # Apply all physics
+	HALT, # Freeze in place entirely
+	CONSTANT, # Freeze direction
+	FALL, # Freeze X movement
+	FLOAT, # Freeze Y movement
+	DISABLE # Nullify player movement input
+}
+
 var abButtonRef = preload("res://assets/menus/inputButton.tscn")
 
 @export var loadGuiScene : PackedScene
@@ -186,13 +195,6 @@ func _physics_process(delta: float) -> void:
 	if moveType == -1:
 		velocity = Vector2.ZERO
 		return
-	var movement = moveNode.get_movement_input()
-	var speed : float = move_speed
-	if moveNode.get_sprint():
-		speed = move_speed + sprintAdditive
-	if moveType != 2 && moveType != 1 && moveType != 5:
-		if !movement == 0:
-			direction = movement
 	if direction == 1:
 		interactArea.rotation_degrees = 0
 		wallCollision.rotation_degrees = 0
@@ -200,12 +202,25 @@ func _physics_process(delta: float) -> void:
 		interactArea.rotation_degrees = 180
 		wallCollision.rotation_degrees = 180
 	
-	if moveType == 5:
-		movement = 0
-	
+	process_movement(delta, velocity)
+	check_interaction()
+
+func process_movement(delta : float, oldVelocity : Vector2) -> void:
+	#region Horizontal
+	var movement = moveNode.get_movement_input()
+	var speed : float = move_speed
 	var velocityWeight : float = delta * (accel if movement else friction)
 	
-	# jump input
+	if moveNode.get_sprint():
+		speed = move_speed + sprintAdditive
+	
+	if !stunned:
+		velocity.x = lerp(velocity.x, movement * speed, velocityWeight)
+	else:
+		velocity.x = lerp(velocity.x, stunDir * stunDist, velocityWeight)
+	
+	#endregion
+	#region Vertical
 	if is_on_floor():
 		stunned = false
 		coyoteframe = 0
@@ -214,26 +229,25 @@ func _physics_process(delta: float) -> void:
 		coyoteframe += 1
 		if curJumps == 0 && coyoteframe >= coyoteFrames:
 			curJumps += 1
+	
 	if moveNode.get_jump(true) && !stunned:
-		if not curJumps >= (maxJumps + extraJumps):
-			velocity.y = -jump_force
+		if moveNode.can_jump():
 			curJumps += 1
+			velocity.y = -jump_force
 	if (!moveNode.get_jump() && !is_on_floor()) or velocity.y >= 0:
 		velocity.y = lerp(velocity.y, gravity, 0.02)
 	
 	velocity.y += gravity * delta
 	if velocity.y >= gravity_cap:
 		velocity.y = gravity_cap
+	#endregion
 	
-	if !stunned:
-		velocity.x = lerp(velocity.x, movement * speed, velocityWeight)
-	else:
-		velocity.x = lerp(velocity.x, stunDir * stunDist, velocityWeight)
-	
-	if moveType == 1:
+	if moveType == moveVariants.HALT:
 		velocity = Vector2.ZERO
+	if moveType != moveVariants.HALT && moveType != moveVariants.CONSTANT && moveType != moveVariants.DISABLE:
+		if movement != 0:
+			direction = movement
 	move_and_slide()
-	check_interaction()
 
 func _process(_delta: float) -> void:
 	if iFrames != 0:

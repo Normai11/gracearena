@@ -55,7 +55,8 @@ texture = ExtResource("1_3etf2")
 
 [node name="moveAddons" type="Node" parent="."]
 
-[node name="movementComponent" type="Node" parent="moveAddons"]
+[node name="movementComponent" type="Node" parent="moveAddons" node_paths=PackedStringArray("player")]
 script = ExtResource("3_cqrjx")
+player = NodePath("../..")
 
 [connection signal="timeout" from="endlag" to="." method="_end_lag"]

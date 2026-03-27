@@ -81,7 +81,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ajuep")
 starShakeTime = 0.15
-forceGaze = false
 metadata/_edit_use_anchors_ = true
 
 [node name="Appearance" type="Control" parent="."]

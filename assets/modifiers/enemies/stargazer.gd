@@ -144,7 +144,7 @@ func gazeFunction(delta : float) -> void:
 			moveDistance = playerTarget.position.x
 	if curGazeState == gazeStates.JUMP:
 		if playerTarget.moveNode.get_jump(true) == true:
-			if playerTarget.curJumps > (playerTarget.maxJumps + playerTarget.extraJumps): ## fix this it works funky
+			if !playerTarget.moveNode.can_jump():
 				return
 			curGazeStage[curGazeState] += 1
 			if curGazeStage[curGazeState] >= gazeRequirements[curGazeState]:

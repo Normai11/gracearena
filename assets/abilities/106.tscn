@@ -8,13 +8,15 @@ size = Vector2(300, 32)
 [node name="106" type="Node"]
 script = ExtResource("1_76c3c")
 dashCooldown = 20.7
-holdMax = 1.7
+holdMax = 1.8
+holdAdditive = 0.12
 dashVelocity = 4500.0
 abName = "Slash"
 abDesc = "Holding down this ability charges up a horizontal slash towards the player's direction. The size of the slash scales with the time this ability is held down, sending you far at its strongest output. Has a cooldown of 20.7s."
+abilityID = 106
 holdAbility = true
 dmg = 15.0
-duration = 1.0
+duration = 32.0
 cooldown = 20.7
 endlag = 0.2
 
