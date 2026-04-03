@@ -2,7 +2,7 @@ extends abilityTemp
 
 @onready var chain = $chainReel
 @onready var timer = $durTimer
-@onready var projectile = preload("res://Scenes/Objects/chainProjectile.tscn")
+@onready var projectile = preload("res://assets/objects/chainProjectile.tscn")
 
 @export var reelLength : float = 300.0
 @export var reelTime : float = 0.3
@@ -35,6 +35,7 @@ func free_chain() -> void:
 	timer.emit_signal("timeout")
 
 func _ability_activate():
+	force_crouchState()
 	player._start_endlag(endlag + duration)
 	currentDur = reelDuration
 	if chainGrabbed:
@@ -57,6 +58,7 @@ func throw_object() -> void:
 	player.get_parent().add_child(object)
 
 func _end_cooldown():
+	force_crouchState(false)
 	timer.stop()
 	player.moveType = funcType.CONTINUE
 	if chainGrabbed:

@@ -57,6 +57,7 @@ func _physics_process(delta: float) -> void:
 			player.move_and_slide()
 
 func _ability_activate():
+	force_crouchState()
 	$crashCheck.target_position.x = 25 * player.direction
 	player.friction = 2
 	player.accel = 2
@@ -71,6 +72,7 @@ func _ability_activate():
 	side_effect()
 
 func _end_cooldown():
+	force_crouchState(false)
 	timer.stop()
 	abDisplay.abButton.button_pressed = false
 	abDisplay._start_cooldown(cooldown)

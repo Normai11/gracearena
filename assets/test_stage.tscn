@@ -136,6 +136,14 @@ scale = Vector2(2, 1)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="mainplatform5"]
 shape = SubResource("RectangleShape2D_s221r")
 
+[node name="mainplatform7" type="StaticBody2D" parent="."]
+position = Vector2(-242, 55)
+rotation = 1.5708
+scale = Vector2(2, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="mainplatform7"]
+shape = SubResource("RectangleShape2D_s221r")
+
 [node name="plat2" type="StaticBody2D" parent="."]
 position = Vector2(1067, 342)
 collision_layer = 32

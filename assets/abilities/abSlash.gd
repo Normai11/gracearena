@@ -44,6 +44,7 @@ func _physics_process(delta: float) -> void:
 			attack_check(dashHurtbox.get_parent())
 
 func _ability_activate():
+	force_crouchState()
 	active = true
 	dashed = false
 	$dashHurtbox.scale.x = holdMin 
@@ -71,6 +72,7 @@ func trigger_attack() -> void:
 		player.velocity.x = player.velocity.x * 1.3
 
 func _end_cooldown():
+	force_crouchState(false)
 	timer.stop()
 	abDisplay._start_cooldown(dashCooldown)
 	player.moveType = funcType.CONTINUE

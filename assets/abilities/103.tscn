@@ -13,6 +13,7 @@ abName = "Ram"
 abDesc = "Puts you in a constant charging state. Deals [color=red]32[/color] damage to any enemy hit by this attack. Killing three enemies or crashing into a wall will stun you backwards. Cancelling the ability will apply [color=purple][wave]Slowness II[/wave][/color] for 7 seconds."
 abilityID = 103
 function = 5
+forceCrouch = 2
 holdAbility = true
 dmg = 32.0
 duration = 25.0

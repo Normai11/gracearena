@@ -50,6 +50,7 @@ var iFrames : int = 0
 @onready var lagTimer = $endlag
 @onready var interactArea = $interactionArea
 @onready var wallCollision = $wallCollider
+@onready var roofDetection = $crouchRoofDetect
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction : int = 1
@@ -208,14 +209,44 @@ func _physics_process(delta: float) -> void:
 func process_movement(delta : float, oldVelocity : Vector2) -> void:
 	#region Horizontal
 	var movement = moveNode.get_movement_input()
-	var speed : float = move_speed
+	if moveNode.curCrouch == 2:
+		movement = oldVelocity.sign().x
+	var speed : float = (move_speed if !moveNode.curCrouch == 1 else move_speed * 0.5)
 	var velocityWeight : float = delta * (accel if movement else friction)
 	
 	if moveNode.get_sprint():
-		speed = move_speed + sprintAdditive
+		speed = speed + sprintAdditive
+		if moveNode.crouchForced == false:
+			if moveNode.get_crouch(true) && movement != 0:
+				moveNode.curCrouch = 2
+			if moveNode.curCrouch == 2 && !moveNode.get_crouch():
+				moveNode.curCrouch = 0
+	else:
+		if moveNode.crouchForced == false:
+			if moveNode.get_crouch() or roofDetection.is_colliding():
+				moveNode.curCrouch = 1
+			else:
+				moveNode.curCrouch = 0
+	
+	#if moveNode.curCrouch == 1:
+		#speed = move_speed + (sprintAdditive if moveNode.get_sprint() else 0.0)
+	#elif moveNode.curCrouch == 2:
+		#pass
+	
+	#if moveNode.get_sprint():
+		#if moveNode.get_crouch(true):
+			#moveNode.playerSliding = true
+			#if velocity.y < jump_force:
+				#velocity.y =  jump_force
+		#elif !moveNode.playerSliding:
+			#speed = speed + sprintAdditive
+	#elif !moveNode.playerSliding && (roofDetection.is_colliding() or moveNode.get_crouch()):
+		#speed = move_speed + (sprintAdditive if moveNode.get_sprint() else 0.0)
 	
 	if !stunned:
 		velocity.x = lerp(velocity.x, movement * speed, velocityWeight)
+		if moveNode.curCrouch == 2 && moveNode.get_crouch(true):
+			velocity.x += (sprintAdditive * 1.5) * movement
 	else:
 		velocity.x = lerp(velocity.x, stunDir * stunDist, velocityWeight)
 	
@@ -233,15 +264,24 @@ func process_movement(delta : float, oldVelocity : Vector2) -> void:
 	if moveNode.get_jump(true) && !stunned:
 		if moveNode.can_jump():
 			curJumps += 1
-			velocity.y = -jump_force
+			velocity.y = (-jump_force if !moveNode.get_crouch() else -jump_force * 0.75)
 	if (!moveNode.get_jump() && !is_on_floor()) or velocity.y >= 0:
 		velocity.y = lerp(velocity.y, gravity, 0.02)
 	
 	velocity.y += gravity * delta
 	if velocity.y >= gravity_cap:
 		velocity.y = gravity_cap
-	#endregion
 	
+	if moveNode.curCrouch > 0:
+		$CollisionBoxCROUCH.disabled = false
+		$CollisionBox.disabled = true
+	else:
+		if !roofDetection.is_colliding():
+			$CollisionBoxCROUCH.disabled = true
+			$CollisionBox.disabled = false
+			moveNode.curCrouch = 0
+	
+	#endregion
 	if moveType == moveVariants.HALT:
 		velocity = Vector2.ZERO
 	if moveType != moveVariants.HALT && moveType != moveVariants.CONSTANT && moveType != moveVariants.DISABLE:

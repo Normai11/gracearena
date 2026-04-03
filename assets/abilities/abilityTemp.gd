@@ -14,6 +14,12 @@ enum funcType {
 	DISABLE # Nullify player movement input
 }
 
+enum forceCrouchTypes {
+	INPUT,
+	CROUCH,
+	STAND
+}
+
 const abilityInputKeys = {
 	0 : "primary",
 	1 : "secondary",
@@ -27,13 +33,15 @@ const abilityInputKeys = {
 ## idk
 @export_multiline var abDesc : String
 ## Player node. Is set automatically when added to the player.
-@export var player : CharacterBody2D 
+@export var player : Player 
 ## The GUI node that displays information about this ability.
 @export var abDisplay : Control 
 ## The ability's ID according to its file path/name.
 @export var abilityID : int 
 ## Player's movement setting upon this ability's activation.
 @export var function = funcType.CONTINUE 
+## Player's crouch setting upon this ability's activiation.
+@export var forceCrouch : forceCrouchTypes = forceCrouchTypes.INPUT
 var abilitySlot : int
 
 @export_category("Ability")
@@ -57,9 +65,21 @@ func _ready() -> void:
 
 func _ability_activate():
 	print("Ability " + str(abilityID) + " activated!")
+	force_crouchState()
 
 func _check_cooldown():
 	return onCooldown
+
+func force_crouchState(on : bool = true) -> void:
+	if !on:
+		player.moveNode.crouchForced = false
+		return
+	if forceCrouch != forceCrouchTypes.INPUT:
+		player.moveNode.crouchForced = true
+		if forceCrouch == forceCrouchTypes.CROUCH:
+			player.moveNode.curCrouch = 1
+		else:
+			player.moveNode.curCrouch = 0
 
 func attack_check(hurtbox : Area2D) -> void:
 	if !melee_piercing:

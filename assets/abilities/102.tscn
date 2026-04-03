@@ -9,6 +9,7 @@ abName = "Dash"
 abDesc = "Launches you forward for 0.4s, making you [wave]invulnerable to any attacks.[/wave] Jumping out of this ability keeps your momentum for a short period of time."
 abilityID = 102
 function = 1
+forceCrouch = 2
 duration = 0.4
 cooldown = 17.0
 

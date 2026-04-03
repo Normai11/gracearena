@@ -9,6 +9,7 @@ func _ready() -> void:
 	print("Loaded!")
 
 func _ability_activate():
+	force_crouchState()
 	timer.start()
 	abDisplay._start_cooldown(cooldown)
 	player._start_endlag(endlag + duration)
@@ -17,6 +18,7 @@ func _ability_activate():
 	_end_cooldown()
 
 func _end_cooldown():
+	force_crouchState(false)
 	timer.stop()
 	player.health += healAmount
 	player.guiScene.update_health()

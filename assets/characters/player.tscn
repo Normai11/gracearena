@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dcc6jvd4qehdq"]
+[gd_scene load_steps=9 format=3 uid="uid://dcc6jvd4qehdq"]
 
 [ext_resource type="Texture2D" uid="uid://bgcvio3c5ygos" path="res://icon.svg" id="1_3etf2"]
 [ext_resource type="Script" uid="uid://c1wbvfotuhmqx" path="res://assets/characters/player.gd" id="1_gy20a"]
@@ -12,6 +12,10 @@ resource_name = "null"
 _data = {
 &"null": SubResource("Animation_gy20a")
 }
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gmphs"]
+radius = 16.0
+height = 40.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_40svl"]
 radius = 16.0
@@ -35,6 +39,12 @@ libraries = {
 &"": SubResource("AnimationLibrary_cqrjx")
 }
 
+[node name="CollisionBoxCROUCH" type="CollisionShape2D" parent="."]
+position = Vector2(0, 12)
+shape = SubResource("CapsuleShape2D_gmphs")
+disabled = true
+debug_color = Color(0, 0.0328125, 0.7, 0.42)
+
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_40svl")
 
@@ -48,7 +58,11 @@ collide_with_bodies = false
 [node name="wallCollider" type="RayCast2D" parent="."]
 target_position = Vector2(48, 0)
 
+[node name="crouchRoofDetect" type="RayCast2D" parent="."]
+target_position = Vector2(0, -32)
+
 [node name="PLACEHOLDER" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(0, 8)
 scale = Vector2(0.359375, 0.359375)
 texture = ExtResource("1_3etf2")

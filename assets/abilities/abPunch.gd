@@ -20,6 +20,7 @@ func _physics_process(_delta: float) -> void:
 		attack_check(hurtbox)
 
 func _ability_activate():
+	force_crouchState()
 	timer.start()
 	collision.disabled = false
 	abDisplay._start_cooldown(cooldown)
@@ -29,6 +30,7 @@ func _ability_activate():
 	_end_cooldown()
 
 func _end_cooldown():
+	force_crouchState(false)
 	timer.stop()
 	collision.disabled = true
 	player.moveType = funcType.CONTINUE
