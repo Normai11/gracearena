@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bebiuigay40b4"]
+[gd_scene load_steps=2 format=3 uid="uid://bebiuigay40b4"]
 
 [ext_resource type="Script" uid="uid://btyy7smyikx0c" path="res://assets/menus/trackManager.gd" id="1_201aq"]
-[ext_resource type="PackedScene" uid="uid://byqb1lgpnimj4" path="res://assets/menus/trackPlate.tscn" id="1_bfxqy"]
 
 [node name="trackManager" type="CanvasLayer"]
 script = ExtResource("1_201aq")
@@ -29,6 +28,7 @@ offset_right = -40.0
 offset_bottom = -32.5
 grow_horizontal = 0
 grow_vertical = 2
+disabled = true
 text = "PREVIOUS TRACK"
 
 [node name="next" type="Button" parent="Main"]
@@ -96,19 +96,6 @@ vertical_scroll_mode = 3
 layout_mode = 2
 theme_override_constants/separation = 30
 
-[node name="trackPlate" parent="Main/trackParent/Tracks" instance=ExtResource("1_bfxqy")]
-layout_mode = 2
-
-[node name="trackPlate2" parent="Main/trackParent/Tracks" instance=ExtResource("1_bfxqy")]
-layout_mode = 2
-
-[node name="trackPlate3" parent="Main/trackParent/Tracks" instance=ExtResource("1_bfxqy")]
-layout_mode = 2
-
-[node name="trackPlate4" parent="Main/trackParent/Tracks" instance=ExtResource("1_bfxqy")]
-layout_mode = 2
-
-[node name="trackPlate5" parent="Main/trackParent/Tracks" instance=ExtResource("1_bfxqy")]
-layout_mode = 2
-
+[connection signal="pressed" from="Main/previous" to="." method="_previous_plate"]
+[connection signal="pressed" from="Main/next" to="." method="_next_track"]
 [connection signal="ready" from="Main/trackParent" to="." method="_trackParent_ready"]

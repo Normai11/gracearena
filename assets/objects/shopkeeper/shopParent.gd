@@ -3,6 +3,7 @@ extends CanvasLayer
 @onready var itemInfo = $GUI/itemInfo
 @onready var stock = $Stock
 @onready var itemPath = preload("res://assets/objects/shopkeeper/shopItem.tscn")
+@onready var trackPath = preload("res://assets/menus/trackManager.tscn")
 
 var shopParent : Shopkeeper
 var purchasing : bool = false
@@ -115,3 +116,7 @@ func check_item_purchaseable() -> bool:
 		if shopParent.player.passives.size() >= 4:
 			return true
 	return false
+
+func _enter_trackManager() -> void:
+	var manager = trackPath.instantiate()
+	add_child(manager)

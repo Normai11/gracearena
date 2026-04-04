@@ -4,12 +4,25 @@ extends CanvasLayer
 @onready var menu : Control = $Main
 @onready var trackParent : ScrollContainer = $Main/trackParent
 @onready var trackList : VBoxContainer = $Main/trackParent/Tracks
+@onready var nextButton : Button = $Main/next
+@onready var prevButton : Button = $Main/previous
+
+@onready var trackScene = preload("res://assets/menus/trackPlate.tscn")
 
 var trackFolderPath = "user://tracks"
+var scrollTween : Tween 
+
+var plateList : Array = []
+var curPlate : int = 0
+var curScroll : int = 0
 
 func _ready() -> void:
-	var test = get_tracks()
-	print(test)
+	set_tracks(get_tracks())
+	trackParent.get_v_scroll_bar().allow_greater = true
+	trackParent.get_v_scroll_bar().allow_lesser = true
+	
+	scrollTween = get_tree().create_tween()
+	scrollTween.kill()
 
 func get_tracks() -> Array:
 	var output : Array = []
@@ -30,6 +43,48 @@ func get_tracks() -> Array:
 		else:
 			print("Found File ", fileName)
 		fileName = searchPath.get_next()
-	output = searchPath.get_files()
+		output.append(fileName)
 	
 	return output
+
+func set_tracks(list : Array) -> void:
+	var idx : int = 0
+	for track in list:
+		idx += 1
+		
+		var plate = trackScene.instantiate()
+		plate.trackPath = track
+		plate.trackID = idx
+		
+		trackList.add_child(plate)
+		plateList.append(plate)
+
+func _process(delta: float) -> void:
+	if scrollTween.is_running():
+		pass
+	else:
+		trackParent.scroll_vertical = curScroll
+
+func _next_track() -> void:
+	curPlate += 1
+	curScroll = floori(plateList[curPlate].position.y)
+	if plateList.size() <= curPlate + 1:
+		nextButton.disabled = true
+	prevButton.disabled = false
+	tween_scroll(curScroll)
+	
+func _previous_plate() -> void:
+	curPlate -= 1
+	curScroll = floori(plateList[curPlate].position.y)
+	if curPlate - 1 < 0:
+		prevButton.disabled = true
+	nextButton.disabled = false
+	tween_scroll(curScroll)
+
+func tween_scroll(vertValue : int) -> void:
+	if scrollTween:
+		scrollTween.kill()
+	scrollTween = get_tree().create_tween()
+	scrollTween.set_ease(Tween.EASE_OUT)
+	scrollTween.set_trans(Tween.TRANS_CUBIC)
+	scrollTween.tween_property(trackParent, "scroll_vertical", vertValue, 0.15)

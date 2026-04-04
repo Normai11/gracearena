@@ -42,10 +42,10 @@ text = "<"
 z_index = 24
 custom_minimum_size = Vector2(188, 14)
 anchors_preset = 0
-offset_left = 600.0
-offset_top = 337.0
-offset_right = 788.0
-offset_bottom = 351.0
+offset_left = 608.0
+offset_top = 345.0
+offset_right = 796.0
+offset_bottom = 359.0
 
 [node name="textContainer" type="PanelContainer" parent="GUI/itemInfo"]
 z_index = 1028
@@ -110,11 +110,20 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_top = 98.5
+offset_right = -207.0
 offset_bottom = 221.5
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
+[node name="trackOpen" type="Button" parent="."]
+offset_left = 1001.0
+offset_top = 436.0
+offset_right = 1186.0
+offset_bottom = 559.0
+text = "OPEN TRACK EDITOR"
+
 [connection signal="pressed" from="GUI/Exit" to="." method="_on_exit_pressed"]
 [connection signal="pressed" from="GUI/itemInfo/buy" to="." method="_purchase_item"]
 [connection signal="pressed" from="GUI/itemInfo/cancel" to="." method="_cancel_purchase"]
+[connection signal="pressed" from="trackOpen" to="." method="_enter_trackManager"]

@@ -27,6 +27,10 @@ window/size/viewport_width=1200
 window/size/viewport_height=675
 window/stretch/mode="viewport"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/music_metadata/plugin.cfg")
+
 [file_customization]
 
 folder_colors={
