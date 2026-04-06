@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Retrieval Project"
-run/main_scene="uid://nju2hj280cwt"
+run/main_scene="uid://ddcck82ldqnsy"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/show_image=false
 config/icon="res://icon.svg"

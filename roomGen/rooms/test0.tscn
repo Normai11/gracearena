@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bs6oknddda5n6"]
+[gd_scene load_steps=6 format=3 uid="uid://c1vj2odi0f1mt"]
 
-[ext_resource type="Script" uid="uid://fjbti2nu5vtf" path="res://roomGen/roomProperties.gd" id="1_qx4nc"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_07xu5"]
-size = Vector2(930, 558)
+[ext_resource type="Script" uid="uid://fjbti2nu5vtf" path="res://roomGen/roomProperties.gd" id="1_a07pt"]
+[ext_resource type="Resource" uid="uid://dbm8a2txhos23" path="res://roomGen/rooms/roomCFGs/test0CFG.tres" id="2_0o4sq"]
+[ext_resource type="PackedScene" uid="uid://blpirsion1ret" path="res://Scenes/Characters/Enemies/enemySpawner.tscn" id="3_vxr41"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_77etp"]
 size = Vector2(930, 102)
@@ -11,15 +10,11 @@ size = Vector2(930, 102)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gjfn"]
 size = Vector2(82, 250)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pevkm"]
-size = Vector2(82, 354)
-
-[node name="roomEND" type="Node2D" node_paths=PackedStringArray("boundControlObject")]
-script = ExtResource("1_qx4nc")
-roomSize = Vector2(930, 558)
-roomOffset = Vector2(465, -177)
-endGen = true
-boundControlObject = NodePath("boundsVisual")
+[node name="room0" type="Node2D" node_paths=PackedStringArray("roomContObj")]
+script = ExtResource("1_a07pt")
+roomConfig = ExtResource("2_0o4sq")
+roomContObj = NodePath("genCont")
+metadata/_custom_type_script = "uid://fjbti2nu5vtf"
 
 [node name="boundsVisual" type="ColorRect" parent="."]
 anchors_preset = 8
@@ -33,16 +28,10 @@ offset_right = 465.0
 offset_bottom = 279.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 0, 0, 0.333333)
+color = Color(0, 1, 1, 0.196078)
 
-[node name="Bounds" type="Area2D" parent="."]
-collision_layer = 512
-collision_mask = 512
-monitoring = false
-
-[node name="size" type="CollisionShape2D" parent="Bounds"]
-shape = SubResource("RectangleShape2D_07xu5")
-debug_color = Color(0.890196, 0, 0, 0)
+[node name="genCont" type="Marker2D" parent="."]
+position = Vector2(465, 177)
 
 [node name="Floor" type="StaticBody2D" parent="."]
 position = Vector2(0, 228)
@@ -66,5 +55,12 @@ shape = SubResource("RectangleShape2D_3gjfn")
 position = Vector2(424, -52)
 
 [node name="size" type="CollisionShape2D" parent="Wall1"]
-position = Vector2(0, 52)
-shape = SubResource("RectangleShape2D_pevkm")
+shape = SubResource("RectangleShape2D_3gjfn")
+
+[node name="enemySpawner" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("3_vxr41")]
+position = Vector2(-220, 111)
+injectNode = NodePath("..")
+
+[node name="enemySpawner2" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("3_vxr41")]
+position = Vector2(187, 111)
+injectNode = NodePath("..")

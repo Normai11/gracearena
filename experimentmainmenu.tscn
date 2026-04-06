@@ -1,0 +1,55 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddcck82ldqnsy"]
+
+[ext_resource type="Script" uid="uid://dqynry4qrjuby" path="res://experimentmainmenu.gd" id="1_7plwk"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7plwk")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 306.0
+offset_top = 39.0
+offset_right = 751.0
+offset_bottom = 106.0
+theme_override_font_sizes/font_size = 48
+text = "experiment branch"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 31.0
+offset_top = 383.0
+offset_right = 545.0
+offset_bottom = 436.0
+theme_override_font_sizes/font_size = 32
+text = "play with generation ( 30 rooms )"
+
+[node name="Button2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 644.0
+offset_top = 392.0
+offset_right = 1158.0
+offset_bottom = 445.0
+theme_override_font_sizes/font_size = 32
+text = "view only generation 
+(arrow keys to move, space to 
+regenerate)"
+
+[node name="Button3" type="Button" parent="."]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 556.0
+offset_right = 335.0
+offset_bottom = 621.0
+theme_override_font_sizes/font_size = 32
+text = "go to main menu ( outdated!! )
+and broken but im lazy to fix"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Button3" to="." method="_on_button_3_pressed"]

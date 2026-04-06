@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://das6q37k1qt7y"]
+
+[ext_resource type="PackedScene" uid="uid://umwqchrgaxeu" path="res://roomGen/roomManager.tscn" id="1_oet81"]
+[ext_resource type="Script" uid="uid://dgqpp0qpuc1xv" path="res://stupidtestcamera.gd" id="2_5rh3t"]
+
+[node name="simple" type="Node2D"]
+
+[node name="roomManager" parent="." instance=ExtResource("1_oet81")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.05, 0.05)
+script = ExtResource("2_5rh3t")
