@@ -2,23 +2,21 @@
 extends Node2D
 
 enum biomes {
-	biomeTest
+	biomeTest = -1,
 }
-
-## May tamper with export variables. Use with caution!
-@export_tool_button("Test Generation (IN-EDITOR)", "Warning") var target = editor_gen_test
-@export_tool_button("Reset Tamper-probable Values", "CodeEdit") var targetClear = editor_gen_cleanse
 
 @export var cfgPath : String = "res://roomGen/rooms/roomCFGs/"
 @export var roomOffset = Vector2.ZERO
 @export_group("Floor Configuration", "floor")
 @export var floorBiome : biomes = biomes.biomeTest
 @export var floorRoomCap : int = 15
-@export var floorTurnReq : int = 7
+@export var floorLimitTurns : bool = true:
+	set(value):
+		floorLimitTurns = value
+		notify_property_list_changed()
+var floorTurnReq : int = 2
 var curTurnReq : int = -1
 var canTurn : bool = false
-@export var floorForceTurns : bool = true
-@export var floorTurnForce : int = 12
 
 var cfgFiles : Array[roomConfiguration]
 var drawQueue : Array = []
@@ -27,37 +25,40 @@ var roomRects : Array = []
 var roomChildren : Array = []
 var oldOffset : Vector2
 
-func editor_gen_test() -> void:
-	#print("haha i do nothing right now")
-	generate_rooms()
-
-func editor_gen_cleanse() -> void:
-	roomOffset = Vector2.ZERO
-	direction = 1
-	roomRects.clear()
-	curTurnReq = -1
-	canTurn = false
-
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
-	cfgFiles = get_config_files()
+	cfgFiles = get_config_files(floorBiome)
 	generate_rooms()
 
-func get_config_files() -> Array[roomConfiguration]:
+func _get_property_list() -> Array[Dictionary]:
+	var properties : Array[Dictionary] = []
+	
+	if floorLimitTurns:
+		properties.append({
+			"name" : "floorTurnReq",
+			"type" : TYPE_INT,
+			"usage" : PROPERTY_USAGE_DEFAULT
+		})
+	
+	return properties
+
+func get_config_files(biome : biomes) -> Array[roomConfiguration]:
 	var output : Array[roomConfiguration] = []
+	var searchString : String = DataStore.biomePaths[biome]
 	
 	var searchPath = DirAccess.open(cfgPath)
 	var fileGet = searchPath.get_files()
 	
 	for file in fileGet:
-		output.append(load(cfgPath + file))
+		if file.begins_with(searchString):
+			output.append(load(cfgPath + file))
 	
 	return output
 
 func determine_position(curOffset : Vector2, roomCFG : roomConfiguration) -> Vector2:
 	var curPosition = curOffset
-	var roomSize = roomCFG.get_bounds()
+	#var roomSize = roomCFG.get_bounds()
 	var newOffset = roomCFG.get_offset()
 	
 	if direction == 1:
@@ -68,8 +69,6 @@ func determine_position(curOffset : Vector2, roomCFG : roomConfiguration) -> Vec
 	return curPosition
 
 func generate_rooms() -> void:
-	var turned : bool = false
-	
 	for room in range(floorRoomCap):
 		curTurnReq += 1
 		if curTurnReq >= floorTurnReq:
@@ -77,8 +76,13 @@ func generate_rooms() -> void:
 		
 		var instRoom
 		var child : roomConfiguration = cfgFiles.pick_random()
-		while child.roomType == roomConfiguration.Types.EXIT:
+		var OK : bool = false
+		while !OK:
 			child = cfgFiles.pick_random()
+			if (child.flipDirection && !canTurn) or child.roomType != roomConfiguration.Types.TIMED:
+				continue
+			else:
+				OK = true
 		var result = check_collision(child)
 		
 		var idx = -1
@@ -102,11 +106,22 @@ func generate_rooms() -> void:
 			add_child(instRoom)
 			roomOffset = instRoom.roomContObj.global_position
 			if child.flipDirection:
-				turned = true
+				canTurn = false
+				curTurnReq = -1
 				direction = -direction
 			
 			var addRect = Rect2(instRoom.position - (child.roomBounds/2), child.roomBounds)
 			roomRects.append(addRect)
+	var exitCFG : roomConfiguration
+	var exit
+	for room in cfgFiles:
+		if room.roomType == roomConfiguration.Types.EXIT:
+			exitCFG = room
+	var loader = load(exitCFG.roomScenePath)
+	exit = loader.instantiate()
+	exit.position = determine_position(roomOffset, exitCFG)
+	exit.roomFlipped = (true if direction == -1 else false)
+	add_child(exit)
 
 func check_collision(cfg : roomConfiguration) -> bool:
 	var result : bool = false
@@ -128,10 +143,11 @@ func check_collision(cfg : roomConfiguration) -> bool:
 	return result
 
 func _draw() -> void:
-	if !roomRects.is_empty():
-		for rect in roomRects:
-			draw_rect(rect, Color.BLUE)
-	if !drawQueue.is_empty():
-		for rect in drawQueue:
-			draw_rect(rect, Color.RED)
-		drawQueue.clear()
+	#if !roomRects.is_empty():
+		#for rect in roomRects:
+			#draw_rect(rect, Color.BLUE)
+	#if !drawQueue.is_empty():
+		#for rect in drawQueue:
+			#draw_rect(rect, Color.RED)
+		#drawQueue.clear()
+	pass

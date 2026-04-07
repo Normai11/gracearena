@@ -38,9 +38,7 @@ var timerJustActive : bool = false
 	"Lyte" : "res://Scenes/Characters/Mods/stoplyte.tscn"
 }
 
-@export var biomeTest = {
-	0 : "res://roomGen/room0.tscn",
-	1 : "res://roomGen/room_1.tscn",
-	2 : "res://roomGen/room_2.tscn",
-	3 : "res://roomGen/room_2.tscn",
+@export var biomePaths = {
+	-1 : "test",
+	0 : "balls"
 }

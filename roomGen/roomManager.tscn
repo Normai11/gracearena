@@ -5,4 +5,4 @@
 [node name="roomManager" type="Node2D"]
 script = ExtResource("1_00jtm")
 floorRoomCap = 30
-floorForceTurns = false
+floorTurnReq = 2
