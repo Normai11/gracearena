@@ -1,0 +1,89 @@
+[gd_scene load_steps=9 format=3 uid="uid://bv3rtmfus8y2h"]
+
+[ext_resource type="Script" uid="uid://fjbti2nu5vtf" path="res://assets/roomGen/roomProperties.gd" id="1_c5pqm"]
+[ext_resource type="Resource" uid="uid://bdpdgqwd2o3xn" path="res://assets/roomGen/rooms/roomCFGs/test3CFG.tres" id="2_ojovn"]
+[ext_resource type="PackedScene" uid="uid://blpirsion1ret" path="res://assets/characters/enemySpawner.tscn" id="4_c5pqm"]
+[ext_resource type="PackedScene" uid="uid://bc2au43vmts4d" path="res://assets/objects/dreamPanel.tscn" id="4_hpsbm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r7jqc"]
+size = Vector2(1120, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l7r6h"]
+size = Vector2(92, 554)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ysp8i"]
+size = Vector2(720, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yo88v"]
+size = Vector2(552, 100)
+
+[node name="Room" type="Node2D" node_paths=PackedStringArray("roomContObj")]
+script = ExtResource("1_c5pqm")
+roomConfig = ExtResource("2_ojovn")
+roomContObj = NodePath("genCont")
+metadata/_custom_type_script = "uid://fjbti2nu5vtf"
+
+[node name="boundsVisual" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -560.0
+offset_top = -426.0
+offset_right = 560.0
+offset_bottom = 426.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0.609375, 0.196078)
+
+[node name="genCont" type="Marker2D" parent="."]
+position = Vector2(560, 326)
+
+[node name="floor" type="StaticBody2D" parent="."]
+position = Vector2(0, 376)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor"]
+shape = SubResource("RectangleShape2D_r7jqc")
+
+[node name="roof" type="StaticBody2D" parent="."]
+position = Vector2(0, -376)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="roof"]
+shape = SubResource("RectangleShape2D_r7jqc")
+
+[node name="wall0" type="StaticBody2D" parent="."]
+position = Vector2(-514, 49)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall0"]
+shape = SubResource("RectangleShape2D_l7r6h")
+
+[node name="wall1" type="StaticBody2D" parent="."]
+position = Vector2(514, -49)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall1"]
+shape = SubResource("RectangleShape2D_l7r6h")
+
+[node name="plat0" type="StaticBody2D" parent="."]
+position = Vector2(-108, -178)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="plat0"]
+shape = SubResource("RectangleShape2D_ysp8i")
+
+[node name="plat1" type="StaticBody2D" parent="."]
+position = Vector2(-24, 116)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="plat1"]
+shape = SubResource("RectangleShape2D_yo88v")
+
+[node name="dreamPanel" parent="." instance=ExtResource("4_hpsbm")]
+position = Vector2(360, 86)
+panelLength = 216.0
+
+[node name="enemySpawner" parent="." instance=ExtResource("4_c5pqm")]
+position = Vector2(-90, 21)
+
+[node name="enemySpawner2" parent="." instance=ExtResource("4_c5pqm")]
+position = Vector2(134, 278)
+enemyType = 0
+spawnDirection = -1

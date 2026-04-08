@@ -50,3 +50,7 @@ var pulseHintSeen : bool = false
 	"skeletron" : "res://assets/modifiers/enemies/skeletron.tscn",
 	"Stargazer" : "res://assets/modifiers/enemies/stargazer.tscn"
 }
+
+@export var biomePaths = {
+	-1 : "test"
+}

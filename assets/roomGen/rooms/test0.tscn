@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3 uid="uid://c1vj2odi0f1mt"]
+
+[ext_resource type="Script" uid="uid://fjbti2nu5vtf" path="res://assets/roomGen/roomProperties.gd" id="1_a07pt"]
+[ext_resource type="Resource" uid="uid://dbm8a2txhos23" path="res://assets/roomGen/rooms/roomCFGs/test0CFG.tres" id="2_0o4sq"]
+[ext_resource type="PackedScene" uid="uid://blpirsion1ret" path="res://assets/characters/enemySpawner.tscn" id="3_vxr41"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_77etp"]
+size = Vector2(930, 102)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3gjfn"]
+size = Vector2(82, 250)
+
+[node name="room0" type="Node2D" node_paths=PackedStringArray("roomContObj")]
+script = ExtResource("1_a07pt")
+roomConfig = ExtResource("2_0o4sq")
+roomContObj = NodePath("genCont")
+metadata/_custom_type_script = "uid://fjbti2nu5vtf"
+
+[node name="boundsVisual" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -465.0
+offset_top = -279.0
+offset_right = 465.0
+offset_bottom = 279.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 1, 0.196078)
+
+[node name="genCont" type="Marker2D" parent="."]
+position = Vector2(465, 177)
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(0, 228)
+
+[node name="size" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("RectangleShape2D_77etp")
+
+[node name="Roof" type="StaticBody2D" parent="."]
+position = Vector2(0, -228)
+
+[node name="size" type="CollisionShape2D" parent="Roof"]
+shape = SubResource("RectangleShape2D_77etp")
+
+[node name="Wall0" type="StaticBody2D" parent="."]
+position = Vector2(-424, -52)
+
+[node name="size" type="CollisionShape2D" parent="Wall0"]
+shape = SubResource("RectangleShape2D_3gjfn")
+
+[node name="Wall1" type="StaticBody2D" parent="."]
+position = Vector2(424, -52)
+
+[node name="size" type="CollisionShape2D" parent="Wall1"]
+shape = SubResource("RectangleShape2D_3gjfn")
+
+[node name="enemySpawner" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("3_vxr41")]
+position = Vector2(-81, 127)
+injectNode = NodePath("..")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b2kdvlijym6qd"]
 
-[ext_resource type="Texture2D" uid="uid://bgcvio3c5ygos" path="res://icon.svg" id="1_eg6gm"]
+[ext_resource type="Texture2D" uid="uid://xey7lx2u22sl" path="res://icon.svg" id="1_eg6gm"]
 [ext_resource type="Script" uid="uid://rcrf7psq1wml" path="res://assets/characters/basicPatroller.gd" id="1_y55gh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y55gh"]

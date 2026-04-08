@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://ciex550pfhqjq"]
+
+[ext_resource type="Script" uid="uid://cqs7q18yivgnu" path="res://assets/objects/stageManager.gd" id="1_c2vyx"]
+[ext_resource type="PackedScene" uid="uid://dcc6jvd4qehdq" path="res://assets/characters/player.tscn" id="2_ma11v"]
+[ext_resource type="PackedScene" uid="uid://8exbkp7gn8aw" path="res://assets/objects/advCamera.tscn" id="3_80aav"]
+[ext_resource type="PackedScene" uid="uid://umwqchrgaxeu" path="res://assets/roomGen/roomManager.tscn" id="4_rn8ce"]
+[ext_resource type="PackedScene" uid="uid://dmosm4lm85gtt" path="res://assets/objects/timeDoor.tscn" id="5_ma11v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_80aav"]
+size = Vector2(308, 102)
+
+[node name="genTest" type="Node2D" node_paths=PackedStringArray("playerReference")]
+script = ExtResource("1_c2vyx")
+playerReference = NodePath("Player")
+
+[node name="Player" parent="." instance=ExtResource("2_ma11v")]
+position = Vector2(-269, -34)
+move_speed = 600.0
+
+[node name="advCamera" parent="." node_paths=PackedStringArray("targetNode") instance=ExtResource("3_80aav")]
+targetNode = NodePath("../Player")
+
+[node name="roomManager" parent="." instance=ExtResource("4_rn8ce")]
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(-154, 51)
+
+[node name="size" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("RectangleShape2D_80aav")
+
+[node name="timeDoor" parent="." instance=ExtResource("5_ma11v")]
+position = Vector2(18, -61)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b04o0wf67xtf4"]
+[gd_scene load_steps=13 format=3 uid="uid://b04o0wf67xtf4"]
 
 [ext_resource type="Script" uid="uid://cqs7q18yivgnu" path="res://assets/objects/stageManager.gd" id="1_ubhnp"]
 [ext_resource type="PackedScene" uid="uid://dcc6jvd4qehdq" path="res://assets/characters/player.tscn" id="2_sa3yx"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://c4hxk0o4u4vdy" path="res://assets/objects/shopkeeper/shopkeeper.tscn" id="4_kgqj7"]
 [ext_resource type="PackedScene" uid="uid://blpirsion1ret" path="res://assets/characters/enemySpawner.tscn" id="5_wpsy0"]
 [ext_resource type="PackedScene" uid="uid://dmosm4lm85gtt" path="res://assets/objects/timeDoor.tscn" id="6_24akt"]
+[ext_resource type="PackedScene" uid="uid://bc2au43vmts4d" path="res://assets/objects/dreamPanel.tscn" id="7_sa3yx"]
+[ext_resource type="Script" uid="uid://csidw4mdkuc4n" path="res://buttonTeleport.gd" id="8_v1mis"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qotmv"]
 size = Vector2(2832, 164)
@@ -34,62 +36,51 @@ dragMult = 0.25
 position = Vector2(-1097, 335)
 cameraFocusZoom = Vector2(4.5, 4)
 
-[node name="enemySpawner" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_wpsy0")]
+[node name="enemySpawner" parent="." instance=ExtResource("5_wpsy0")]
 position = Vector2(760, 448)
-injectNode = NodePath("..")
 enemyType = 0
 
-[node name="enemySpawner2" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_wpsy0")]
+[node name="enemySpawner2" parent="." instance=ExtResource("5_wpsy0")]
 position = Vector2(2876, 213)
-injectNode = NodePath("..")
 enemyType = 0
 
-[node name="enemySpawner3" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_wpsy0")]
+[node name="enemySpawner3" parent="." instance=ExtResource("5_wpsy0")]
 position = Vector2(1845, 397)
-injectNode = NodePath("..")
 enemyType = 0
 spawnDirection = -1
 
-[node name="enemySpawner4" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_wpsy0")]
+[node name="enemySpawner4" parent="." instance=ExtResource("5_wpsy0")]
 position = Vector2(2078, 393)
-injectNode = NodePath("..")
 enemyType = 0
 
-[node name="enemySpawner5" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_wpsy0")]
+[node name="enemySpawner5" parent="." instance=ExtResource("5_wpsy0")]
 position = Vector2(1073, 293)
-injectNode = NodePath("..")
 enemyType = 0
 
-[node name="enemySpawner6" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_wpsy0")]
+[node name="enemySpawner6" parent="." instance=ExtResource("5_wpsy0")]
 position = Vector2(3427, 439)
-injectNode = NodePath("..")
 enemyType = 0
 
-[node name="enemySpawner7" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_wpsy0")]
+[node name="enemySpawner7" parent="." instance=ExtResource("5_wpsy0")]
 position = Vector2(3268, 439)
-injectNode = NodePath("..")
 enemyType = 0
 
-[node name="enemySpawner8" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_wpsy0")]
+[node name="enemySpawner8" parent="." instance=ExtResource("5_wpsy0")]
 position = Vector2(3046, 437)
-injectNode = NodePath("..")
 enemyType = 0
 spawnDirection = -1
 
-[node name="enemySpawner9" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_wpsy0")]
+[node name="enemySpawner9" parent="." instance=ExtResource("5_wpsy0")]
 position = Vector2(2867, 441)
-injectNode = NodePath("..")
 enemyType = 0
 spawnDirection = -1
 
-[node name="enemySpawner10" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_wpsy0")]
+[node name="enemySpawner10" parent="." instance=ExtResource("5_wpsy0")]
 position = Vector2(2407, 898)
-injectNode = NodePath("..")
 enemyType = 0
 
-[node name="enemySpawner11" parent="." node_paths=PackedStringArray("injectNode") instance=ExtResource("5_wpsy0")]
+[node name="enemySpawner11" parent="." instance=ExtResource("5_wpsy0")]
 position = Vector2(3013, 900)
-injectNode = NodePath("..")
 enemyType = 0
 spawnDirection = -1
 
@@ -174,3 +165,17 @@ collision_mask = 32
 shape = SubResource("RectangleShape2D_k0dl8")
 one_way_collision = true
 debug_color = Color(4.33177e-07, 0.645153, 0.266197, 0.42)
+
+[node name="dreamPanel" parent="." instance=ExtResource("7_sa3yx")]
+position = Vector2(1390, 504)
+panelLength = 260.0
+
+[node name="Button" type="Button" parent="."]
+offset_left = 93.0
+offset_top = 164.0
+offset_right = 488.0
+offset_bottom = 225.0
+text = "press to go to gen_test"
+script = ExtResource("8_v1mis")
+
+[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

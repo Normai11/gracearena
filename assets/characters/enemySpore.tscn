@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://628ydpnj1nba"]
 
-[ext_resource type="Texture2D" uid="uid://bgcvio3c5ygos" path="res://icon.svg" id="1_nc1sv"]
+[ext_resource type="Texture2D" uid="uid://xey7lx2u22sl" path="res://icon.svg" id="1_nc1sv"]
 [ext_resource type="Script" uid="uid://dbpnh4hrl2t2q" path="res://assets/characters/enemySpore.gd" id="1_wa387"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y55gh"]
@@ -18,12 +18,11 @@ collision_layer = 4
 collision_mask = 33
 script = ExtResource("1_wa387")
 sporeWindup = 0.5
-sporeDrag = 2.0
 sporeEndlag = 3.0
 bodyRef = NodePath(".")
 hurtBox = NodePath("Hurtbox")
 moveSpeed = 100.0
-health = 50.0
+health = 8.0
 dmg = 8.0
 stunTime = 0.5
 

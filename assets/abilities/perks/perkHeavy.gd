@@ -1,6 +1,7 @@
 extends abilityTemp
 
 var isFF : bool = false # Fast Falling
+var isSlamming : bool = false
 
 func _ready() -> void:
 	print("Loaded!")
@@ -8,11 +9,24 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_pressed("down"):
 		player.set_collision_mask_value(6, false)
-		if !isFF:
-			isFF = true
-			player.velocity.y = player.dropForce
 	else:
 		player.set_collision_mask_value(6, true)
 	
+	if Input.is_action_just_pressed("down"):
+		if !isFF:
+			isFF = true
+			if player.moveNode.get_movement_input() == 0:
+				isSlamming = true
+				player.moveType = funcType.DISABLE
+				player.velocity.y = player.gravity_cap
+				player.set_collision_mask_value(8, false)
+			else:
+				player.velocity.y = player.dropForce
+	
 	if player.is_on_floor():
+		if !player.get_collision_mask_value(8) && isSlamming:
+			isSlamming = false
+			player.moveType = funcType.CONTINUE
+			player.velocity.y = -player.jump_force
+			player.set_collision_mask_value(8, true)
 		isFF = false

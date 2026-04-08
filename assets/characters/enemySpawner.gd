@@ -16,8 +16,6 @@ var randGen : RandomNumberGenerator = RandomNumberGenerator.new()
 
 ## If true, this node will not spawn anything and free itself from the scene tree immediately.
 @export var disabled : bool = false
-## The parent node the enemy will be added to.
-@export var injectNode : Node2D
 ## The enemy this node will spawn when the scene is loaded.
 @export var enemyType = typeDisplay.RANDOM
 ## The direction the enemy will face when loaded into the scene. -1 is left, 1 is right.
@@ -45,14 +43,14 @@ func _ready() -> void:
 			enemyPath = load(enemyRef[enemyType])
 		var enemyChild = enemyPath.instantiate()
 		
-		enemyChild.position = self.position
+		enemyChild.global_position = self.global_position
 		enemyChild.startingDirection = spawnDirection
 		if overrideAttributes:
 			enemyChild.health = customHealth
 			enemyChild.moveSpeed = customSpeed
 			enemyChild.dmg = customDamage
 		
-		injectNode.add_child.call_deferred(enemyChild)
+		get_tree().current_scene.add_child.call_deferred(enemyChild)
 		self.queue_free()
 
 func _process(delta: float) -> void:

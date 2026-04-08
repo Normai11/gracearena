@@ -29,7 +29,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/music_metadata/plugin.cfg")
+enabled=PackedStringArray()
 
 [file_customization]
 
@@ -106,6 +106,7 @@ pause={
 2d_physics/layer_5="Hurt Enemy"
 2d_physics/layer_6="Semisolid"
 2d_physics/layer_7="Interaction"
+2d_physics/layer_8="Dream Panels"
 2d_physics/layer_32="Pulse Notes"
 
 [physics]
