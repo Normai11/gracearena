@@ -17,7 +17,7 @@ shape = SubResource("RectangleShape2D_0alrq")
 
 [node name="interactionArea" type="Area2D" parent="."]
 collision_layer = 64
-collision_mask = 2
+collision_mask = 512
 
 [node name="bounds" type="CollisionShape2D" parent="interactionArea"]
 shape = SubResource("RectangleShape2D_sxsni")

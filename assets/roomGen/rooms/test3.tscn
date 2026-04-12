@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bv3rtmfus8y2h"]
+[gd_scene load_steps=11 format=3 uid="uid://bv3rtmfus8y2h"]
 
 [ext_resource type="Script" uid="uid://fjbti2nu5vtf" path="res://assets/roomGen/roomProperties.gd" id="1_c5pqm"]
 [ext_resource type="Resource" uid="uid://bdpdgqwd2o3xn" path="res://assets/roomGen/rooms/roomCFGs/test3CFG.tres" id="2_ojovn"]
 [ext_resource type="PackedScene" uid="uid://blpirsion1ret" path="res://assets/characters/enemySpawner.tscn" id="4_c5pqm"]
 [ext_resource type="PackedScene" uid="uid://bc2au43vmts4d" path="res://assets/objects/dreamPanel.tscn" id="4_hpsbm"]
 [ext_resource type="PackedScene" uid="uid://ckn26o4fgsthw" path="res://assets/objects/door.tscn" id="5_qydnn"]
+[ext_resource type="PackedScene" uid="uid://dfjyyiapaunyi" path="res://assets/objects/glareSafespot.tscn" id="6_t8l4k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r7jqc"]
 size = Vector2(1120, 100)
@@ -91,3 +92,11 @@ spawnDirection = -1
 
 [node name="door" parent="." instance=ExtResource("5_qydnn")]
 position = Vector2(560, 265)
+
+[node name="glareSafespot" parent="." instance=ExtResource("6_t8l4k")]
+position = Vector2(33, -102)
+collisionSize = Vector2(300, 500)
+
+[node name="glareSafespot2" parent="." instance=ExtResource("6_t8l4k")]
+position = Vector2(-112, 251)
+collisionSize = Vector2(300, 200)

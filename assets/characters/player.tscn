@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dcc6jvd4qehdq"]
+[gd_scene load_steps=10 format=3 uid="uid://dcc6jvd4qehdq"]
 
 [ext_resource type="Texture2D" uid="uid://xey7lx2u22sl" path="res://icon.svg" id="1_3etf2"]
 [ext_resource type="Script" uid="uid://c1wbvfotuhmqx" path="res://assets/characters/player.gd" id="1_gy20a"]
@@ -13,6 +13,9 @@ _data = {
 &"null": SubResource("Animation_gy20a")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gmphs"]
+size = Vector2(12, 42)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gmphs"]
 radius = 16.0
 height = 40.0
@@ -23,8 +26,8 @@ height = 64.0
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 2
-collision_layer = 2
-collision_mask = 161
+collision_layer = 514
+collision_mask = 417
 script = ExtResource("1_gy20a")
 loadGuiScene = ExtResource("2_gy20a")
 move_speed = 500.0
@@ -40,6 +43,16 @@ friction = 12.0
 libraries = {
 &"": SubResource("AnimationLibrary_cqrjx")
 }
+
+[node name="glaresafeChecker" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 256
+monitorable = false
+
+[node name="size" type="CollisionShape2D" parent="glaresafeChecker"]
+position = Vector2(0, 11)
+shape = SubResource("RectangleShape2D_gmphs")
+debug_color = Color(1, 1, 1, 0.176471)
 
 [node name="CollisionBoxCROUCH" type="CollisionShape2D" parent="."]
 position = Vector2(0, 12)

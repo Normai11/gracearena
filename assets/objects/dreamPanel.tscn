@@ -39,7 +39,7 @@ debug_color = Color(0.72861, 0.26669, 0.846354, 0.42)
 [node name="shatterCheck" type="Area2D" parent="."]
 position = Vector2(0, -10)
 collision_layer = 128
-collision_mask = 2
+collision_mask = 512
 monitorable = false
 
 [node name="area" type="CollisionShape2D" parent="shatterCheck"]

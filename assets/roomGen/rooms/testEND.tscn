@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bs6oknddda5n6"]
+[gd_scene load_steps=7 format=3 uid="uid://bs6oknddda5n6"]
 
 [ext_resource type="Script" uid="uid://fjbti2nu5vtf" path="res://assets/roomGen/roomProperties.gd" id="1_qx4nc"]
 [ext_resource type="Resource" uid="uid://davixj6wq863h" path="res://assets/roomGen/rooms/roomCFGs/testENDCFG.tres" id="2_yl31v"]
+[ext_resource type="PackedScene" uid="uid://dfjyyiapaunyi" path="res://assets/objects/glareSafespot.tscn" id="3_dtlte"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_77etp"]
 size = Vector2(930, 102)
@@ -55,3 +56,6 @@ position = Vector2(424, -52)
 [node name="size" type="CollisionShape2D" parent="Wall1"]
 position = Vector2(0, 52)
 shape = SubResource("RectangleShape2D_pevkm")
+
+[node name="glareSafespot" parent="." instance=ExtResource("3_dtlte")]
+collisionSize = Vector2(900, 500)

@@ -56,6 +56,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction : int = 1
 var onLag : bool = false
 var evilGrabbed : bool = false
+var glareSafe : bool = false
 
 func _ready() -> void:
 	var loadObject = loadGuiScene.instantiate()
@@ -202,6 +203,11 @@ func _physics_process(delta: float) -> void:
 	else:
 		interactArea.rotation_degrees = 180
 		wallCollision.rotation_degrees = 180
+	
+	if $glaresafeChecker.has_overlapping_areas():
+		glareSafe = true
+	else:
+		glareSafe = false
 	
 	process_movement(delta, velocity)
 	check_interaction()

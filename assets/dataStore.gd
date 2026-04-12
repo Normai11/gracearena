@@ -48,7 +48,8 @@ var pulseHintSeen : bool = false
 @export var enemyModPaths = {
 	"Lyte" : "res://assets/modifiers/enemies/stoplyte.tscn",
 	"skeletron" : "res://assets/modifiers/enemies/skeletron.tscn",
-	"Stargazer" : "res://assets/modifiers/enemies/stargazer.tscn"
+	"Stargazer" : "res://assets/modifiers/enemies/stargazer.tscn",
+	"Glare" : "res://assets/modifiers/enemies/glare.tscn"
 }
 
 @export var biomePaths = {

@@ -107,7 +107,8 @@ pause={
 2d_physics/layer_6="Semisolid"
 2d_physics/layer_7="Interaction"
 2d_physics/layer_8="Dream Panels"
-2d_physics/layer_32="Pulse Notes"
+2d_physics/layer_9="Glare Safespots"
+2d_physics/layer_10="typePlayer"
 
 [physics]
 

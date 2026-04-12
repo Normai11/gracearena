@@ -27,6 +27,7 @@ func _ready() -> void:
 				child.playerTarget = playerReference
 				GUIEnemyParent.call_deferred("add_child", child)
 			else:
+				child.playerTarget = playerReference
 				add_child(child)
 
 func _process(delta: float) -> void:
