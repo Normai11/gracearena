@@ -1,5 +1,7 @@
 extends Node
 
+@export var GUIEnemyParent : CanvasLayer
+
 @export var roomgenAmt : int = 25
 @export var activeMods : Array = []
 @export var playerReference : Player
@@ -19,9 +21,11 @@ func _ready() -> void:
 			# extra logic here if needed
 			
 			if mod == "Lyte":
-				playerReference.guiScene.call_deferred("add_child", child)
+				child.playerTarget = playerReference
+				GUIEnemyParent.call_deferred("add_child", child)
 			elif mod == "Stargazer":
-				playerReference.guiScene.call_deferred("add_child", child)
+				child.playerTarget = playerReference
+				GUIEnemyParent.call_deferred("add_child", child)
 			else:
 				add_child(child)
 

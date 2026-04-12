@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bcytvdbdq7h4p"]
+[gd_scene load_steps=10 format=3 uid="uid://bcytvdbdq7h4p"]
 
 [ext_resource type="Script" uid="uid://fjbti2nu5vtf" path="res://assets/roomGen/roomProperties.gd" id="1_4283t"]
 [ext_resource type="Resource" uid="uid://8f1h8tdm6vtp" path="res://assets/roomGen/rooms/roomCFGs/test1CFG.tres" id="2_4283t"]
 [ext_resource type="PackedScene" uid="uid://blpirsion1ret" path="res://assets/characters/enemySpawner.tscn" id="3_2ccil"]
+[ext_resource type="PackedScene" uid="uid://ckn26o4fgsthw" path="res://assets/objects/door.tscn" id="4_ba7y0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8qtb3"]
 size = Vector2(1298, 866)
@@ -93,4 +94,8 @@ debug_color = Color(0, 0.643457, 0.299661, 0.42)
 
 [node name="enemySpawner" parent="." instance=ExtResource("3_2ccil")]
 position = Vector2(-417, 119)
+enemyChances = null
 enemyType = 1
+
+[node name="door" parent="." instance=ExtResource("4_ba7y0")]
+position = Vector2(649, 270)

@@ -19,6 +19,7 @@ var curTurnReq : int = -1
 var canTurn : bool = false
 
 var cfgFiles : Array[roomConfiguration]
+var cfgChances : PackedFloat32Array
 var drawQueue : Array = []
 var direction : int = 1 ## 1 is RIGHT, -1 is LEFT
 var roomRects : Array = []
@@ -29,6 +30,8 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 	cfgFiles = get_config_files(floorBiome)
+	for room in cfgFiles:
+		cfgChances.append(room.appearChance)
 	generate_rooms()
 
 func _get_property_list() -> Array[Dictionary]:
@@ -75,10 +78,11 @@ func generate_rooms() -> void:
 			canTurn = true
 		
 		var instRoom
-		var child : roomConfiguration = cfgFiles.pick_random()
+		var pickRNG = RandomNumberGenerator.new()
+		var child : roomConfiguration #= cfgFiles[pickRNG.rand_weighted(cfgChances)]
 		var OK : bool = false
 		while !OK:
-			child = cfgFiles.pick_random()
+			child = cfgFiles[pickRNG.rand_weighted(cfgChances)]
 			if (child.flipDirection && !canTurn) or child.roomType != roomConfiguration.Types.TIMED:
 				continue
 			else:

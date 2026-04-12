@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 @onready var timer : Timer = $waitTimer
 @onready var intTimer : Timer = $intervalTimer
@@ -29,6 +29,7 @@ var tween : Tween
 var stallTween : Tween
 var playerStrikes : int = 0
 var isActive : bool = false
+var playerTarget : Player
 
 func _ready() -> void:
 	position = Vector2(600, -100)
@@ -40,12 +41,12 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	$debugStrike.text = "strikes: " + str(playerStrikes)
 	if isAttacking:
-		if get_parent().player.moveNode.get_movement_input():
+		if playerTarget.moveNode.get_movement_input():
 			playerStrikes += 1
 			if playerStrikes == 3:
-				get_parent().player.damage_by(100000, 0, false, true)
+				playerTarget.damage_by(100000, 0, false, true)
 			isAttacking = false
-	if get_parent().player.evilGrabbed:
+	if playerTarget.evilGrabbed:
 		if !isStalling:
 			set_stall_position(80, true)
 		isStalling = true

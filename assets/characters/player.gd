@@ -209,8 +209,12 @@ func _physics_process(delta: float) -> void:
 func process_movement(delta : float, oldVelocity : Vector2) -> void:
 	#region Horizontal
 	var movement = moveNode.get_movement_input()
-	if moveNode.curCrouch == 2:
+	if moveNode.curCrouch == 2 && !oldVelocity.x == 0:
 		movement = oldVelocity.sign().x
+	if moveNode.curCrouch == 2:
+		friction = 2
+	else:
+		friction = 12
 	var speed : float = (move_speed if !moveNode.curCrouch == 1 else move_speed * 0.5)
 	var velocityWeight : float = delta * (accel if movement else friction)
 	
@@ -219,7 +223,7 @@ func process_movement(delta : float, oldVelocity : Vector2) -> void:
 		if moveNode.crouchForced == false:
 			if moveNode.get_crouch(true) && movement != 0:
 				moveNode.curCrouch = 2
-			if moveNode.curCrouch == 2 && !moveNode.get_crouch():
+			if (moveNode.curCrouch == 2 or moveNode.curCrouch == 1) && !moveNode.get_crouch():
 				moveNode.curCrouch = 0
 	else:
 		if moveNode.crouchForced == false:
@@ -228,25 +232,10 @@ func process_movement(delta : float, oldVelocity : Vector2) -> void:
 			else:
 				moveNode.curCrouch = 0
 	
-	#if moveNode.curCrouch == 1:
-		#speed = move_speed + (sprintAdditive if moveNode.get_sprint() else 0.0)
-	#elif moveNode.curCrouch == 2:
-		#pass
-	
-	#if moveNode.get_sprint():
-		#if moveNode.get_crouch(true):
-			#moveNode.playerSliding = true
-			#if velocity.y < jump_force:
-				#velocity.y =  jump_force
-		#elif !moveNode.playerSliding:
-			#speed = speed + sprintAdditive
-	#elif !moveNode.playerSliding && (roofDetection.is_colliding() or moveNode.get_crouch()):
-		#speed = move_speed + (sprintAdditive if moveNode.get_sprint() else 0.0)
-	
 	if !stunned:
 		velocity.x = lerp(velocity.x, movement * speed, velocityWeight)
 		if moveNode.curCrouch == 2 && moveNode.get_crouch(true):
-			velocity.x += (sprintAdditive * 1.5) * movement
+			velocity.x += (sprintAdditive * 2) * movement
 	else:
 		velocity.x = lerp(velocity.x, stunDir * stunDist, velocityWeight)
 	

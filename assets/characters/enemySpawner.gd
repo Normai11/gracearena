@@ -12,6 +12,13 @@ var enemyRef : Dictionary[int, String] = {
 	1 : "res://assets/characters/enemySpore.tscn"
 }
 
+##Must be float values between 0.0 and 1.0
+@export var enemyChances : Dictionary[String, float] = {
+	"basicPatroller" : 0.75,
+	"enemySpore" : 0.25
+}
+var enemyWeights : PackedFloat32Array
+
 var randGen : RandomNumberGenerator = RandomNumberGenerator.new()
 
 ## If true, this node will not spawn anything and free itself from the scene tree immediately.
@@ -36,9 +43,14 @@ func _ready() -> void:
 			self.queue_free()
 			return
 		var enemyPath
+		
+		enemyWeights = PackedFloat32Array(enemyChances.values())
+		
 		if enemyType == -1 or enemyType == 1028:
-			var randEnemy = randGen.randi_range(0, enemyRef.size() - 1)
-			enemyPath = load(enemyRef[randEnemy])
+			var refValues = enemyRef.values()
+			var randEnemy = refValues[randGen.rand_weighted(enemyWeights)]
+			#enemyPath = load(enemyRef[randEnemy])
+			enemyPath = load(randEnemy)
 		else:
 			enemyPath = load(enemyRef[enemyType])
 		var enemyChild = enemyPath.instantiate()

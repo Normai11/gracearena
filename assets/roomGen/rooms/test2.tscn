@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://ii6jfbym33gh"]
+[gd_scene load_steps=9 format=3 uid="uid://ii6jfbym33gh"]
 
 [ext_resource type="Script" uid="uid://fjbti2nu5vtf" path="res://assets/roomGen/roomProperties.gd" id="1_pq0st"]
 [ext_resource type="Resource" uid="uid://cu31u3a3udv86" path="res://assets/roomGen/rooms/roomCFGs/test2CFG.tres" id="2_l5df1"]
+[ext_resource type="PackedScene" uid="uid://ckn26o4fgsthw" path="res://assets/objects/door.tscn" id="3_ipm1v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r5c2i"]
 size = Vector2(1298, 102)
@@ -82,3 +83,6 @@ collision_mask = 0
 shape = SubResource("RectangleShape2D_e2gd5")
 one_way_collision = true
 debug_color = Color(0, 0.643457, 0.299661, 0.42)
+
+[node name="door" parent="." instance=ExtResource("3_ipm1v")]
+position = Vector2(-649, 270)

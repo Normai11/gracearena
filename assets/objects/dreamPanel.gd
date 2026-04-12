@@ -11,9 +11,10 @@ extends StaticBody2D
 	set(length):
 		panelLength = length
 		if Engine.is_editor_hint():
-			visual.custom_minimum_size.x = length
-			visualCenter.size.x = length
-			visualCenter.position = Vector2(-length/2, -20)
+			if visual:
+				visual.set_deferred("custom_minimum_size", Vector2(length, visual.custom_minimum_size.y))
+				visualCenter.set_deferred("size", Vector2(length, visualCenter.size.y))
+				visualCenter.set_deferred("position", Vector2(-length/2, -20))
 
 func _ready() -> void:
 	if !Engine.is_editor_hint():

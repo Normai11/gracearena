@@ -7,3 +7,4 @@ script = ExtResource("1_dwcev")
 abName = "Heavy"
 abDesc = "Grants the ability to drop through semisolids and fastfall midair."
 abilityID = 2
+forceCrouch = 1

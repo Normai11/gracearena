@@ -1,10 +1,11 @@
 [gd_resource type="Resource" script_class="roomConfiguration" load_steps=2 format=3 uid="uid://dbm8a2txhos23"]
 
-[ext_resource type="Script" uid="uid://dqdmu4alpkthu" path="res://roomGen/roomConfigResource.gd" id="1_8x6hk"]
+[ext_resource type="Script" uid="uid://dqdmu4alpkthu" path="res://assets/roomGen/roomConfigResource.gd" id="1_8x6hk"]
 
 [resource]
 script = ExtResource("1_8x6hk")
 roomScenePath = "uid://c1vj2odi0f1mt"
+appearChance = 0.7
 flipDirection = false
 roomType = 1
 roomBounds = Vector2(930, 558)

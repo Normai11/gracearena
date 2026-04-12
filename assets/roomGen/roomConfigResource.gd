@@ -9,6 +9,7 @@ enum Types {
 }
 
 @export_custom(PROPERTY_HINT_FILE, "") var roomScenePath : String
+@export_range(0.0, 1.0, 0.000001) var appearChance : float = 0.5
 @export var flipDirection : bool = false
 @export var roomType : Types = Types.TIMED
 @export var roomBounds : Vector2

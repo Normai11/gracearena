@@ -172,9 +172,11 @@ _data = {
 &"Relax": SubResource("Animation_n50qe")
 }
 
-[node name="Stoplyte" type="Node2D"]
+[node name="Stoplyte" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_uiyk5")
-appearXRange = Vector2(600, 600)
+appearXRange = Vector2(360, 1090)
 attackStall = 0.3
 
 [node name="waitTimer" type="Timer" parent="."]
@@ -184,20 +186,21 @@ one_shot = true
 one_shot = true
 
 [node name="Body" type="TextureRect" parent="."]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -110.0
-offset_top = -273.0
-offset_right = 110.0
-offset_bottom = -53.0
+offset_left = -71.0
+offset_top = -201.0
+offset_right = 66.6
+offset_bottom = -63.4
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.8, 0.8)
-pivot_offset = Vector2(110, 110)
+pivot_offset = Vector2(68.8, 68.8)
 texture = SubResource("AtlasTexture_n50qe")
+expand_mode = 1
 stretch_mode = 1
 
 [node name="ditto" type="TextureRect" parent="Body"]
@@ -205,37 +208,26 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -110.0
-offset_top = -220.0
-offset_right = 110.0
-offset_bottom = 3.05176e-05
+offset_left = -68.8
+offset_top = -137.0
+offset_right = 68.8
+offset_bottom = 0.600006
 grow_horizontal = 2
 texture = SubResource("AtlasTexture_n50qe")
-stretch_mode = 1
-
-[node name="ditto0" type="TextureRect" parent="Body"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -110.0
-offset_top = -440.0
-offset_right = 110.0
-offset_bottom = -220.0
-grow_horizontal = 2
-texture = SubResource("AtlasTexture_n50qe")
+expand_mode = 1
 stretch_mode = 1
 
 [node name="Head" type="TextureRect" parent="."]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -90.0
-offset_top = -78.0
-offset_right = 91.0
-offset_bottom = 103.0
+offset_left = -79.0
+offset_top = -67.0
+offset_right = 80.0
+offset_bottom = 92.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_d5y62")
@@ -250,10 +242,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -65.5
-offset_top = -65.5
-offset_right = 66.5
-offset_bottom = 66.5
+offset_left = -53.5
+offset_top = -53.5
+offset_right = 54.5
+offset_bottom = 54.5
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -263,6 +255,7 @@ libraries = {
 }
 
 [node name="debugStrike" type="Label" parent="."]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

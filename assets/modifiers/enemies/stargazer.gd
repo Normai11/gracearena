@@ -7,6 +7,8 @@ enum gazeStates {
 	JUMP
 }
 
+@export var gazeWeights : PackedFloat32Array = [0.75, 0.5, 0.25, 0.75]
+
 enum gazeTypes {
 	DURATION,
 	DISTANCE,
@@ -31,12 +33,14 @@ var starFaceRegions = {
 var curShake : float = 0.0
 @export var forceGaze : bool = true
 var gazing : bool = false
-@export var gazeWait : Vector2 = Vector2(15, 60)
 
 @export_group("Gaze Settings")
+@export var gazeWait : Vector2 = Vector2(15, 60)
 @export var judgeDamage : float = 31.5
 @export var gazeTimer : float = 5.0
 var curTimer : float = 0.0
+@export var maxGazes : int = 1
+var curGaze : int = 0
 @export var typeDefaults : Dictionary = {
 	"FREEZE" : Vector2(0.75, 1.5),
 	"MOVEL" : Vector2i(50, 100),
@@ -66,8 +70,8 @@ func set_y_position(y : float, time : float) -> void:
 func _ready() -> void:
 	curShake = starShakeTime
 	curTimer = randf_range(gazeWait.x, gazeWait.y)
-	playerTarget = get_parent().player
 	global_position.x = 500
+	set_y_position(675, 0)
 	if forceGaze:
 		anims.play("appear")
 
@@ -94,8 +98,9 @@ func _process(delta: float) -> void:
 		stateDisplay.text = str(snapped(curGazeStage[curGazeState], 0.1)) + "/" + str(gazeRequirements[curGazeState])
 
 func starAppear() -> void:
+	var rng = RandomNumberGenerator.new()
 	var stateArray = gazeStates.values()
-	var gazeSet = stateArray.pick_random()
+	var gazeSet = stateArray[rng.rand_weighted(gazeWeights)]
 	gazeStart(gazeSet)
 
 func gazeStart(gazeState : gazeStates) -> void:
@@ -151,11 +156,16 @@ func gazeFunction(delta : float) -> void:
 				curTimer = 0.1
 
 func gazeJudge() -> void:
+	curGaze += 1
+	if not(curGazeStage[curGazeState] >= gazeRequirements[curGazeState]):
+		playerTarget.damage_by(judgeDamage, 0, false)
+	if curGaze < maxGazes:
+		starAppear()
+		return
+	
 	gazing = false
 	sprite.visible = false
 	set_atlas_region(starFaceRegions[-1], $Appearance/Face)
-	set_y_position(-200, 0)
+	set_y_position(675, 0)
 	curTimer = randf_range(gazeWait.x, gazeWait.y) + 0.5
-	
-	if not(curGazeStage[curGazeState] >= gazeRequirements[curGazeState]):
-		playerTarget.damage_by(judgeDamage, 0, false)
+	curGaze = 0
