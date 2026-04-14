@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cgsqpeddp8sp7"]
 
 [ext_resource type="Script" uid="uid://bltjegd1iedgi" path="res://assets/objects/doorHatch.gd" id="1_u4kya"]
-[ext_resource type="PackedScene" uid="uid://d2l14xlk031ej" path="res://assets/roomGen/rooms/testSAFE.tscn" id="2_yambq"]
+[ext_resource type="PackedScene" uid="uid://d2l14xlk031ej" path="res://assets/roomGen/rooms/test/testSAFE.tscn" id="2_yambq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8svxm"]
 size = Vector2(126, 20)

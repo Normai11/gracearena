@@ -7,7 +7,7 @@ enum camType {
 }
 
 @export var targetNode : Node
-@export var targetZoom : Vector2 = Vector2(0.7, 0.7)
+@export_custom(PROPERTY_HINT_LINK, "") var targetZoom : Vector2 = Vector2(0.7, 0.7)
 @export var cameraType := camType.FOLLOW
 @export var dragMult : float = 0.15
 var curTarget

@@ -40,7 +40,9 @@ func add_enemy_to_array(child : Enemy) -> void:
 
 func kill_enemies() -> void:
 	for enemy in enemyChildren:
-		enemy.free()
+		if enemy:
+			enemy.queue_free()
+		enemyChildren.clear()
 
 #func auto_configurate():
 	#if !boundControlObject:

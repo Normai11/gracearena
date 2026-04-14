@@ -22,8 +22,10 @@ move_speed = 600.0
 
 [node name="advCamera" parent="." node_paths=PackedStringArray("targetNode") instance=ExtResource("3_80aav")]
 targetNode = NodePath("../Player")
+targetZoom = Vector2(0.775, 0.775)
 
 [node name="roomManager" parent="." instance=ExtResource("4_rn8ce")]
+floorBiome = 0
 
 [node name="Floor" type="StaticBody2D" parent="."]
 position = Vector2(-154, 51)
@@ -33,5 +35,6 @@ shape = SubResource("RectangleShape2D_80aav")
 
 [node name="timeDoor" parent="." node_paths=PackedStringArray("roomManager") instance=ExtResource("5_ma11v")]
 position = Vector2(18, -61)
+startTimer = false
 generateRooms = true
 roomManager = NodePath("../roomManager")

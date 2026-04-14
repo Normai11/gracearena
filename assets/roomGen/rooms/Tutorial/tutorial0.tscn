@@ -1,0 +1,71 @@
+[gd_scene load_steps=8 format=3 uid="uid://b6pqub8tw6gn7"]
+
+[ext_resource type="Script" uid="uid://fjbti2nu5vtf" path="res://assets/roomGen/roomProperties.gd" id="1_wg0dh"]
+[ext_resource type="Resource" uid="uid://bl2g4qm4yw2gw" path="res://assets/roomGen/rooms/roomCFGs/tutorial0.tres" id="2_wg0dh"]
+[ext_resource type="PackedScene" uid="uid://blpirsion1ret" path="res://assets/characters/enemySpawner.tscn" id="3_kky76"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dsuci"]
+size = Vector2(796, 66)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ptl8c"]
+size = Vector2(796, 66)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wg0dh"]
+size = Vector2(18, 160)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ukbw"]
+size = Vector2(18, 160)
+
+[node name="Tutorial0" type="Node2D" node_paths=PackedStringArray("roomContObj")]
+script = ExtResource("1_wg0dh")
+roomConfig = ExtResource("2_wg0dh")
+roomContObj = NodePath("roomContObj")
+metadata/_custom_type_script = "uid://fjbti2nu5vtf"
+
+[node name="bgVisual" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -398.0
+offset_top = -207.0
+offset_right = 398.0
+offset_bottom = 207.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.956863, 0.772549, 0.0509804, 0.27451)
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(0, 175)
+
+[node name="shape" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("RectangleShape2D_dsuci")
+
+[node name="Roof" type="StaticBody2D" parent="."]
+position = Vector2(0, 175)
+
+[node name="shape" type="CollisionShape2D" parent="Roof"]
+position = Vector2(0, -348)
+shape = SubResource("RectangleShape2D_ptl8c")
+
+[node name="WallR" type="StaticBody2D" parent="."]
+position = Vector2(380, -60)
+
+[node name="shape" type="CollisionShape2D" parent="WallR"]
+position = Vector2(9, 0)
+shape = SubResource("RectangleShape2D_wg0dh")
+
+[node name="WallL" type="StaticBody2D" parent="."]
+position = Vector2(-389, -60)
+
+[node name="shape" type="CollisionShape2D" parent="WallL"]
+shape = SubResource("RectangleShape2D_6ukbw")
+
+[node name="enemySpawner" parent="." instance=ExtResource("3_kky76")]
+position = Vector2(223, 108)
+enemyType = 0
+spawnDirection = -1
+
+[node name="roomContObj" type="Marker2D" parent="."]
+position = Vector2(398, 142)

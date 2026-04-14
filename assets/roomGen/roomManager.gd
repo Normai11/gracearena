@@ -6,6 +6,7 @@ extends Node2D
 
 enum biomes {
 	biomeTest = -1,
+	tutorial = 0,
 }
 
 @export var cfgPath : String = "res://assets/roomGen/rooms/roomCFGs/"
@@ -32,9 +33,6 @@ var oldOffset : Vector2
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
-	cfgFiles = get_config_files(floorBiome)
-	for room in cfgFiles:
-		cfgChances.append(room.appearChance)
 	#generate_rooms()
 
 func _get_property_list() -> Array[Dictionary]:
@@ -75,7 +73,17 @@ func determine_position(curOffset : Vector2, roomCFG : roomConfiguration) -> Vec
 	return curPosition
 
 func generate_rooms() -> void:
+	var timeCalculation : Vector2 = Vector2(Time.get_ticks_msec(), 0)
+	
+	cfgFiles.clear()
+	cfgChances.clear()
+	cfgFiles = get_config_files(floorBiome)
+	for room in cfgFiles:
+		cfgChances.append(room.appearChance)
+	
+	var roomIdx = -1
 	for room in range(floorRoomCap):
+		roomIdx += 1
 		curTurnReq += 1
 		if curTurnReq >= floorTurnReq:
 			canTurn = true
@@ -84,6 +92,11 @@ func generate_rooms() -> void:
 		var pickRNG = RandomNumberGenerator.new()
 		var child : roomConfiguration #= cfgFiles[pickRNG.rand_weighted(cfgChances)]
 		var OK : bool = false
+		if floorBiome == biomes.tutorial:
+			if roomIdx > 3:
+				break
+			child = cfgFiles[roomIdx]
+			OK = true
 		while !OK:
 			child = cfgFiles[pickRNG.rand_weighted(cfgChances)]
 			if (child.flipDirection && !canTurn) or child.roomType != roomConfiguration.Types.TIMED:
@@ -113,6 +126,9 @@ func generate_rooms() -> void:
 			instRoom.roomFlipped = (true if direction == -1 else false)
 			add_child(instRoom)
 			doorLoad.position = Vector2(instRoom.roomContObj.position.x, instRoom.roomContObj.position.y - 61)
+			if child.forceDoor >= 0:
+				doorLoad.tampered = bool(child.forceDoor)
+				doorLoad.forced = true
 			instRoom.add_child(doorLoad)
 			roomChildren.append(instRoom)
 			roomOffset = instRoom.roomContObj.global_position
@@ -133,6 +149,9 @@ func generate_rooms() -> void:
 	exit.position = determine_position(roomOffset, exitCFG)
 	exit.roomFlipped = (true if direction == -1 else false)
 	add_child(exit)
+	
+	timeCalculation.y = Time.get_ticks_msec()
+	print(str(floorRoomCap) + " rooms generated in " + str((timeCalculation.y - timeCalculation.x)/1000) + "s")
 
 func check_collision(cfg : roomConfiguration) -> bool:
 	var result : bool = false
@@ -159,7 +178,7 @@ func kill_existing_rooms() -> void:
 	roomRects.clear()
 	for room in roomChildren:
 		room.kill_enemies()
-		room.free()
+		room.queue_free()
 	roomChildren.clear()
 
 func _draw() -> void:

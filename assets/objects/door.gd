@@ -7,10 +7,11 @@ var stateWeights : PackedFloat32Array = [1, 0.25]
 @onready var area = $interactionArea
 
 @export var tampered : bool = false
+var forced : bool = false
 
 func _ready() -> void:
 	var rng = RandomNumberGenerator.new()
-	if !tampered:
+	if !forced:
 		tampered = doorStates[rng.rand_weighted(stateWeights)]
 	
 	if tampered:

@@ -71,7 +71,7 @@ func close_shop() -> void:
 	var camera = get_tree().current_scene.find_child("advCamera")
 	
 	shopChild.queue_free()
-	camera.change_targets(preOpenValues[1], preOpenValues[0], 0.4, preOpenValues[2])
+	camera.change_targets(preOpenValues[1], preOpenValues[0], 0.15, preOpenValues[2])
 	
 	if playerHUD:
 		playerHUD.moveType = 0

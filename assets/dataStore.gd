@@ -53,5 +53,6 @@ var pulseHintSeen : bool = false
 }
 
 @export var biomePaths = {
-	-1 : "test"
+	-1 : "test",
+	0 : "tutorial"
 }

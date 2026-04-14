@@ -87,5 +87,6 @@ func turn(turnTime, endState, turnDir):
 	bodyRef.velocity.x = 0
 
 func _enemy_rendered() -> void:
-	enemyRendered = true
-	bodyRef.apply_floor_snap()
+	#enemyRendered = true
+	#bodyRef.apply_floor_snap()
+	pass

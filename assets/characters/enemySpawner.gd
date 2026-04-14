@@ -44,9 +44,18 @@ func _ready() -> void:
 		if disabled:
 			self.queue_free()
 			return
-		var enemyPath
 		
 		enemyWeights = PackedFloat32Array(enemyChances.values())
+
+func _process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		if spawnDirection == 1:
+			$EnemySpawner.flip_h = true
+		else:
+			$EnemySpawner.flip_h = false
+
+func _rendered() -> void:
+		var enemyPath
 		
 		if enemyType == -1 or enemyType == 1028:
 			var refValues = enemyRef.values()
@@ -65,13 +74,7 @@ func _ready() -> void:
 			enemyChild.dmg = customDamage
 		
 		get_tree().current_scene.add_child.call_deferred(enemyChild)
-		get_parent().add_enemy_to_array(enemyChild)
+		if get_parent() is Room:
+			get_parent().add_enemy_to_array(enemyChild)
 		#enemySpawned.emit(enemyChild)
 		self.queue_free()
-
-func _process(delta: float) -> void:
-	if Engine.is_editor_hint():
-		if spawnDirection == 1:
-			$EnemySpawner.flip_h = true
-		else:
-			$EnemySpawner.flip_h = false

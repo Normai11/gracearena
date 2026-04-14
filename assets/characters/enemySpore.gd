@@ -146,5 +146,6 @@ func _drag_end() -> void:
 	timerLag = sporeEndlag
 
 func _enemy_rendered() -> void:
-	enemyRendered = true
-	bodyRef.apply_floor_snap()
+	#enemyRendered = true
+	#bodyRef.apply_floor_snap()
+	pass

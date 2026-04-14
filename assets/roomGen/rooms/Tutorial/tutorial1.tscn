@@ -1,0 +1,81 @@
+[gd_scene load_steps=9 format=3 uid="uid://bovca3eppn6u5"]
+
+[ext_resource type="Script" uid="uid://fjbti2nu5vtf" path="res://assets/roomGen/roomProperties.gd" id="1_1u5wk"]
+[ext_resource type="Resource" uid="uid://dgfc40kauy6jt" path="res://assets/roomGen/rooms/roomCFGs/tutorial1.tres" id="2_1u5wk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1u5wk"]
+size = Vector2(1112, 66)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ahmfa"]
+size = Vector2(1112, 66)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4q3b6"]
+size = Vector2(18, 152)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pi2i0"]
+size = Vector2(18, 248)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ei0ya"]
+size = Vector2(216, 322)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vvepg"]
+size = Vector2(394, 96)
+
+[node name="Tutorial1" type="Node2D" node_paths=PackedStringArray("roomContObj")]
+script = ExtResource("1_1u5wk")
+roomConfig = ExtResource("2_1u5wk")
+roomContObj = NodePath("roomContObj")
+metadata/_custom_type_script = "uid://fjbti2nu5vtf"
+
+[node name="bgVisual" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -556.0
+offset_top = -251.0
+offset_right = 556.0
+offset_bottom = 251.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.956863, 0.772549, 0.0509804, 0.27451)
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(0, 218)
+
+[node name="shape" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("RectangleShape2D_1u5wk")
+
+[node name="Roof" type="StaticBody2D" parent="."]
+position = Vector2(0, -218)
+
+[node name="shape" type="CollisionShape2D" parent="Roof"]
+shape = SubResource("RectangleShape2D_ahmfa")
+
+[node name="WallR" type="StaticBody2D" parent="."]
+position = Vector2(547, -109)
+
+[node name="shape" type="CollisionShape2D" parent="WallR"]
+shape = SubResource("RectangleShape2D_4q3b6")
+
+[node name="WallL" type="StaticBody2D" parent="."]
+position = Vector2(-547, -61)
+
+[node name="shape" type="CollisionShape2D" parent="WallL"]
+shape = SubResource("RectangleShape2D_pi2i0")
+
+[node name="Overhang" type="StaticBody2D" parent="."]
+position = Vector2(-194, -24)
+
+[node name="shape" type="CollisionShape2D" parent="Overhang"]
+shape = SubResource("RectangleShape2D_ei0ya")
+
+[node name="Step" type="StaticBody2D" parent="."]
+position = Vector2(359, 137)
+
+[node name="shape" type="CollisionShape2D" parent="Step"]
+shape = SubResource("RectangleShape2D_vvepg")
+
+[node name="roomContObj" type="Marker2D" parent="."]
+position = Vector2(556, 89)

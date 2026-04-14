@@ -35,11 +35,13 @@ var playerTarget : Player
 func modifier_set_active(activate : bool = true) -> void:
 	active = activate
 	if active == false:
-		lyte_reset()
-		timer.paused = true
+		lyte_reset(true)
+		process_mode = Node.PROCESS_MODE_DISABLED
+		#timer.paused = true
 	else:
 		reroll_wait()
-		timer.paused = false
+		process_mode = Node.PROCESS_MODE_INHERIT
+		#timer.paused = false
 
 func _ready() -> void:
 	position = Vector2(600, -100)
@@ -121,7 +123,6 @@ func lyte_reset(instant : bool = false) -> void:
 	if instant:
 		position.y = -100
 		isActive = false
-		reroll_wait()
 		return
 	tween = get_tree().create_tween()
 	anims.play("Relax")

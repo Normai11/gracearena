@@ -7,6 +7,7 @@ script = ExtResource("1_v2w5k")
 roomScenePath = "uid://d2l14xlk031ej"
 appearChance = 1.0
 flipDirection = false
+forceDoor = -1
 roomType = 0
 roomBounds = Vector2(1234, 558)
 roomOffset = Vector2(362, 279)

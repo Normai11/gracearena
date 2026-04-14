@@ -4,6 +4,7 @@ extends interactableObject
 @onready var collision = $collisionBox
 @onready var area = $interactionArea
 
+@export var startTimer : bool = true
 @export var generateRooms : bool = false
 @export var roomManager : RoomManager
 @export var openDuration : float = 1
@@ -30,6 +31,7 @@ func _interacted():
 	timer.start()
 
 func _timer_timeout() -> void:
-	DataStore.timerJustActive = true
-	DataStore.timer = stageTimer
+	if startTimer:
+		DataStore.timerJustActive = true
+		DataStore.timer = stageTimer
 	collision.disabled = true

@@ -34,6 +34,7 @@ enabled=PackedStringArray()
 
 folder_colors={
 "res://assets/abilities/perks/": "yellow",
+"res://assets/roomGen/rooms/Tutorial/": "yellow",
 "res://assets/shaders/": "purple"
 }
 

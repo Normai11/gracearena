@@ -19,6 +19,10 @@ hurtBox = NodePath("Hurtbox")
 moveSpeed = 125.0
 health = 6.0
 
+[node name="renderEnabler" type="VisibleOnScreenEnabler2D" parent="."]
+process_mode = 3
+scale = Vector2(4.7, 6.8)
+
 [node name="renderStart" type="VisibleOnScreenNotifier2D" parent="."]
 scale = Vector2(4.7, 3.2)
 
