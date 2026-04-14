@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://c1vj2odi0f1mt"]
+[gd_scene load_steps=7 format=3 uid="uid://c1vj2odi0f1mt"]
 
 [ext_resource type="Script" uid="uid://fjbti2nu5vtf" path="res://assets/roomGen/roomProperties.gd" id="1_a07pt"]
 [ext_resource type="Resource" uid="uid://dbm8a2txhos23" path="res://assets/roomGen/rooms/roomCFGs/test0CFG.tres" id="2_0o4sq"]
 [ext_resource type="PackedScene" uid="uid://blpirsion1ret" path="res://assets/characters/enemySpawner.tscn" id="3_vxr41"]
-[ext_resource type="PackedScene" uid="uid://ckn26o4fgsthw" path="res://assets/objects/door.tscn" id="4_85b3u"]
 [ext_resource type="PackedScene" uid="uid://dfjyyiapaunyi" path="res://assets/objects/glareSafespot.tscn" id="5_fji8u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_77etp"]
@@ -61,9 +60,6 @@ shape = SubResource("RectangleShape2D_3gjfn")
 
 [node name="enemySpawner" parent="." instance=ExtResource("3_vxr41")]
 position = Vector2(-81, 127)
-
-[node name="door" parent="." instance=ExtResource("4_85b3u")]
-position = Vector2(465, 116)
 
 [node name="glareSafespot" parent="." instance=ExtResource("5_fji8u")]
 position = Vector2(0, 88)

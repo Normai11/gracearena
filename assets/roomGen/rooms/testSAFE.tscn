@@ -1,0 +1,84 @@
+[gd_scene load_steps=9 format=3 uid="uid://d2l14xlk031ej"]
+
+[ext_resource type="Script" uid="uid://fjbti2nu5vtf" path="res://assets/roomGen/roomProperties.gd" id="1_38k7u"]
+[ext_resource type="PackedScene" uid="uid://dmosm4lm85gtt" path="res://assets/objects/timeDoor.tscn" id="2_sbvt8"]
+[ext_resource type="Resource" uid="uid://cxl72xws3ye1q" path="res://assets/roomGen/rooms/roomCFGs/testSAFE.tres" id="2_tdukd"]
+[ext_resource type="PackedScene" uid="uid://c4hxk0o4u4vdy" path="res://assets/objects/shopkeeper/shopkeeper.tscn" id="3_tdukd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oq75b"]
+size = Vector2(1234, 102)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_54s27"]
+size = Vector2(187, 102)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vvjyu"]
+size = Vector2(912.5, 102)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dy8wd"]
+size = Vector2(82, 354)
+
+[node name="testSAFE" type="Node2D" node_paths=PackedStringArray("roomContObj", "cameraHoldObject")]
+script = ExtResource("1_38k7u")
+roomConfig = ExtResource("2_tdukd")
+killMarkers = null
+roomContObj = NodePath("roomContObj")
+cameraHoldObject = NodePath("cameraHold")
+metadata/_custom_type_script = "uid://fjbti2nu5vtf"
+
+[node name="boundsVisual" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -617.0
+offset_top = -279.0
+offset_right = 617.0
+offset_bottom = 279.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.796875, 1, 0, 0.333333)
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(0, 228)
+
+[node name="shape" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("RectangleShape2D_oq75b")
+
+[node name="RoofL" type="StaticBody2D" parent="."]
+position = Vector2(-524, -228)
+
+[node name="shape" type="CollisionShape2D" parent="RoofL"]
+shape = SubResource("RectangleShape2D_54s27")
+
+[node name="RoofR" type="StaticBody2D" parent="."]
+position = Vector2(161, -228)
+
+[node name="shape" type="CollisionShape2D" parent="RoofR"]
+shape = SubResource("RectangleShape2D_vvjyu")
+
+[node name="Wall1" type="StaticBody2D" parent="."]
+position = Vector2(576, -148)
+
+[node name="shape" type="CollisionShape2D" parent="Wall1"]
+position = Vector2(0, 52)
+shape = SubResource("RectangleShape2D_dy8wd")
+
+[node name="Wall2" type="StaticBody2D" parent="."]
+position = Vector2(-576, -52)
+
+[node name="shape" type="CollisionShape2D" parent="Wall2"]
+position = Vector2(0, 52)
+shape = SubResource("RectangleShape2D_dy8wd")
+
+[node name="timeDoor" parent="." instance=ExtResource("2_sbvt8")]
+position = Vector2(599, 128)
+generateRooms = true
+
+[node name="shopkeeper" parent="." instance=ExtResource("3_tdukd")]
+position = Vector2(88, 25)
+
+[node name="roomContObj" type="Marker2D" parent="."]
+position = Vector2(617, 177)
+
+[node name="cameraHold" type="Marker2D" parent="."]

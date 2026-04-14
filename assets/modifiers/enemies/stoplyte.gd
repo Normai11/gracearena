@@ -5,6 +5,7 @@ extends Control
 @onready var head : TextureRect = $Head
 @onready var anims : AnimationPlayer = $Head/Expressions
 
+@export var active : bool = false
 ## Makes Stoplyte instantly appear after one second.
 @export var forceAppear : bool = false
 ## A random float value between the X (minimum) and Y (maximum) values of this variable will be chosen.
@@ -31,12 +32,21 @@ var playerStrikes : int = 0
 var isActive : bool = false
 var playerTarget : Player
 
+func modifier_set_active(activate : bool = true) -> void:
+	active = activate
+	if active == false:
+		lyte_reset()
+		timer.paused = true
+	else:
+		reroll_wait()
+		timer.paused = false
+
 func _ready() -> void:
 	position = Vector2(600, -100)
-	if !forceAppear:
-		var waitTime = rng.randf_range(appearWaitRange.x, appearWaitRange.y)
-		timer.wait_time = waitTime
-	timer.start()
+	#if !forceAppear:
+		#var waitTime = rng.randf_range(appearWaitRange.x, appearWaitRange.y)
+		#timer.wait_time = waitTime
+	#timer.start()
 
 func _process(_delta: float) -> void:
 	$debugStrike.text = "strikes: " + str(playerStrikes)
@@ -105,9 +115,14 @@ func reroll_wait() -> void:
 	timer.wait_time = waitTime
 	timer.start()
 
-func lyte_reset() -> void:
+func lyte_reset(instant : bool = false) -> void:
 	if tween:
 		tween.kill()
+	if instant:
+		position.y = -100
+		isActive = false
+		reroll_wait()
+		return
 	tween = get_tree().create_tween()
 	anims.play("Relax")
 	tween.set_ease(Tween.EASE_IN)

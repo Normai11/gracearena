@@ -16,6 +16,7 @@ var abButtonRef = preload("res://assets/menus/inputButton.tscn")
 var guiScene
 
 @export_category("Movement")
+@export var NOCLIP : bool = false
 @export var stunned : bool = false
 var stunDir : int = -1
 var stunDist : float = 0.0
@@ -178,6 +179,16 @@ func _end_lag() -> void:
 	onLag = false
 
 func _input(_event: InputEvent) -> void:
+	if Input.is_key_pressed(KEY_N):
+		if !NOCLIP:
+			NOCLIP = true
+			invulnerable = true
+			for collision in get_children():
+				if collision is CollisionShape2D:
+					collision.disabled = true
+		else:
+			NOCLIP = false
+			invulnerable = false
 	if moveType == -1:
 		return
 	if !onLag && !stunned && moveType != 5:
@@ -194,6 +205,16 @@ func _input(_event: InputEvent) -> void:
 				trigger_ability(abilities[3])
 
 func _physics_process(delta: float) -> void:
+	if NOCLIP:
+		if Input.is_action_pressed("down"):
+			position.y += 50
+		if Input.is_action_pressed("jump"):
+			position.y -= 50
+		if Input.is_action_pressed("left"):
+			position.x -= 50
+		if Input.is_action_pressed("right"):
+			position.x += 50
+		return
 	if moveType == -1:
 		velocity = Vector2.ZERO
 		return

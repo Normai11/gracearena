@@ -1,5 +1,8 @@
 @tool
+class_name RoomManager
 extends Node2D
+
+@onready var doorRef = preload("res://assets/objects/door.tscn")
 
 enum biomes {
 	biomeTest = -1,
@@ -32,7 +35,7 @@ func _ready() -> void:
 	cfgFiles = get_config_files(floorBiome)
 	for room in cfgFiles:
 		cfgChances.append(room.appearChance)
-	generate_rooms()
+	#generate_rooms()
 
 func _get_property_list() -> Array[Dictionary]:
 	var properties : Array[Dictionary] = []
@@ -104,10 +107,14 @@ func generate_rooms() -> void:
 			result = check_collision(child)
 		if !result:
 			var temp = load(child.roomScenePath)
+			var doorLoad = doorRef.instantiate()
 			instRoom = temp.instantiate()
 			instRoom.position = determine_position(roomOffset, child)
 			instRoom.roomFlipped = (true if direction == -1 else false)
 			add_child(instRoom)
+			doorLoad.position = Vector2(instRoom.roomContObj.position.x, instRoom.roomContObj.position.y - 61)
+			instRoom.add_child(doorLoad)
+			roomChildren.append(instRoom)
 			roomOffset = instRoom.roomContObj.global_position
 			if child.flipDirection:
 				canTurn = false
@@ -129,22 +136,31 @@ func generate_rooms() -> void:
 
 func check_collision(cfg : roomConfiguration) -> bool:
 	var result : bool = false
-	var size = cfg.get_bounds()
+	var size = cfg.get_bounds() - Vector2(5, 5)
 	var roomPos = determine_position(roomOffset, cfg)
 	var checkShape : Rect2 = Rect2(roomPos - size/2, size)
+	
+	drawQueue.append(checkShape)
 	
 	for collisions in roomRects:
 		if checkShape.intersects(collisions):
 			result = true
 			break
-	if !result:
-		checkShape.position.x += (200 * direction)
-		for collisions in roomRects:
-			if checkShape.intersects(collisions):
-				result = true
-				break
+	#if !result:
+		#checkShape.position.x += (200 * direction)
+		#for collisions in roomRects:
+			#if checkShape.intersects(collisions):
+				#result = true
+				#break
 	
 	return result
+
+func kill_existing_rooms() -> void:
+	roomRects.clear()
+	for room in roomChildren:
+		room.kill_enemies()
+		room.free()
+	roomChildren.clear()
 
 func _draw() -> void:
 	#if !roomRects.is_empty():

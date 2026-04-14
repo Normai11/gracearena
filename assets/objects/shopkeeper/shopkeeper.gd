@@ -21,7 +21,7 @@ var pathInstantiated : bool = false
 
 func _ready() -> void:
 	curTime = loadTimeCap
-	player = get_parent().find_child("Player")
+	player = get_tree().current_scene.find_child("Player")
 	if shopRandomizeContents:
 		shopSellContent.clear()
 		randomize_shop()
@@ -37,7 +37,7 @@ func randomize_shop() -> void:
 func _interacted():
 	shopOpened = true
 	if overhaulCamera:
-		var camera = get_parent().find_child("advCamera")
+		var camera = get_tree().current_scene.find_child("advCamera")
 		preOpenValues[0] = camera.cameraType
 		preOpenValues[1] = camera.curTarget
 		preOpenValues[2] = camera.targetZoom
@@ -57,7 +57,7 @@ func _process(delta: float) -> void:
 
 func open_shop() -> void:
 	var shop = shopPath.instantiate()
-	var playerHUD = get_parent().find_child("Player")
+	var playerHUD = get_tree().current_scene.find_child("Player")
 	if playerHUD:
 		playerHUD.moveType = 5
 		playerHUD = playerHUD.guiScene
@@ -67,8 +67,8 @@ func open_shop() -> void:
 	shopChild = shop
 
 func close_shop() -> void:
-	var playerHUD = get_parent().find_child("Player")
-	var camera = get_parent().find_child("advCamera")
+	var playerHUD = get_tree().current_scene.find_child("Player")
+	var camera = get_tree().current_scene.find_child("advCamera")
 	
 	shopChild.queue_free()
 	camera.change_targets(preOpenValues[1], preOpenValues[0], 0.4, preOpenValues[2])

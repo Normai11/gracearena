@@ -1,4 +1,5 @@
 extends Camera2D
+class_name AdvancedCamera
 
 enum camType {
 	FOLLOW,
@@ -29,14 +30,14 @@ func _physics_process(delta: float) -> void:
 	zoom = lerp(zoom, targetZoom, dragMult)
 	
 	if cameraType == camType.FOLLOW:
-		var targetPos = curTarget.position.x + (curTarget.velocity.x * 0.15)
+		var targetPos = curTarget.global_position.x + (curTarget.velocity.x * 0.15)
 		if DataStore.settings["toggleSmooth"]:
 			position.x = lerp(position.x, targetPos, dragMult)
 			position.y = curTarget.position.y
 		else:
-			position = curTarget.position
+			position = curTarget.global_position
 	elif cameraType == camType.LOCK:
-		position = lerp(position, curTarget.position, dragMult)
+		position = lerp(position, curTarget.global_position, dragMult)
 
 func change_targets(newTarget : Node, focusType, newDrag : float, newZoom : Vector2) -> void:
 	curTarget = newTarget

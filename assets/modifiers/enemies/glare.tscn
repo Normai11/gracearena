@@ -9,6 +9,7 @@ region = Rect2(574, 0, 287, 479)
 
 [node name="glare" type="Node2D"]
 script = ExtResource("1_q15nb")
+mercyTimer = 0.35
 
 [node name="Appearance" type="Control" parent="."]
 modulate = Color(1, 1, 1, 0.372549)

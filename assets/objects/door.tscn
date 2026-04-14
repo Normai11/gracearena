@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://ckn26o4fgsthw"]
+[gd_scene load_steps=5 format=3 uid="uid://ckn26o4fgsthw"]
 
 [ext_resource type="Script" uid="uid://clvw0tyeddajb" path="res://assets/objects/door.gd" id="1_wgw7t"]
+[ext_resource type="PackedScene" uid="uid://dfjyyiapaunyi" path="res://assets/objects/glareSafespot.tscn" id="2_s3py5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0alrq"]
 size = Vector2(36, 122)
@@ -22,5 +23,9 @@ collision_mask = 512
 [node name="bounds" type="CollisionShape2D" parent="interactionArea"]
 shape = SubResource("RectangleShape2D_sxsni")
 debug_color = Color(0, 1, 0.372549, 0.419608)
+
+[node name="glareSafespot" parent="." instance=ExtResource("2_s3py5")]
+visible = false
+collisionSize = Vector2(150, 150)
 
 [connection signal="body_entered" from="interactionArea" to="." method="_check_kick"]

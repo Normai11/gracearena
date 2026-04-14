@@ -28,6 +28,7 @@ var starFaceRegions = {
 @onready var stateDisplay : Label = $taskTimer/curState
 @onready var anims : AnimationPlayer = $Appearance/anims
 
+@export var active : bool = false
 @export var starShakeRange : Vector2 = Vector2(-5, 5)
 @export var starShakeTime : float = 0.2
 var curShake : float = 0.0
@@ -55,6 +56,11 @@ var curGazeState : gazeStates
 var playerTarget : Player
 var moveDistance : float = 0.0
 
+func modifier_set_active(activate : bool = true) -> void:
+	active = activate
+	if active == false:
+		gazeJudge(true)
+
 func set_atlas_region(regionData : Rect2, texture) -> void:
 	var atlas = texture.texture
 	atlas.region = Rect2(regionData)
@@ -76,6 +82,8 @@ func _ready() -> void:
 		anims.play("appear")
 
 func _process(delta: float) -> void:
+	if !active:
+		return
 	curShake -= delta
 	curTimer -= delta
 	if gazing:
@@ -155,9 +163,9 @@ func gazeFunction(delta : float) -> void:
 			if curGazeStage[curGazeState] >= gazeRequirements[curGazeState]:
 				curTimer = 0.1
 
-func gazeJudge() -> void:
+func gazeJudge(forcePass : bool = false) -> void:
 	curGaze += 1
-	if not(curGazeStage[curGazeState] >= gazeRequirements[curGazeState]):
+	if not(curGazeStage[curGazeState] >= gazeRequirements[curGazeState]) && !forcePass:
 		playerTarget.damage_by(judgeDamage, 0, false)
 	if curGaze < maxGazes:
 		starAppear()

@@ -10,5 +10,5 @@ flipDirection = false
 roomType = 2
 roomBounds = Vector2(930, 558)
 roomOffset = Vector2(465, -177)
-genContinuePosition = Vector2(0, 0)
+genContinuePosition = Vector2(224, 279)
 metadata/_custom_type_script = "uid://dqdmu4alpkthu"

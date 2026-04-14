@@ -9,8 +9,12 @@ extends Node2D
 #@export var startFlipping : bool = false
 #@export var endGen : bool = false
 @export_category("Room Configuration")
+@export var killMarkers : bool = true
 @export var roomContObj : Marker2D
+@export var cameraHoldObject : Marker2D
 #@export_tool_button("Auto-configurate", "Node") var target = auto_configurate
+
+var enemyChildren : Array[Enemy]
 
 func _ready() -> void:
 	if roomFlipped:
@@ -20,8 +24,23 @@ func _ready() -> void:
 	
 	#if boundControlObject:
 		#boundControlObject.queue_free()
-	if roomContObj:
+	if roomContObj && killMarkers:
 		roomContObj.queue_free()
+	
+	#for spawner in get_children():
+		#if spawner is EnemySpawner:
+			#spawner.enemySpawned.connect(add_enemy_to_array)
+	
+	#if roomConfig.roomType == roomConfig.Types.SAFEROOM && cameraHoldObject:
+		#var camera : AdvancedCamera = get_tree().current_scene.find_child("advCamera")
+		#camera.change_targets(cameraHoldObject, 1, 0.15, Vector2(1.24, 1.24))
+
+func add_enemy_to_array(child : Enemy) -> void:
+	enemyChildren.append(child)
+
+func kill_enemies() -> void:
+	for enemy in enemyChildren:
+		enemy.free()
 
 #func auto_configurate():
 	#if !boundControlObject:

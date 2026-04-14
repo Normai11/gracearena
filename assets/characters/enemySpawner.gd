@@ -1,5 +1,7 @@
 @tool
 extends Node2D
+class_name EnemySpawner
+signal enemySpawned(node : Enemy)
 
 enum typeDisplay {
 	RANDOM = -1,
@@ -63,6 +65,8 @@ func _ready() -> void:
 			enemyChild.dmg = customDamage
 		
 		get_tree().current_scene.add_child.call_deferred(enemyChild)
+		get_parent().add_enemy_to_array(enemyChild)
+		#enemySpawned.emit(enemyChild)
 		self.queue_free()
 
 func _process(delta: float) -> void:
