@@ -45,10 +45,15 @@ func modifier_set_active(activate : bool = true) -> void:
 
 func _ready() -> void:
 	position = Vector2(600, -100)
+	DataStore.saferoomIncrease.connect(lessen_strike)
 	#if !forceAppear:
 		#var waitTime = rng.randf_range(appearWaitRange.x, appearWaitRange.y)
 		#timer.wait_time = waitTime
 	#timer.start()
+
+func lessen_strike() -> void:
+	if playerStrikes > 0:
+		playerStrikes -= 1
 
 func _process(_delta: float) -> void:
 	$debugStrike.text = "strikes: " + str(playerStrikes)
@@ -123,6 +128,7 @@ func lyte_reset(instant : bool = false) -> void:
 	if instant:
 		position.y = -100
 		isActive = false
+		isAttacking = false
 		return
 	tween = get_tree().create_tween()
 	anims.play("Relax")

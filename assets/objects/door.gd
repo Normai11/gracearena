@@ -33,6 +33,6 @@ func _interacted():
 
 func _check_kick(body: Node2D) -> void:
 	if body is Player:
-		if body.moveNode.curCrouch == 2:
+		if body.moveNode.curCrouch == 2 && abs(body.velocity.x) > 20:
 			area.set_deferred("monitorable", false)
 			collision.set_deferred("disabled", true)

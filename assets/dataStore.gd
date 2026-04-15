@@ -1,4 +1,5 @@
 extends Node
+signal saferoomIncrease
 
 var timer : float = 0.00
 var timerActive : bool = false
@@ -23,14 +24,14 @@ var pulseHintSeen : bool = false
 
 @export var RUNDATA = {
 	"gameExists" : false,
-	"saferoomNum" : 0,
+	"saferoomNum" : -1,
 	"Cash" : 0,
 	"Kills" : 0,
 	"activeMods" : []
 }
 
 @export var abilityPaths = {
-	0 : "res://assets/abilities/perks/2.tscn",
+	0 : "res://assets/abilities/perks/0.tscn",
 	1 : "res://assets/abilities/perks/2.tscn",
 	2 : "res://assets/abilities/perks/2.tscn",
 	3 : "res://assets/abilities/perks/3.tscn",

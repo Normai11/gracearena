@@ -161,6 +161,14 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 24
 text = "QUIT"
 
+[node name="Label" type="Label" parent="MENU"]
+layout_mode = 0
+offset_left = 831.0
+offset_top = 9.0
+offset_right = 920.0
+offset_bottom = 32.0
+text = "saferoom #"
+
 [connection signal="pressed" from="MENU/resume" to="." method="_resume_game"]
 [connection signal="pressed" from="MENU/settings" to="." method="_open_settings"]
 [connection signal="pressed" from="MENU/quit" to="." method="_quit_run"]

@@ -16,6 +16,8 @@ func _interacted():
 	if overhaulCamera:
 		var camera = get_parent().find_child("advCamera")
 		camera.change_targets(self, cameraFocusMode, cameraFocusDrag, cameraFocusZoom)
+	DataStore.RUNDATA["saferoomNum"] += 1
+	DataStore.saferoomIncrease.emit()
 	
 	var stageManager : StageManager = get_tree().current_scene
 	var manager : RoomManager = get_tree().current_scene.find_child("roomManager")

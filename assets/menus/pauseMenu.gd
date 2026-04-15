@@ -21,6 +21,8 @@ func _ready() -> void:
 	baseTween.set_ease(Tween.EASE_OUT)
 	baseTween.set_trans(Tween.TRANS_EXPO)
 	baseTween.tween_property(backdrop, "scale", Vector2(1, 1), 0.5)
+	
+	$MENU/Label.text = "saferoom #" + str(DataStore.RUNDATA["saferoomNum"])
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("pause"):\
