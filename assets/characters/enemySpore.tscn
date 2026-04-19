@@ -30,9 +30,6 @@ stunTime = 0.5
 process_mode = 3
 scale = Vector2(4.7, 6.8)
 
-[node name="renderStart" type="VisibleOnScreenNotifier2D" parent="."]
-scale = Vector2(4.7, 3.2)
-
 [node name="CollisionBox" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_y55gh")
 
@@ -71,6 +68,5 @@ collision_mask = 33
 position = Vector2(0, -24)
 target_position = Vector2(23, 0)
 
-[connection signal="screen_entered" from="renderStart" to="." method="_enemy_rendered"]
 [connection signal="body_entered" from="Hurtbox" to="." method="body_check"]
 [connection signal="body_entered" from="sporeBox" to="." method="body_check_spore"]

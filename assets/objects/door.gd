@@ -15,12 +15,10 @@ func _ready() -> void:
 		tampered = doorStates[rng.rand_weighted(stateWeights)]
 	
 	if tampered:
-		area.monitorable = false
-		area.monitoring = true
 		area.get_child(0).debug_color = Color("ffab006b")
-	else:
-		area.monitorable = true
-		area.monitoring = false
+	
+	area.monitorable = true
+	area.monitoring = true
 
 func _interacted():
 	if tampered:
@@ -33,6 +31,10 @@ func _interacted():
 
 func _check_kick(body: Node2D) -> void:
 	if body is Player:
-		if body.moveNode.curCrouch == 2 && abs(body.velocity.x) > 20:
-			area.set_deferred("monitorable", false)
-			collision.set_deferred("disabled", true)
+		if tampered:
+			if body.moveNode.curCrouch == 2 && abs(body.velocity.x) > 20:
+				area.set_deferred("monitorable", false)
+				collision.set_deferred("disabled", true)
+		else:
+			if DataStore.settings["autoInteract"]:
+				_interacted()

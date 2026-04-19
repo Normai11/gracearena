@@ -1,6 +1,8 @@
 extends Node
 class_name StageManager
 
+@onready var timerPunish = preload("res://assets/characters/clockface.tscn")
+
 @export var GUIEnemyParent : CanvasLayer
 
 @export var roomgenAmt : int = 25
@@ -10,6 +12,7 @@ class_name StageManager
 var saferoomTimer : float = 150.9
 
 var enemyModNodes : Array[Node] = []
+var punishNode : Node2D
 
 func _ready() -> void:
 	activeMods = DataStore.RUNDATA["activeMods"]
@@ -37,6 +40,18 @@ func _ready() -> void:
 				enemyModNodes.append(child)
 
 func _process(delta: float) -> void:
+	if saferoomTimer <= 0 && DataStore.timerActive:
+		if !punishNode:
+			var childAdd = timerPunish.instantiate()
+			childAdd.playerTarget = playerReference
+			add_child(childAdd)
+			punishNode = childAdd
+		if !punishNode.active:
+			punishNode.set_active(true)
+	else:
+		if punishNode && punishNode.active:
+			punishNode.set_active(false)
+	
 	if DataStore.timerJustActive:
 		DataStore.timerJustActive = false
 		DataStore.timerActive = true

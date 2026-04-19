@@ -30,6 +30,7 @@ func _Save_Data():
 	var config_file = ConfigFile.new()
 	config_file.set_value("General", "firstOpen", DataStore.settings["firstOpen"])
 	config_file.set_value("Game", "guiTransparency", DataStore.settings["guiTrans"])
+	config_file.set_value("Game", "autoInteract", DataStore.settings["autoInteract"])
 	config_file.set_value("Video", "showHints", DataStore.settings["toggleHint"])
 	config_file.set_value("Video", "toggleSmooth", DataStore.settings["toggleSmooth"])
 	config_file.save(configPath)
@@ -68,6 +69,7 @@ func _Load_Data():
 		return
 	
 	DataStore.settings["guiTrans"] = config_file.get_value("Game", "guiTransparency")
+	DataStore.settings["autoInteract"] = config_file.get_value("Game", "autoInteract")
 	DataStore.settings["firstOpen"] = config_file.get_value("General", "firstOpen")
 	DataStore.settings["toggleHint"] = config_file.get_value("Video", "showHints")
 	DataStore.settings["toggleSmooth"] = config_file.get_value("Video", "toggleSmooth")

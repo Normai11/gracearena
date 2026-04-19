@@ -9,6 +9,7 @@ var CurrentMenu : int = 0
 @onready var transSlider = $catGame/guiTransSlider
 @onready var hintToggle = $catVideo/hintToggle
 @onready var smoothToggle = $catVideo/smoothToggle
+@onready var autoInteract = $catGame/autoInteract
 
 func _ready() -> void:
 	switchMenu(0)
@@ -16,6 +17,7 @@ func _ready() -> void:
 	transSlider.value = DataStore.settings["guiTrans"]
 	hintToggle.button_pressed = DataStore.settings["toggleHint"]
 	smoothToggle.button_pressed = DataStore.settings["toggleSmooth"]
+	autoInteract.button_pressed = DataStore.settings["autoInteract"]
 
 func _process(_delta: float) -> void:
 	var sliderValStr = str(int(transSlider.value * 100)) + "%"
@@ -71,3 +73,9 @@ func _Game_Open() -> void:
 
 func _Video_Open() -> void:
 	switchMenu(1)
+
+func autoInteract_switch(toggled_on: bool) -> void:
+	if toggled_on:
+		DataStore.settings["autoInteract"] = true
+	else:
+		DataStore.settings["autoInteract"] = false
