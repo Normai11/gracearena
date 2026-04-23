@@ -1,10 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://bthfriqgk314i"]
+[gd_scene load_steps=3 format=3 uid="uid://bthfriqgk314i"]
 
 [ext_resource type="Texture2D" uid="uid://colabb06il70s" path="res://assets/characters/textures/clockfaceCursor.png" id="1_6awcs"]
+[ext_resource type="Script" uid="uid://ubb8jkvk7jq2" path="res://assets/characters/clockfaceCursor.gd" id="1_evucq"]
 
 [node name="CLOCKEDindicator" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_evucq")
 
 [node name="cursor" type="TextureRect" parent="."]
 layout_mode = 1

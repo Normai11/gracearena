@@ -10,6 +10,7 @@ enum strikeStates {
 @onready var cursor = preload("res://assets/characters/clockfaceCursor.tscn")
 
 @export var appearTimer : float = 3.5
+@export var strikeDamage : float = 33.34
 @export var strikeDistance : float = 500.0
 @export var strikeWeight : float = 0.3
 @export var strikeWindup : float = 1.5
@@ -66,3 +67,7 @@ func _physics_process(delta: float) -> void:
 			else:
 				curState = strikeStates.STRUCK
 				curTimer = strikeWindup
+
+func _check_player(body: Node2D) -> void:
+	if body is Player:
+		body.damage_by(strikeDamage, 0, false)

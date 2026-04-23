@@ -1,0 +1,70 @@
+[gd_scene load_steps=4 format=3 uid="uid://j8swpgontt5a"]
+
+[ext_resource type="Texture2D" uid="uid://cuhchck7ocpyj" path="res://assets/modifiers/iconSpritesheet.png" id="1_b4ky1"]
+[ext_resource type="Script" uid="uid://b87c2k50o8w73" path="res://assets/menus/modifierMenu/modButton.gd" id="1_e0qob"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e0qob"]
+atlas = ExtResource("1_b4ky1")
+region = Rect2(0, 0, 200, 200)
+
+[node name="modifierButton" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -766.0
+offset_bottom = -573.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e0qob")
+
+[node name="detection" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="modName" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -108.0
+offset_top = -23.0
+offset_right = 203.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "Modifier Name [color=yellow]+XP%"
+vertical_alignment = 1
+
+[node name="modDesc" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -108.0
+offset_top = 1.0
+offset_right = 203.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "Short Description"
+vertical_alignment = 1
+
+[node name="icon" type="TextureRect" parent="."]
+layout_mode = 1
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 95.0
+offset_bottom = 95.0
+texture = SubResource("AtlasTexture_e0qob")
+expand_mode = 1
