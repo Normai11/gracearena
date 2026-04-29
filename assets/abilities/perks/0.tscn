@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dtknmfjdnmjfe"]
-
-[ext_resource type="Script" uid="uid://dhrc5s6ljw3me" path="res://assets/abilities/perks/perkRelief.gd" id="1_lu4cd"]
-
-[node name="0" type="Node"]
-script = ExtResource("1_lu4cd")
-abName = "Relief"
-abDesc = "Recover 10HP when a saferoom is reached."

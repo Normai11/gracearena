@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://dhu43cfja1s38"]
+
+[ext_resource type="Texture2D" uid="uid://do01j625t1qxm" path="res://Assets/abilityAtlas.png" id="1_dqnyw"]
+[ext_resource type="Script" uid="uid://bolmeu13w3d21" path="res://Scenes/Perks/perkFeather.gd" id="1_fanuv"]
+[ext_resource type="Shader" uid="uid://f37yfk8co0fk" path="res://Assets/Shaders/colorHSV.gdshader" id="2_p4bqw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qc7mr"]
+resource_local_to_scene = true
+shader = ExtResource("2_p4bqw")
+shader_parameter/hue_shift = 0.0
+shader_parameter/saturation_mult = 1.0
+shader_parameter/value_mult = 1.0
+shader_parameter/brightness_add = 0.0
+shader_parameter/contrast_mult = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4bqw"]
+atlas = ExtResource("1_dqnyw")
+region = Rect2(1000, 0, 250, 250)
+
+[node name="perkFeather" type="Control" unique_id=1092016579]
+custom_minimum_size = Vector2(57, 57)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 57.0
+offset_bottom = 57.0
+rotation = -0.7853982
+script = ExtResource("1_fanuv")
+perkName = "Feather"
+perkDescription = "Gives the holder an extra jump mid-air. Cannot SHATTER."
+cooldown = 0.0
+shatterRequire = 0
+
+[node name="Display" type="TextureRect" parent="." unique_id=1246165044]
+material = SubResource("ShaderMaterial_qc7mr")
+layout_mode = 1
+offset_left = 28.284264
+offset_top = -28.284267
+offset_right = 108.28426
+offset_bottom = 51.715733
+rotation = 0.7853982
+texture = SubResource("AtlasTexture_p4bqw")
+expand_mode = 1

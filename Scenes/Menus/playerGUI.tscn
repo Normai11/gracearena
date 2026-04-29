@@ -1,0 +1,125 @@
+[gd_scene format=3 uid="uid://dn2a0k4cetxew"]
+
+[ext_resource type="Script" uid="uid://cvgw3l6bn828u" path="res://Scenes/Menus/playerGUI.gd" id="1_6bikd"]
+[ext_resource type="Texture2D" uid="uid://rvj531ihpllq" path="res://Assets/Menus/PlayerGUI/healthBar.png" id="1_7upmx"]
+[ext_resource type="Texture2D" uid="uid://bcp4tved7a6kp" path="res://Assets/Menus/PlayerGUI/interactPrompt.png" id="2_ikh0h"]
+[ext_resource type="Texture2D" uid="uid://bhgwqh1i5wkmc" path="res://Assets/Menus/PlayerGUI/lyteStrikeBar.png" id="3_gif7k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ikh0h"]
+atlas = ExtResource("1_7upmx")
+region = Rect2(0, 0, 315, 102)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6bikd"]
+atlas = ExtResource("1_7upmx")
+region = Rect2(315, 0, 315, 102)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s0ikh"]
+atlas = ExtResource("3_gif7k")
+region = Rect2(137, 0, 137, 66)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vxr2p"]
+atlas = ExtResource("3_gif7k")
+region = Rect2(0, 0, 137, 66)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5rk8m"]
+atlas = ExtResource("3_gif7k")
+region = Rect2(137, 0, 137, 66)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gif7k"]
+atlas = ExtResource("2_ikh0h")
+region = Rect2(0, 0, 250, 250)
+
+[node name="playerGUI" type="CanvasLayer" unique_id=779847528]
+script = ExtResource("1_6bikd")
+
+[node name="Base" type="Control" parent="." unique_id=2054519207]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="healthBar" type="TextureProgressBar" parent="Base" unique_id=346779041]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 323.0
+offset_bottom = 110.0
+value = 75.0
+texture_over = SubResource("AtlasTexture_ikh0h")
+texture_progress = SubResource("AtlasTexture_6bikd")
+tint_progress = Color(0.3799122, 0.5778127, 0.28731945, 1)
+
+[node name="strikeBar" type="TextureProgressBar" parent="Base" unique_id=50860478]
+layout_mode = 0
+offset_left = 186.0
+offset_top = 96.0
+offset_right = 323.0
+offset_bottom = 162.0
+value = 33.0
+texture_under = SubResource("AtlasTexture_s0ikh")
+texture_over = SubResource("AtlasTexture_vxr2p")
+texture_progress = SubResource("AtlasTexture_5rk8m")
+tint_under = Color(0.25856346, 0.15014789, 0.15752482, 1)
+tint_over = Color(0.24174958, 0.25767592, 0.36810493, 1)
+
+[node name="interactPrompt" type="TextureRect" parent="Base" unique_id=152678721]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -107.0
+offset_right = 30.0
+offset_bottom = -47.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_gif7k")
+expand_mode = 1
+
+[node name="promptName" type="Label" parent="Base/interactPrompt" unique_id=404442369]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -118.0
+offset_top = -8.0
+offset_right = 118.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Interaction Prompt Name"
+horizontal_alignment = 1
+
+[node name="perkContainer" type="GridContainer" parent="Base" unique_id=2048314041]
+layout_mode = 0
+offset_left = 1011.00006
+offset_top = 472.0
+offset_right = 1129.0
+offset_bottom = 590.0
+rotation = -0.7853982
+columns = 2
+
+[node name="perkCard" type="Panel" parent="Base" unique_id=1405018677]
+visible = false
+layout_mode = 0
+offset_right = 326.0
+offset_bottom = 108.0
+
+[node name="Text" type="RichTextLabel" parent="Base/perkCard" unique_id=1089035548]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "Name
+Description"

@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://rywoy65ba30o"]
+
+[ext_resource type="PackedScene" uid="uid://cgha6u2myo2md" path="res://Scenes/Characters/Player.tscn" id="1_a5hc0"]
+[ext_resource type="Script" uid="uid://cwhfi2jrxgaer" path="res://Assets/Templates/stageManager.gd" id="1_hcubo"]
+[ext_resource type="PackedScene" uid="uid://buj2dtjrouawx" path="res://Scenes/Objects/advCamera.tscn" id="1_kpy64"]
+[ext_resource type="Script" uid="uid://cakgiscerlfj6" path="res://interactTest.gd" id="3_7fpwj"]
+[ext_resource type="PackedScene" uid="uid://u50qpflmso5b" path="res://Scenes/Characters/Enemies/basicPatroller.tscn" id="4_u07tn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yii18"]
+size = Vector2(1274, 140)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u07tn"]
+size = Vector2(374, 372)
+
+[node name="testStage" type="Node2D" unique_id=1883258471 node_paths=PackedStringArray("guiModScene")]
+script = ExtResource("1_hcubo")
+guiModScene = NodePath("CanvasLayer")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=630678698]
+
+[node name="Player" parent="." unique_id=966201989 instance=ExtResource("1_a5hc0")]
+position = Vector2(-210, -165)
+
+[node name="advCamera" parent="." unique_id=1147624507 node_paths=PackedStringArray("cameraTarget") instance=ExtResource("1_kpy64")]
+cameraTarget = NodePath("../Player")
+
+[node name="mainplatform" type="StaticBody2D" parent="." unique_id=631296159]
+
+[node name="shape" type="CollisionShape2D" parent="mainplatform" unique_id=1654224312]
+shape = SubResource("RectangleShape2D_yii18")
+
+[node name="mainplatform2" type="StaticBody2D" parent="." unique_id=1645858960]
+position = Vector2(304, -193)
+scale = Vector2(0.4, 1)
+
+[node name="shape" type="CollisionShape2D" parent="mainplatform2" unique_id=1627909895]
+shape = SubResource("RectangleShape2D_yii18")
+
+[node name="mainplatform3" type="StaticBody2D" parent="." unique_id=872895286]
+position = Vector2(-887, -100)
+scale = Vector2(0.4, 1)
+
+[node name="shape" type="CollisionShape2D" parent="mainplatform3" unique_id=2079345465]
+shape = SubResource("RectangleShape2D_yii18")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1099420625]
+position = Vector2(-287, -277)
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("3_7fpwj")
+promptName = "Test Object"
+overhaulCamera = true
+camFocusMode = 1
+camFocusDrag = 0.15
+camFocusZoom = Vector2(0.7, 0.7)
+revertCamera = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1588255562]
+shape = SubResource("RectangleShape2D_u07tn")
+debug_color = Color(0, 0.6286901, 0.49302614, 0.41960785)
+
+[node name="basicPatroller" parent="." unique_id=1689216392 instance=ExtResource("4_u07tn")]
+position = Vector2(-515, -525)

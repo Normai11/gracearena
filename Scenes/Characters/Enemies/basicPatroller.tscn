@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://u50qpflmso5b"]
+
+[ext_resource type="Script" uid="uid://cq1d4wgnlmxp6" path="res://Scenes/Characters/Enemies/basicPatroller.gd" id="1_eg6gm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y55gh"]
+size = Vector2(66, 58)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jtk53"]
+radius = 23.0
+height = 90.0
+
+[node name="basicPatroller" type="CharacterBody2D" unique_id=1689216392 node_paths=PackedStringArray("body")]
+collision_layer = 4
+script = ExtResource("1_eg6gm")
+body = NodePath(".")
+knockbackAmount = 500.0
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1859751935]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="shape" type="CollisionShape2D" parent="Hurtbox" unique_id=1342882350]
+shape = SubResource("RectangleShape2D_y55gh")
+debug_color = Color(0.97920984, 0, 0.39376178, 0.41960785)
+
+[node name="collisionStand" type="CollisionShape2D" parent="." unique_id=236035559]
+shape = SubResource("CapsuleShape2D_jtk53")
+
+[node name="wallDetect" type="RayCast2D" parent="." unique_id=1906340207]
+position = Vector2(0, -16)
+target_position = Vector2(33, 0)
+
+[node name="dropDetect" type="RayCast2D" parent="." unique_id=1245522517]
+position = Vector2(33, 0)
+target_position = Vector2(0, 86)
