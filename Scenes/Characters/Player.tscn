@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dygf782haxtrq" path="res://Scenes/Characters/player.gd" id="1_0el0d"]
 [ext_resource type="PackedScene" uid="uid://dn2a0k4cetxew" path="res://Scenes/Menus/playerGUI.tscn" id="2_7pt4t"]
 [ext_resource type="PackedScene" uid="uid://bb0wyu8xmjkim" path="res://Scenes/Characters/inputComponent.tscn" id="2_o5en2"]
+[ext_resource type="Texture2D" uid="uid://durdm5owyjvyg" path="res://icon.svg" id="4_7pt4t"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0el0d"]
 radius = 23.0
@@ -14,6 +15,7 @@ height = 90.0
 
 [node name="Player" type="CharacterBody2D" unique_id=966201989]
 collision_layer = 2
+collision_mask = 17
 script = ExtResource("1_0el0d")
 guiScene = ExtResource("2_7pt4t")
 
@@ -42,3 +44,8 @@ offset_left = 26.0
 offset_top = -47.0
 offset_right = 66.0
 offset_bottom = -24.0
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=951813886]
+position = Vector2(0, 20)
+scale = Vector2(0.359375, 0.390625)
+texture = ExtResource("4_7pt4t")

@@ -12,6 +12,10 @@ func _physics_process(_delta: float) -> void:
 	if !onCooldown:
 		texture.material.set_shader_parameter("saturation_mult", 1)
 		texture.material.set_shader_parameter("value_mult", 1)
+		if Input.is_action_pressed("crouch"):
+			playerParent.set_collision_mask_value(5, false)
+		else:
+			playerParent.set_collision_mask_value(5, true)
 		if !playerParent.is_on_floor() && Input.is_action_just_pressed("crouch"):
 			if abs(playerParent.velocity.x) > 300:
 				_activate_perk()

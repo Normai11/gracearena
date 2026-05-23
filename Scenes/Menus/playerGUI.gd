@@ -13,9 +13,14 @@ var playerNode : Player
 @onready var perkContainer : GridContainer = $Base/perkContainer
 @onready var perkCard : Panel = $Base/perkCard
 @onready var cardText : RichTextLabel = $Base/perkCard/Text
+@onready var pauseMenu = preload("res://Scenes/Menus/pauseMenu.tscn")
 
 func _ready() -> void:
 	trigger_perkCard()
+
+func _input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("pause"):
+		add_child(pauseMenu.instantiate())
 
 func _process(delta: float) -> void:
 	if showInteraction:

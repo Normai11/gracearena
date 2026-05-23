@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://cryiwner0pjsh"]
+
+[ext_resource type="Texture2D" uid="uid://bo1q8a33i1ewx" path="res://Assets/Enemies/cadenceSpritesheet.png" id="1_2p6kv"]
+[ext_resource type="Script" uid="uid://byr6eakw4wjl5" path="res://Scenes/Characters/Enemies/enemyCadence.gd" id="1_ea65d"]
+
+[sub_resource type="Animation" id="Animation_7mfh1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Appearance:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(800, 0, 400, 400)]
+}
+
+[sub_resource type="Animation" id="Animation_vkbrx"]
+resource_name = "spawn"
+length = 0.4
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Appearance:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(0, 0, 0),
+"update": 0,
+"values": [Rect2(0, 0, 400, 400), Rect2(400, 0, 400, 400), Rect2(800, 0, 400, 400)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x3qmb"]
+_data = {
+&"RESET": SubResource("Animation_7mfh1"),
+&"spawn": SubResource("Animation_vkbrx")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ea65d"]
+atlas = ExtResource("1_2p6kv")
+region = Rect2(800, 0, 400, 400)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2p6kv"]
+radius = 17.262676
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ea65d"]
+radius = 47.38143
+
+[node name="Cadence" type="CharacterBody2D" unique_id=491622275]
+script = ExtResource("1_ea65d")
+tickRate = 0.82
+tickDistance = 4000.0
+
+[node name="REDACTION" type="CPUParticles2D" parent="." unique_id=2043666352]
+z_index = 1
+emitting = false
+amount = 1
+lifetime = 0.1
+gravity = Vector2(0, 0)
+scale_amount_min = 220.0
+scale_amount_max = 220.0
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1032654667]
+libraries/ = SubResource("AnimationLibrary_x3qmb")
+
+[node name="Appearance" type="TextureRect" parent="." unique_id=734540164]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -172.0
+offset_top = -172.0
+offset_right = 172.0
+offset_bottom = 172.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_ea65d")
+expand_mode = 1
+
+[node name="warnblockerihateit" type="CollisionShape2D" parent="." unique_id=839456759]
+shape = SubResource("CircleShape2D_2p6kv")
+disabled = true
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=398569390]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="shape" type="CollisionShape2D" parent="Hurtbox" unique_id=994330527]
+shape = SubResource("CircleShape2D_ea65d")
+debug_color = Color(0.99656636, 0, 0.19309226, 0.41960785)

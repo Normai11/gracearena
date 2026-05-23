@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="RoomConfiguration" format=3 uid="uid://c7sgqmoascqk"]
+
+[ext_resource type="Script" uid="uid://bjpphyfssrs3h" path="res://Assets/Templates/RoomConfiguration.gd" id="1_rw1s7"]
+
+[resource]
+script = ExtResource("1_rw1s7")
+roomScenePath = "res://Assets/roomGen/Rooms/test2.tscn"
+roomChance = 0.3
+roomSize = Vector2(1014, 866)
+roomOffset = Vector2(507, 47)
+roomContinuePosition = Vector2(507, 367)
+metadata/_custom_type_script = "uid://bjpphyfssrs3h"

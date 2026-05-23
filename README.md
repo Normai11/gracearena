@@ -1,33 +1,19 @@
-# Retrieval Project (gracearena)
+# Retrieval Project (RECODE BRANCH)
 ## INFO
-### Retrieval Project is a temporary, subject to change name.
-Retrieval Project is a timed, roguelite platformer game with the goal of surviving as long as possible.\
-Retrieval Project is inspired by various other games:
-- (ROBLOX) Grace
-- (ROBLOX) Nullscape
-- (ROBLOX) Zenith Tower
-- Hollow Knight
-- Pizza Tower
-- maybe some other stuff i cant remember
+### Recode is the main priority right now!!
+The main branch has a lot of issues (i.e. scripting inconsistensies and really heavy code) that makes developing and skimming through code really difficult. The recode is intended to fix these issues and make the game a whole lot better.
 
-The game is very early in development, being a passion project between me and a few of my friends.
-Expect progress to be rather slow because of school and other hobbies, however this is a game
-that I plan on finishing.
+### Goals
+I want this recode to be the best it can possibly be, meaning:
+- Optimizations to make the game run smoother
+- Better systems to make development easier
+- Improved organization of files
+- More content!!!!!!! wow
 
-## TEAM
-Normai11 - Director\
-li4msp4ce - Lead Artist\
-$tranger - Artist
-<!-- There's another artist here, however I do not know how they want to be represented just yet. -->
-Mob - Concept Artist\
-Greg - Lead Writer\
-\
-<sub>i am lowkey the only dude doing anything rn though these guys SLACKING!!!!!!!!!</sub>
+## Progress
+### COMMIT 4/29/26
+Just having started on 4/25/26, the recode is only at the state of basic gameplay elements and a few systems in place (interaction, save data, modifiers). However, progress is good! Code is more readable and the game runs smoothly. Stoplyte probably got the biggest changes, seeing as its code has become more readable and less dependent on await() calls and tweens. Feels better and looks smoother. Also, another bit of polish was added for Stoplyte regarding strike readability (there is now a bar that shows how many strikes you have!). Good stuff so far.
 
-## LINKS
-Devlogs can be seen in my [YouTube](https://www.youtube.com/@normai1172)
-and [Tiktok](https://www.tiktok.com/@normai.11).\
-The official Github repository for this game will ALWAYS be found in
-[the official Github page.](https://github.com/Normai11/gracearena)\
-A Discord server will be created soon, containing channels for discussion
-and more frequent teasers/information relating to Retrieval Project.
+### COMMIT 5/23/26
+Game is become more fleshed-out, with a debug console and a recoded room generation script! A new enemy has been concieved just yesterday but it functions well and is an interesting one! Not much else to say... pause menu has been implemented, and other unnoticable changes have been made too. Coding this is fun!!!! Again, all done by me, but more progress is to come in the future!
+(BIG CHANGE IS THAT YOU CAN GENERATE AS MANY ROOMS AS YOU WANT AND IT WONT TANK PERFORMANCE MID-GENERATION!!!!! IM REALLY PROUD OF IT :DDDD)

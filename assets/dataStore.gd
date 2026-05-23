@@ -18,3 +18,8 @@ var perkPaths : Dictionary[int, String] = {
 var modScenes : Dictionary[String, String] = {
 	"lyte" : "res://Scenes/Modifiers/modEnemies/Stoplyte.tscn"
 }
+
+@export var biomePaths = {
+	-1 : "test",
+	0 : "tutorial"
+}

@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://b16wkwe0du8t7"]
+
+[ext_resource type="Texture2D" uid="uid://c5j7oythc14am" path="res://Assets/Modifiers/hijackSpritesheet.png" id="1_180wn"]
+[ext_resource type="Script" uid="uid://clvyk2oj01ua7" path="res://Scenes/Modifiers/modEnemies/Hijack.gd" id="1_c5xcy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_180wn"]
+size = Vector2(64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5xcy"]
+resource_local_to_scene = true
+atlas = ExtResource("1_180wn")
+region = Rect2(0, 0, 321, 321)
+
+[sub_resource type="Animation" id="Animation_c5xcy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Appearance:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(0, 0, 321, 321)]
+}
+
+[sub_resource type="Animation" id="Animation_lbo4e"]
+resource_name = "open"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Appearance:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.13333334),
+"transitions": PackedFloat32Array(0, 0),
+"update": 0,
+"values": [Rect2(0, 0, 321, 321), Rect2(321, 0, 321, 321)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qritx"]
+_data = {
+&"RESET": SubResource("Animation_c5xcy"),
+&"open": SubResource("Animation_lbo4e")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lbo4e"]
+size = Vector2(76, 38)
+
+[node name="Hijack" type="Node2D" unique_id=2113223525]
+script = ExtResource("1_c5xcy")
+appearChance = 0.2
+hijackDuration = 1.0
+
+[node name="playerDetect" type="Area2D" parent="." unique_id=120477941]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="size" type="CollisionShape2D" parent="playerDetect" unique_id=1806889221]
+shape = SubResource("RectangleShape2D_180wn")
+debug_color = Color(0.9631831, 3.080368e-06, 0.5030446, 0.41960785)
+
+[node name="Appearance" type="TextureRect" parent="." unique_id=1885730723]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.0
+offset_top = -101.0
+offset_right = 101.0
+offset_bottom = 101.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_c5xcy")
+expand_mode = 1
+
+[node name="Anims" type="AnimationPlayer" parent="Appearance" unique_id=351405103]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_qritx")
+
+[node name="roomDetect" type="Area2D" parent="." unique_id=1251017515]
+position = Vector2(0, 110)
+collision_layer = 0
+collision_mask = 2
+
+[node name="size" type="CollisionShape2D" parent="roomDetect" unique_id=936981538]
+shape = SubResource("RectangleShape2D_lbo4e")
+debug_color = Color(0.4122619, 0.46476555, 1, 0.41960785)
+
+[node name="Enabler" type="VisibleOnScreenEnabler2D" parent="." unique_id=633253396]
+rect = Rect2(-703, -531, 1406, 1062)
+
+[connection signal="body_entered" from="playerDetect" to="." method="_player_detected"]
+[connection signal="body_exited" from="roomDetect" to="." method="_player_left_room"]
+[connection signal="screen_entered" from="Enabler" to="." method="spawn"]

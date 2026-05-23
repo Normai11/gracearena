@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bjbsbyu5nnc5p"]
+
+[ext_resource type="Script" uid="uid://dhu1lbw5xmbgk" path="res://Assets/roomGen/roomManager.gd" id="1_unsy3"]
+
+[node name="roomManager" type="Node2D" unique_id=1642117507]
+script = ExtResource("1_unsy3")
+setCFGFolderPath = "res://Assets/roomGen/roomCFGs"

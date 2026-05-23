@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://dldplwpjkfryy"]
+
+[ext_resource type="Script" uid="uid://dl5hquuivxa08" path="res://Assets/Templates/roomTemplate.gd" id="1_6kj7g"]
+[ext_resource type="Texture2D" uid="uid://crahsji3w4j3g" path="res://Assets/roomGen/roomAtlas.png" id="1_nj3qs"]
+[ext_resource type="Resource" uid="uid://bp8e233jjwck8" path="res://Assets/roomGen/roomCFGs/test0.tres" id="2_2sy6x"]
+[ext_resource type="PackedScene" uid="uid://b16wkwe0du8t7" path="res://Scenes/Modifiers/modEnemies/Hijack.tscn" id="4_57wal"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6kj7g"]
+atlas = ExtResource("1_nj3qs")
+region = Rect2(0, 0, 879, 481)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2sy6x"]
+size = Vector2(879, 36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_57wal"]
+size = Vector2(879, 70)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nj3qs"]
+size = Vector2(69, 275)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6kj7g"]
+size = Vector2(52, 184)
+
+[node name="room0" type="Node2D" unique_id=658946840 node_paths=PackedStringArray("roomContinueMarker")]
+script = ExtResource("1_6kj7g")
+roomCFGFile = ExtResource("2_2sy6x")
+roomSize = Vector2(879, 481)
+roomOffset = Vector2(439, -205)
+roomContinueMarker = NodePath("ContinueObject")
+metadata/_custom_type_script = "uid://dl5hquuivxa08"
+
+[node name="Texture" type="TextureRect" parent="." unique_id=1850191154]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -439.5
+offset_top = -240.5
+offset_right = 439.5
+offset_bottom = 240.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_6kj7g")
+
+[node name="Hijack" parent="." unique_id=2113223525 instance=ExtResource("4_57wal")]
+position = Vector2(268, 15)
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=402094791]
+position = Vector2(1, 223)
+
+[node name="size" type="CollisionShape2D" parent="Floor" unique_id=271205909]
+shape = SubResource("RectangleShape2D_2sy6x")
+
+[node name="Slope" type="StaticBody2D" parent="." unique_id=1478334542]
+position = Vector2(441, 205)
+
+[node name="size" type="CollisionPolygon2D" parent="Slope" unique_id=1964456513]
+polygon = PackedVector2Array(-365, 0, -283, -92, 0, -92, 0, 0)
+
+[node name="Roof" type="StaticBody2D" parent="." unique_id=97909176]
+position = Vector2(0.5, -205)
+
+[node name="size" type="CollisionShape2D" parent="Roof" unique_id=915937682]
+shape = SubResource("RectangleShape2D_57wal")
+
+[node name="leftWall" type="StaticBody2D" parent="." unique_id=570160950]
+position = Vector2(-405, -33)
+
+[node name="size" type="CollisionShape2D" parent="leftWall" unique_id=1381534852]
+shape = SubResource("RectangleShape2D_nj3qs")
+
+[node name="rightWall" type="StaticBody2D" parent="." unique_id=808843646]
+position = Vector2(414, -78)
+
+[node name="size" type="CollisionShape2D" parent="rightWall" unique_id=1426530525]
+shape = SubResource("RectangleShape2D_6kj7g")
+
+[node name="ContinueObject" type="Marker2D" parent="." unique_id=1262439820]
+position = Vector2(441, 113)

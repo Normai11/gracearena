@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cfovt85nun65t" path="res://Assets/Menus/devConsole.gd" id="1_aaweq"]
 
 [node name="devConsole" type="CanvasLayer" unique_id=558963162]
+process_mode = 3
 layer = 1028
 script = ExtResource("1_aaweq")
 
@@ -19,8 +20,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_mode = 2
 bbcode_enabled = true
 vertical_alignment = 2
+selection_enabled = true
 
 [node name="Input" type="LineEdit" parent="." unique_id=884766450]
 anchors_preset = 10

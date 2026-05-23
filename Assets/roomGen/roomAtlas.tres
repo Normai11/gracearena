@@ -1,0 +1,6 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://bdq658grlga2p"]
+
+[ext_resource type="Texture2D" uid="uid://crahsji3w4j3g" path="res://Assets/roomGen/roomAtlas.png" id="1_bteld"]
+
+[resource]
+atlas = ExtResource("1_bteld")

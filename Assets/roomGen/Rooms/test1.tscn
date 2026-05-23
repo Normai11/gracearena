@@ -1,0 +1,126 @@
+[gd_scene format=3 uid="uid://dkyw65bv2puu4"]
+
+[ext_resource type="Script" uid="uid://dl5hquuivxa08" path="res://Assets/Templates/roomTemplate.gd" id="1_v1eph"]
+[ext_resource type="Resource" uid="uid://dnc6bdrgr00la" path="res://Assets/roomGen/roomCFGs/test1.tres" id="2_v1eph"]
+[ext_resource type="Texture2D" uid="uid://crahsji3w4j3g" path="res://Assets/roomGen/roomAtlas.png" id="3_pcexj"]
+[ext_resource type="PackedScene" uid="uid://b16wkwe0du8t7" path="res://Scenes/Modifiers/modEnemies/Hijack.tscn" id="4_00184"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0uhh2"]
+atlas = ExtResource("3_pcexj")
+region = Rect2(891, 0, 918, 866)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v1eph"]
+size = Vector2(880, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_00184"]
+size = Vector2(880, 86)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pcexj"]
+size = Vector2(90, 160)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0uhh2"]
+size = Vector2(198, 192)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ta2g8"]
+size = Vector2(78, 644)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_v1eph"]
+a = Vector2(-144, 0)
+b = Vector2(132, 0)
+
+[node name="room1" type="Node2D" unique_id=2113552968 node_paths=PackedStringArray("roomContinueMarker")]
+script = ExtResource("1_v1eph")
+roomCFGFile = ExtResource("2_v1eph")
+roomSize = Vector2(918, 866)
+roomOffset = Vector2(459, 102)
+roomContinueMarker = NodePath("ContinueObject")
+metadata/_custom_type_script = "uid://dl5hquuivxa08"
+
+[node name="Texture" type="TextureRect" parent="." unique_id=1996565927]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -459.0
+offset_top = -433.0
+offset_right = 459.0
+offset_bottom = 433.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_0uhh2")
+
+[node name="Hijack" parent="." unique_id=2113223525 instance=ExtResource("4_00184")]
+position = Vector2(287, 44)
+appearChance = 0.13
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=1659156568]
+position = Vector2(-19, 422)
+
+[node name="size" type="CollisionShape2D" parent="Floor" unique_id=1697329860]
+shape = SubResource("RectangleShape2D_v1eph")
+
+[node name="enterFloor" type="StaticBody2D" parent="." unique_id=1799087355]
+position = Vector2(-459, -102)
+
+[node name="size" type="CollisionPolygon2D" parent="enterFloor" unique_id=1647027247]
+polygon = PackedVector2Array(0, 0, 238, 0, 238, 135, 99, 135, 99, 408, 1, 408)
+
+[node name="Slope" type="StaticBody2D" parent="." unique_id=4732616]
+position = Vector2(304, 402)
+
+[node name="size" type="CollisionPolygon2D" parent="Slope" unique_id=792934429]
+polygon = PackedVector2Array(-451, 0, -326, -130, 0, -130, 0, 0)
+
+[node name="Roof" type="StaticBody2D" parent="." unique_id=1062712386]
+position = Vector2(-19, -407)
+
+[node name="size" type="CollisionShape2D" parent="Roof" unique_id=42845426]
+shape = SubResource("RectangleShape2D_00184")
+
+[node name="leftWall" type="StaticBody2D" parent="." unique_id=1620362750]
+position = Vector2(-414, -284)
+
+[node name="size" type="CollisionShape2D" parent="leftWall" unique_id=1126144487]
+shape = SubResource("RectangleShape2D_pcexj")
+
+[node name="Corner1" type="StaticBody2D" parent="." unique_id=1111768308]
+position = Vector2(295, -268)
+
+[node name="size" type="CollisionShape2D" parent="Corner1" unique_id=950165647]
+shape = SubResource("RectangleShape2D_0uhh2")
+
+[node name="Corner2" type="StaticBody2D" parent="." unique_id=263926154]
+position = Vector2(295, 242)
+
+[node name="size" type="CollisionShape2D" parent="Corner2" unique_id=636730496]
+shape = SubResource("RectangleShape2D_0uhh2")
+
+[node name="rightWall" type="StaticBody2D" parent="." unique_id=166481595]
+position = Vector2(433, -42)
+
+[node name="size" type="CollisionShape2D" parent="rightWall" unique_id=1096950220]
+shape = SubResource("RectangleShape2D_ta2g8")
+
+[node name="Platform1" type="StaticBody2D" parent="." unique_id=1239712992]
+position = Vector2(-77, -101)
+collision_layer = 16
+collision_mask = 0
+
+[node name="size" type="CollisionShape2D" parent="Platform1" unique_id=385376231]
+shape = SubResource("SegmentShape2D_v1eph")
+one_way_collision = true
+debug_color = Color(0, 0.648538, 0.18752876, 0.41960785)
+
+[node name="Platform2" type="StaticBody2D" parent="." unique_id=1307509223]
+position = Vector2(339, -209)
+collision_layer = 16
+collision_mask = 0
+
+[node name="size" type="CollisionShape2D" parent="Platform2" unique_id=295609483]
+shape = SubResource("SegmentShape2D_v1eph")
+one_way_collision = true
+debug_color = Color(0, 0.648538, 0.18752876, 0.41960785)
+
+[node name="ContinueObject" type="Marker2D" parent="." unique_id=875917786]
+position = Vector2(-459, 402)

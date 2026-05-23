@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://bvkdmbr0o32m7"]
+
+[ext_resource type="Script" uid="uid://dl5hquuivxa08" path="res://Assets/Templates/roomTemplate.gd" id="1_otuay"]
+[ext_resource type="Texture2D" uid="uid://crahsji3w4j3g" path="res://Assets/roomGen/roomAtlas.png" id="2_aeawy"]
+[ext_resource type="Resource" uid="uid://c7sgqmoascqk" path="res://Assets/roomGen/roomCFGs/test2.tres" id="2_kg0jf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kg0jf"]
+atlas = ExtResource("2_aeawy")
+region = Rect2(1809, 0, 1014, 796)
+
+[node name="test2" type="Node2D" unique_id=998866423 node_paths=PackedStringArray("roomContinueMarker")]
+script = ExtResource("1_otuay")
+roomCFGFile = ExtResource("2_kg0jf")
+roomSize = Vector2(1014, 796)
+roomOffset = Vector2(507, 47)
+roomContinueMarker = NodePath("ContinueObject")
+metadata/_custom_type_script = "uid://dl5hquuivxa08"
+
+[node name="Texture" type="TextureRect" parent="." unique_id=2123708851]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -507.0
+offset_top = -398.0
+offset_right = 507.0
+offset_bottom = 398.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_kg0jf")
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=1823427674]
+
+[node name="size" type="CollisionPolygon2D" parent="Floor" unique_id=1260329553]
+polygon = PackedVector2Array(-507, -47, -169, -47, -64, 59, -63, 341, 507, 341, 507, 398, -508, 398)
+
+[node name="Roof" type="StaticBody2D" parent="." unique_id=1481811857]
+position = Vector2(0, 16)
+
+[node name="size" type="CollisionPolygon2D" parent="Roof" unique_id=658974606]
+polygon = PackedVector2Array(-507, -176, -507, -414, 507, -414, 507, 167, 402, 167, 402, -331, -423, -332, -423, -176)
+
+[node name="ContinueObject" type="Marker2D" parent="." unique_id=1889189739]
+position = Vector2(507, 341)

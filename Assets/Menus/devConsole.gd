@@ -74,7 +74,23 @@ func methods() -> String:
 	result = result.join(append)
 	return "[color=gold]" + result + "[/color]"
 
-func reload() -> String:
+func color_legend() -> String:
+	var strGold : String = "[color=gold]Gold[/color] : Informational text.\n"
+	var strRed : String = "[color=red]Red[/color] : Error when running function.\n"
+	var strCyan : String = "[color=cyan]Cyan[/color] : Important notice, optional.\n"
+	var strPurple : String = "[color=purple]Purple[/color] : Risky command executed - [color=red]Unreliable.[/color]\n"
+	var strWhite : String = "White : Plain output."
+	return strGold + strRed + strCyan + strPurple + strWhite
+
+func reload(force : bool = false) -> String:
+	var mngr : RoomManager = get_tree().current_scene.find_child("roomManager")
+	if mngr && !mngr.genFinished:
+		if force:
+			mngr.free()
+			get_tree().reload_current_scene()
+			return "[color=purple]Forced reload successfully[/color]"
+		return "[color=red]ERROR: Could not reload scene. Rooms are still generating! Reloading while generation is active may result in a crash. [/color]
+		[color=cyan]Run this command and enter the parameter 'true' to force a reload."
 	get_tree().reload_current_scene()
 	return "Reloaded scene"
 
@@ -118,3 +134,13 @@ func set_noclip(on : bool = true):
 			return "Noclip disabled"
 	else:
 		return "[color=red]ERROR: Could not set noclip; Player not found in scene [/color]"
+
+func generate_rooms(amount : int = -1):
+	var mngr : RoomManager = get_tree().current_scene.find_child("roomManager")
+	if mngr:
+		if amount < 1:
+			amount = mngr.setGenAmount
+		mngr.generate_rooms(amount)
+		return "Generating " + str(amount) + " rooms"
+	else:
+		return "[color=red]ERROR: Could not generate rooms; RoomManager not found in scene [/color]"

@@ -5,10 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://buj2dtjrouawx" path="res://Scenes/Objects/advCamera.tscn" id="1_kpy64"]
 [ext_resource type="Script" uid="uid://cakgiscerlfj6" path="res://interactTest.gd" id="3_7fpwj"]
 [ext_resource type="PackedScene" uid="uid://u50qpflmso5b" path="res://Scenes/Characters/Enemies/basicPatroller.tscn" id="4_u07tn"]
-[ext_resource type="PackedScene" uid="uid://cryiwner0pjsh" path="res://Scenes/Characters/Enemies/Cadence.tscn" id="7_jrewr"]
-[ext_resource type="PackedScene" uid="uid://b16wkwe0du8t7" path="res://Scenes/Modifiers/modEnemies/Hijack.tscn" id="8_eeg0e"]
-[ext_resource type="PackedScene" uid="uid://bjbsbyu5nnc5p" path="res://Assets/roomGen/roomManager.tscn" id="8_mgt74"]
-[ext_resource type="Texture2D" uid="uid://durdm5owyjvyg" path="res://icon.svg" id="9_mgt74"]
+[ext_resource type="PackedScene" uid="uid://cxtaexa81ee5" path="res://Scenes/Objects/Door.tscn" id="6_1gced"]
+[ext_resource type="Script" uid="uid://cnyqb8wurautk" path="res://Assets/roomGen/roomManager.gd" id="7_jrewr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yii18"]
 size = Vector2(1274, 140)
@@ -22,15 +20,8 @@ guiModScene = NodePath("CanvasLayer")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=630678698]
 
-[node name="roomManager" parent="." unique_id=1642117507 instance=ExtResource("8_mgt74")]
-position = Vector2(637, -70)
-genOffset = Vector2(637, -70)
-
 [node name="Player" parent="." unique_id=966201989 instance=ExtResource("1_a5hc0")]
 position = Vector2(-210, -165)
-floor_constant_speed = true
-floor_max_angle = 1.2217305
-floor_snap_length = 64.0
 
 [node name="advCamera" parent="." unique_id=1147624507 node_paths=PackedStringArray("cameraTarget") instance=ExtResource("1_kpy64")]
 cameraTarget = NodePath("../Player")
@@ -72,27 +63,13 @@ shape = SubResource("RectangleShape2D_u07tn")
 debug_color = Color(0, 0.6286901, 0.49302614, 0.41960785)
 
 [node name="basicPatroller" parent="." unique_id=1689216392 instance=ExtResource("4_u07tn")]
-position = Vector2(-908, -243)
+position = Vector2(-515, -525)
 
-[node name="Cadence" parent="." unique_id=491622275 instance=ExtResource("7_jrewr")]
-position = Vector2(381, 158)
-tickDistance = 1.0
-tickWeight = 0.15
+[node name="Door" parent="." unique_id=1858804268 instance=ExtResource("6_1gced")]
+position = Vector2(-695, -230)
 
-[node name="Hijack" parent="." unique_id=2113223525 instance=ExtResource("8_eeg0e")]
-position = Vector2(1409, -125)
-
-[node name="Icon" type="Sprite2D" parent="." unique_id=1877518891]
-position = Vector2(-30, 1)
-scale = Vector2(9.953125, 1)
-texture = ExtResource("9_mgt74")
-
-[node name="Icon2" type="Sprite2D" parent="." unique_id=665302693]
-position = Vector2(-881, -99)
-scale = Vector2(3.9531248, 1)
-texture = ExtResource("9_mgt74")
-
-[node name="Icon3" type="Sprite2D" parent="." unique_id=98822509]
-position = Vector2(304, -197)
-scale = Vector2(3.9531248, 1)
-texture = ExtResource("9_mgt74")
+[node name="Node2D" type="Node2D" parent="." unique_id=1849762126]
+position = Vector2(694, -83)
+script = ExtResource("7_jrewr")
+cfgPath = "res://Assets/roomGen/roomCFGs/"
+floorTurnReq = 2

@@ -26,7 +26,7 @@ offset_bottom = 57.0
 rotation = -0.7853982
 script = ExtResource("1_pulku")
 perkName = "Weight"
-perkDescription = "Allows the holder to drop mid-air and slam into the ground when still."
+perkDescription = "Allows the holder to drop mid-air and slam into the ground when still. Also grants a greater boost when sliding."
 cooldown = 0.0
 shatterRequire = 0
 

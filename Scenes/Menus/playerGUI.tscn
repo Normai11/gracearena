@@ -98,11 +98,18 @@ text = "Interaction Prompt Name"
 horizontal_alignment = 1
 
 [node name="perkContainer" type="GridContainer" parent="Base" unique_id=2048314041]
-layout_mode = 0
-offset_left = 1011.00006
-offset_top = 472.0
-offset_right = 1129.0
-offset_bottom = 590.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -221.99994
+offset_top = -149.99994
+offset_right = -104.0
+offset_bottom = -31.999939
+grow_horizontal = 0
+grow_vertical = 0
 rotation = -0.7853982
 columns = 2
 

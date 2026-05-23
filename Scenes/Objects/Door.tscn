@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cxtaexa81ee5"]
+
+[ext_resource type="Script" uid="uid://b832gmbf3k1ct" path="res://Scenes/Objects/Door.gd" id="1_lgil6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o8x64"]
+size = Vector2(30, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lgil6"]
+size = Vector2(84, 96)
+
+[node name="Door" type="StaticBody2D" unique_id=1858804268]
+
+[node name="shape" type="CollisionShape2D" parent="." unique_id=1729145005]
+shape = SubResource("RectangleShape2D_o8x64")
+
+[node name="InteractionArea" type="Area2D" parent="." unique_id=711979905 node_paths=PackedStringArray("doorCollision", "interact")]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_lgil6")
+doorCollision = NodePath("../shape")
+interact = NodePath(".")
+promptName = "Open Door"
+
+[node name="shape" type="CollisionShape2D" parent="InteractionArea" unique_id=1494813024]
+shape = SubResource("RectangleShape2D_lgil6")
+debug_color = Color(0, 0.6286901, 0.49302614, 0.41960785)

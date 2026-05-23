@@ -12,6 +12,7 @@ var existingGUI
 @export var maxHealth : float = 100.0
 ## Base speed the player will move at.
 @export var moveSpeed : float = 760.0
+var speedCap : float = 760.0
 ## Speed added when the player is sprinting.
 @export var sprintAdditive : float = 200.0
 ## Y velocity value that will be set when the player jumps.
@@ -36,10 +37,12 @@ var curIFrame : int = 0
 @export var crouchSubtractive : float = 350.0
 @export var acceleration : float = 15.0
 @export var friction : float = 15.0
+@export var airResistance : float = 0.03
 var gravity : float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 var instantiatedPerks : Array[Perk] = []
 var shieldPerk : Array = [false, 0]
+var direction = 1
 
 @onready var inputHandler : inputComponent = $inputComponent
 @onready var colliderStand : CollisionShape2D = $collisionStand
@@ -69,7 +72,7 @@ func add_perk(perk) -> void:
 func _physics_process(delta: float) -> void:
 	process_movement(delta)
 	process_interaction()
-	$Label.text = str(velocity.x)
+	$Label.text = str(speedCap) + "\n" + str(velocity.x)
 
 func _process(_delta: float) -> void:
 	if NOCLIP:
@@ -86,21 +89,22 @@ func process_movement(delta) -> void:
 	if NOCLIP:
 		process_submovement_NOCLIP(delta)
 		return
-	var oldVelocityX = velocity.x
 	var movement = inputHandler.get_movement_input()
-	if inputHandler.downState == 2:
-		movement = sign(oldVelocityX)
-	var speed = moveSpeed + (sprintAdditive if Input.is_action_pressed("sprint") else 0.0)
-	var velocityWeight : float = delta * (acceleration if movement else friction)
+	var speed = speedCap + (sprintAdditive if Input.is_action_pressed("sprint") else 0.0)
+	var velocityWeight : float = delta * (acceleration if movement or inputHandler.downState == 2 else friction)
+	var justSlide : bool = false
 	
 	if movement != 0:
-		interactDetect.target_position.x = interactionRange * movement
+		interactDetect.target_position.x = interactionRange * direction
+		if !inputHandler.downState == 2:
+			direction = movement
 	
 	if Input.is_action_just_pressed("crouch") && Input.is_action_pressed("sprint"):
 		inputHandler.downState = 2
 		colliderCrouch.disabled = false
 		colliderStand.disabled = true
-		speed += sprintAdditive * movement
+		speed += sprintAdditive * 2 * movement
+		justSlide = true
 	elif Input.is_action_pressed("crouch"):
 		if inputHandler.downState < 2:
 			inputHandler.downState = 1
@@ -110,11 +114,16 @@ func process_movement(delta) -> void:
 	else:
 		if !standDetect.is_colliding():
 			inputHandler.downState = 0
-			colliderCrouch.disabled = true
 			colliderStand.disabled = false
+			colliderCrouch.disabled = true
 		else:
 			speed -= crouchSubtractive
 	
+	if inputHandler.downState == 2 && !justSlide:
+		if is_on_wall():
+			direction = -direction
+		movement = direction
+		speed = speedCap + sprintAdditive
 	velocity.x = lerp(velocity.x, movement * speed, velocityWeight)
 	
 	if !is_on_floor():
@@ -136,6 +145,16 @@ func process_movement(delta) -> void:
 	if is_on_floor():
 		inputHandler.curJumps = 0
 		curCoyote = 0
+		if inputHandler.downState == 2:
+			var floorNormal = get_floor_normal()
+			if floorNormal.y > -0.999:
+				speedCap += (floorNormal.x * 22) * movement
+		else:
+			speedCap = moveSpeed
+	else:
+		speedCap = lerp(speedCap, moveSpeed, airResistance)
+		#if speedCap >= moveSpeed:
+			#speedCap = moveSpeed
 
 func process_submovement_NOCLIP(delta : float) -> void:
 	var movement : Vector2 = Vector2(inputHandler.get_movement_input(), Input.get_axis("jump", "crouch"))
@@ -159,15 +178,15 @@ func process_interaction() -> void:
 	else:
 		existingGUI.set_interactPrompt(false)
 
-func damage_player(amount : float, direction : int, knockback : float = 0.0) -> void:
+func damage_player(amount : float, hurtDirection : int, knockback : float = 0.0, penetrable : bool = false) -> void:
 	if shieldPerk[0]:
 		var perk : Perk = instantiatedPerks[shieldPerk[1]]
-		if !perk.onCooldown:
+		if !perk.onCooldown && !penetrable:
 			perk._activate_perk()
 			return
 	if curIFrame > 0:
 		return
 	
 	health -= amount
-	velocity.x += knockback * direction
+	velocity.x += knockback * hurtDirection
 	curIFrame = invincibilityFrames

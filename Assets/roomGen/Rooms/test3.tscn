@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://8dpa54amv6kn"]
+
+[ext_resource type="Script" uid="uid://dl5hquuivxa08" path="res://Assets/Templates/roomTemplate.gd" id="1_102fv"]
+[ext_resource type="Resource" uid="uid://b26wmolc1svix" path="res://Assets/roomGen/roomCFGs/test3.tres" id="2_l04mt"]
+[ext_resource type="Texture2D" uid="uid://crahsji3w4j3g" path="res://Assets/roomGen/roomAtlas.png" id="3_d4wr6"]
+[ext_resource type="PackedScene" uid="uid://b16wkwe0du8t7" path="res://Scenes/Modifiers/modEnemies/Hijack.tscn" id="4_l04mt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvo4y"]
+atlas = ExtResource("3_d4wr6")
+region = Rect2(0, 481, 891, 481)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a7ppf"]
+size = Vector2(892, 32)
+
+[node name="test3" type="Node2D" unique_id=1351975881 node_paths=PackedStringArray("roomContinueMarker")]
+script = ExtResource("1_102fv")
+roomCFGFile = ExtResource("2_l04mt")
+roomSize = Vector2(891, 481)
+roomOffset = Vector2(445, -209)
+roomContinueMarker = NodePath("ContinueObject")
+metadata/_custom_type_script = "uid://dl5hquuivxa08"
+
+[node name="Texture" type="TextureRect" parent="." unique_id=835978064]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -445.5
+offset_top = -240.5
+offset_right = 445.5
+offset_bottom = 240.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_gvo4y")
+
+[node name="Hijack" parent="." unique_id=2113223525 instance=ExtResource("4_l04mt")]
+position = Vector2(176, 107)
+appearChance = 0.3
+
+[node name="Floor" type="StaticBody2D" parent="." unique_id=1546647710]
+position = Vector2(0, 228)
+
+[node name="size" type="CollisionShape2D" parent="Floor" unique_id=574169795]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_a7ppf")
+
+[node name="Roof" type="StaticBody2D" parent="." unique_id=1457801113]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Roof" unique_id=2016682542]
+polygon = PackedVector2Array(-445, 100, -371, 100, -371, -167, 384, -167, 384, 112, 446, 112, 446, -240, -445, -240)
+
+[node name="ContinueObject" type="Marker2D" parent="." unique_id=712254298]
+position = Vector2(446, 209)

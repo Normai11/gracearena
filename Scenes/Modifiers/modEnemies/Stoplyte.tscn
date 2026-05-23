@@ -63,7 +63,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0.45, 1),
 "transitions": PackedFloat32Array(3.249009, 1),
 "update": 0,
-"values": [100.0, -168.0]
+"values": [110.0, -168.0]
 }
 tracks/2/type = "method"
 tracks/2/imported = false
@@ -88,6 +88,14 @@ _data = {
 &"RESET": SubResource("Animation_ani0p"),
 &"strike": SubResource("Animation_cy0ou")
 }
+
+[sub_resource type="Curve" id="Curve_ani0p"]
+_data = [Vector2(1, 0.5797666), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_cy0ou"]
+_data = [Vector2(0.99999, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.7042802), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="Stoplyte" type="Control" unique_id=1109615130]
 layout_mode = 3
@@ -144,6 +152,20 @@ color = Color(0.92306095, 0, 0.14111939, 1)
 
 [node name="Anims" type="AnimationPlayer" parent="Head" unique_id=1374728351]
 libraries/ = SubResource("AnimationLibrary_4rmbd")
+
+[node name="REDACTION" type="CPUParticles2D" parent="Head" unique_id=900124865]
+z_index = 1
+position = Vector2(74, 63)
+emitting = false
+amount = 1
+lifetime = 0.1
+gravity = Vector2(0, 0)
+scale_amount_min = 160.0
+scale_amount_max = 160.0
+split_scale = true
+scale_curve_x = SubResource("Curve_ani0p")
+scale_curve_y = SubResource("Curve_cy0ou")
+color = Color(0, 0, 0, 1)
 
 [node name="Label" type="Label" parent="." unique_id=1768857497]
 visible = false

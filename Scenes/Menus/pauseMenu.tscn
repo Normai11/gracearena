@@ -1,0 +1,115 @@
+[gd_scene format=3 uid="uid://bo2cmq26d45gj"]
+
+[ext_resource type="Script" uid="uid://csh6ky08gat7v" path="res://Scenes/Menus/pauseMenu.gd" id="1_7wh7x"]
+
+[node name="PauseMenu" type="Control" unique_id=1406095680]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7wh7x")
+
+[node name="overlay" type="ColorRect" parent="." unique_id=765416598]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.34901962)
+
+[node name="Beam" type="ColorRect" parent="." unique_id=1716234838]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -152.0
+offset_right = 152.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.65450007, 0.3948, 0.84, 0.45882353)
+
+[node name="Title" type="Label" parent="." unique_id=526297570]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 32.0
+offset_right = 20.0
+offset_bottom = 55.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 48
+text = "PAUSED"
+horizontal_alignment = 1
+
+[node name="Resume" type="Button" parent="." unique_id=1008543426]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -274.0
+offset_right = 100.0
+offset_bottom = -232.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Resume"
+
+[node name="Settings" type="Button" parent="." unique_id=383450209]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -202.0
+offset_right = 100.0
+offset_bottom = -160.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Settings"
+
+[node name="Reload" type="Button" parent="." unique_id=1934862843]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -130.0
+offset_right = 100.0
+offset_bottom = -88.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+disabled = true
+text = "Reload"
+
+[node name="Quit" type="Button" parent="." unique_id=814362291]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -58.0
+offset_right = 100.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "Quit"
+
+[connection signal="pressed" from="Resume" to="." method="_resume_press"]
